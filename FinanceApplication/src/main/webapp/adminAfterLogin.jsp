@@ -57,7 +57,7 @@ overflow-x:hidden;
 				<a href="AdminHomeServlet" method="get">Registered Borrowers</a>
 			</aside>
 			<aside>
-				<a href="" >Lenders</a>
+				<a href="LenderDetailServlet" method="get">Lenders</a>
 			</aside>
 			<aside>
 				<a href="LogoutServlet" method="get">Logout</a>

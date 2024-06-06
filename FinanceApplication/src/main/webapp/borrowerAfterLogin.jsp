@@ -57,7 +57,7 @@ overflow-x:hidden;
 				<a href="loanApplication.jsp">Apply</a>
 			</aside>
 			<aside>
-				<a href="" >Status</a>
+				<a href="ApplicationServlet" method="get" >Status</a>
 			</aside>
 			<!-- <aside>
 				<a href="" >History</a>

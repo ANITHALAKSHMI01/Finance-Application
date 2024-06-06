@@ -71,18 +71,6 @@ public class BorrowerServlet extends HttpServlet
 		{
 			session.setAttribute("emailId", emailId);
 			response.sendRedirect("borrowerAfterLogin.jsp");
-//			response.sendRedirect("welcome.jsp?email=" + emailId); 
-//			try 
-//    		{
-//    			list=borrower.displayBorrowers();
-//    			System.out.println("Displayed successfully..");
-//    		} 
-//    		catch (ClassNotFoundException | SQLException e)
-//    		{
-//    			e.printStackTrace();
-//    		}
-//        	request.setAttribute("list", list);
-//        	request.getRequestDispatcher("borrowerDetails.jsp").forward(request, response);
 		}
 		else
 		{

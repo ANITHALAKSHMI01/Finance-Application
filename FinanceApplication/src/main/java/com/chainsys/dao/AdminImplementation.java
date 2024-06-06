@@ -112,28 +112,36 @@ public class AdminImplementation implements AdminDAO
 	{
 		ArrayList<LoanBorrowerDetails> list=new ArrayList<>();
 		Connection connection=ConnectionUtil.getConnection();
-		String select="select customer_id,purpose,account_no,pan_no,salary,city,state,pincode,proof,status  from customer_details";
+		String select="select account_id,customer_id,purpose,account_no,pan_no,salary,city,state,pincode,proof,status  from customer_details";
 		PreparedStatement prepareStatement=connection.prepareStatement(select);
 		ResultSet resultSet=prepareStatement.executeQuery();
 		while(resultSet.next())
 		{
-			String id=resultSet.getString(1);
-			String purpose=resultSet.getString(2);
-			String accountNo=resultSet.getString(3);
-			String panNo=resultSet.getString(4);
-			String salary=resultSet.getString(5);
-			String city=resultSet.getString(6);
-			String state=resultSet.getString(7);
-			String pincode=resultSet.getString(8);
-			String proof=resultSet.getString(9);
-			String status=resultSet.getString(10);
-			long accountNumber=Long.parseLong(accountNo);
-			int salary1=Integer.parseInt(salary);
-			int pincode1=Integer.parseInt(pincode);
-			 byte[] file=proof.getBytes();
-			LoanBorrowerDetails loanBorrower=new LoanBorrowerDetails(id,purpose,salary1,city,state,pincode1,accountNumber,panNo,file,status);
+			LoanBorrowerDetails loanBorrower=new LoanBorrowerDetails();
+			loanBorrower.setApplicationId(Integer.parseInt(resultSet.getString(1)));
+			loanBorrower.setBorrowerId(resultSet.getString(2));
+			loanBorrower.setPurposeOfLoan(resultSet.getString(3));
+			loanBorrower.setAccountNo(Long.parseLong(resultSet.getString(4)));
+			loanBorrower.setPanNo(resultSet.getString(5));
+			loanBorrower.setSalary(Integer.parseInt(resultSet.getString(6)));
+			loanBorrower.setCity(resultSet.getString(7));
+			loanBorrower.setState(resultSet.getString(8));
+			loanBorrower.setPincode(Integer.parseInt(resultSet.getString(9)));
+			loanBorrower.setProof(resultSet.getBytes(10));
+			loanBorrower.setStatus(resultSet.getString(11));
 			list.add(loanBorrower);
 		}
 		return list;
+	}
+	@Override
+	public void updateStatus(LoanBorrowerDetails loan) throws ClassNotFoundException, SQLException 
+	{
+		Connection connection=ConnectionUtil.getConnection();
+		String update="update customer_details set status=? where customer_id=? ";
+		PreparedStatement prepareStatement=connection.prepareStatement(update);
+		prepareStatement.setString(1,loan.getStatus());
+		prepareStatement.setString(2,loan.getBorrowerId());
+		prepareStatement.executeUpdate();
+		connection.close();
 	}
 }

@@ -1,14 +1,14 @@
 package com.chainsys.model;
 public class LoanApp
 {
-	String id;
-	String name;
-	String category;
-	String dateOfBirth;
-	long phoneNo;
-	String email;
-	String password;
-	String location;
+	private String id;
+	private String name;
+	private String category;
+	private String dateOfBirth;
+	private long phoneNo;
+	private String email;
+	private String password;
+	private String location;
 	public LoanApp()
 	{
 		

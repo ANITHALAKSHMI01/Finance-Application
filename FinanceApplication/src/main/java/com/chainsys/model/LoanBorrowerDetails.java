@@ -1,19 +1,35 @@
 package com.chainsys.model;
+import java.util.Arrays;
 public class LoanBorrowerDetails
 {
-	String borrowerId;
-	String purposeOfLoan;
-	int salary;
-	String city;
-	String state;
-	int pincode;
-	long accountNo;
-	String panNo;
-	byte[] proof;
-	String status;
+	private int applicationId;
+	private String borrowerId;
+	private String purposeOfLoan;
+	private int salary;
+	private String city;
+	private String state;
+	private int pincode;
+	private long accountNo;
+	private String panNo;
+	private byte[] proof;
+	private String status;
 	public LoanBorrowerDetails()
 	{
 		
+	}
+	public LoanBorrowerDetails(int applicationId,String borrowerId,String purposeOfLoan,int salary,String city,String state,int pincode,long accountNo,String panNo,byte[] proof,String status)
+	{
+		this.applicationId=applicationId;
+		this.borrowerId=borrowerId;
+		this.purposeOfLoan=purposeOfLoan;
+		this.salary=salary;
+		this.city=city;
+		this.state=state;
+		this.pincode=pincode;
+		this.accountNo=accountNo;
+		this.panNo=panNo;
+		this.proof=proof;
+		this.status=status;
 	}
 	public LoanBorrowerDetails(String borrowerId,String purposeOfLoan,int salary,String city,String state,int pincode,long accountNo,String panNo,byte[] proof,String status)
 	{
@@ -27,6 +43,14 @@ public class LoanBorrowerDetails
 		this.panNo=panNo;
 		this.proof=proof;
 		this.status=status;
+	}
+	public int getApplicationId()
+	{
+		return applicationId;
+	}
+	public void setApplicationId(int applicationId)
+	{
+		this.applicationId = applicationId;
 	}
 	public String getBorrowerId()
 	{
@@ -109,10 +133,11 @@ public class LoanBorrowerDetails
 		this.status = status;
 	}
 	@Override
-	public String toString() 
+	public String toString()
 	{
-		return "LoanBorrowerDetails [borrowerId=" + borrowerId + ", purposeOfLoan=" + purposeOfLoan + ", salary="
-				+ salary + ", city=" + city + ", state=" + state + ", pincode=" + pincode + ", accountNo=" + accountNo
-				+ ", panNo=" + panNo + ", proof=" + proof + ", status=" + status + "]";
+		return "LoanBorrowerDetails [applicationId=" + applicationId + ", borrowerId=" + borrowerId + ", purposeOfLoan="
+				+ purposeOfLoan + ", salary=" + salary + ", city=" + city + ", state=" + state + ", pincode=" + pincode
+				+ ", accountNo=" + accountNo + ", panNo=" + panNo + ", proof=" + Arrays.toString(proof) + ", status="
+				+ status + "]";
 	}
 }

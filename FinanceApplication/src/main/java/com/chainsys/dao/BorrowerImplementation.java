@@ -153,4 +153,50 @@ public class BorrowerImplementation implements BorrowerDAO
 		prepareStatement.executeUpdate();
 		connection.close();
 	}
+	@Override
+	public List<LoanBorrowerDetails> lenderLoan(String id) throws ClassNotFoundException, SQLException 
+	{
+//		System.out.println(id);
+		ArrayList<LoanBorrowerDetails> list=new ArrayList<>();
+		Connection connection=ConnectionUtil.getConnection();
+		String select="select account_id,customer_id,purpose,account_no,pan_no,salary,city,state,pincode,proof,status  from customer_details where customer_id=?";
+		PreparedStatement prepareStatement=connection.prepareStatement(select);
+		prepareStatement.setString(1, id);
+		ResultSet resultSet=prepareStatement.executeQuery();
+		while(resultSet.next())
+		{
+			LoanBorrowerDetails loanBorrower=new LoanBorrowerDetails();
+			loanBorrower.setApplicationId(Integer.parseInt(resultSet.getString(1)));
+			loanBorrower.setBorrowerId(resultSet.getString(2));
+			loanBorrower.setPurposeOfLoan(resultSet.getString(3));
+			loanBorrower.setAccountNo(Long.parseLong(resultSet.getString(4)));
+			loanBorrower.setPanNo(resultSet.getString(5));
+			loanBorrower.setSalary(Integer.parseInt(resultSet.getString(6)));
+			loanBorrower.setCity(resultSet.getString(7));
+			loanBorrower.setState(resultSet.getString(8));
+			loanBorrower.setPincode(Integer.parseInt(resultSet.getString(9)));
+			loanBorrower.setProof(resultSet.getBytes(10));
+			loanBorrower.setStatus(resultSet.getString(11));
+			list.add(loanBorrower);
+		}
+		return list;
+	}
+	@Override
+	public void updateAppliedLoan(LoanBorrowerDetails loanBorrow) throws ClassNotFoundException, SQLException
+	{
+		Connection connection=ConnectionUtil.getConnection();
+		String update="update customer_details set purpose=?,account_no=?,pan_no=?,salary=?,city=?,state=?,pincode=?,proof=? where customer_id=? ";
+		PreparedStatement prepareStatement=connection.prepareStatement(update);
+		prepareStatement.setString(1,loanBorrow.getPurposeOfLoan());
+		prepareStatement.setLong(2,loanBorrow.getAccountNo());
+		prepareStatement.setString(3,loanBorrow.getPanNo());
+		prepareStatement.setInt(4,loanBorrow.getSalary());
+		prepareStatement.setString(5,loanBorrow.getCity());
+		prepareStatement.setString(6,loanBorrow.getState());
+		prepareStatement.setInt(7,loanBorrow.getPincode());
+		prepareStatement.setBytes(8,loanBorrow.getProof());
+		prepareStatement.setString(9,loanBorrow.getBorrowerId());
+		prepareStatement.executeUpdate();
+		connection.close();
+	}
 }
