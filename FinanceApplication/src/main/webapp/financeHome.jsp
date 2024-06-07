@@ -81,7 +81,7 @@ h1
             <section id="right_nav">
              <aside><a href="#">Home</a></aside>
              <aside><a href="">About</a></aside>
-             <aside><a href="">Loans</a></aside>
+            <!--  <aside><a href="">Loans</a></aside> -->
             <!--  <aside><a href="#scroll_container" style="color: transparent;"><p>Achievements</p></a></aside> -->
            <!--   <aside><i class="fa-solid fa-magnifying-glass"></i><input type="search" placeholder="Search" ></aside></section>  -->
       <aside><ul  class="nav-ul" type="none">

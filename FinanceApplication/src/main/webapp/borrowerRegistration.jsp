@@ -25,7 +25,6 @@
 		<option>Tirunelveli</option>
 		<option>Madurai</option>
 		<option>Trichy</option>
-		<option>Madurai</option>
 		<option>Coimbatore</option>
 		<option>Chennai</option>
 	</select><br><br> 

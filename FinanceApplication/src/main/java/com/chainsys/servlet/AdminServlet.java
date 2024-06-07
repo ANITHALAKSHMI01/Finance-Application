@@ -78,18 +78,6 @@ public class AdminServlet extends HttpServlet
 		{
 			session.setAttribute("emailId", emailId);
 			response.sendRedirect("adminAfterLogin.jsp");
-//			try 
-//    		{
-//    			list=borrower.displayBorrowers();
-//    			System.out.println("Displayed successfully..");
-//    		} 
-//    		catch (ClassNotFoundException | SQLException e)
-//    		{
-//    			e.printStackTrace();
-//    		}
-//        	request.setAttribute("list", list);
-//        	request.getRequestDispatcher("borrowerDetails.jsp").forward(request, response);
-
 		}
 		else
 		{  

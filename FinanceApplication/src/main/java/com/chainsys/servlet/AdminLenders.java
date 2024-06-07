@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.chainsys.dao.AdminImplementation;
 import com.chainsys.dao.BorrowerImplementation;
+import com.chainsys.model.LoanBorrowerDetails;
 @WebServlet("/AdminLenders")
 public class AdminLenders extends HttpServlet 
 {
@@ -44,7 +45,23 @@ public class AdminLenders extends HttpServlet
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		
-	}
+		String id=null;
+		String view = request.getParameter("view");
+		if(view != null && view.equals("View"))
+		{
+			id=request.getParameter("viewId");
 
+			try 
+			{
+				List<LoanBorrowerDetails> list=admin.viewProof(id);
+				request.setAttribute("list", list);
+				request.getRequestDispatcher("viewProof.jsp").forward(request, response);
+				//			System.out.println(list);
+			}
+			catch (ClassNotFoundException | SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
 }

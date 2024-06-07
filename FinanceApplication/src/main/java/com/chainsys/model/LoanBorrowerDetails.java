@@ -6,6 +6,7 @@ public class LoanBorrowerDetails
 	private String borrowerId;
 	private String purposeOfLoan;
 	private int salary;
+	private int loanAmount;
 	private String city;
 	private String state;
 	private int pincode;
@@ -31,11 +32,12 @@ public class LoanBorrowerDetails
 		this.proof=proof;
 		this.status=status;
 	}
-	public LoanBorrowerDetails(String borrowerId,String purposeOfLoan,int salary,String city,String state,int pincode,long accountNo,String panNo,byte[] proof,String status)
+	public LoanBorrowerDetails(String borrowerId,String purposeOfLoan,int salary,int loanAmount,String city,String state,int pincode,long accountNo,String panNo,byte[] proof,String status)
 	{
 		this.borrowerId=borrowerId;
 		this.purposeOfLoan=purposeOfLoan;
 		this.salary=salary;
+		this.loanAmount=loanAmount;
 		this.city=city;
 		this.state=state;
 		this.pincode=pincode;
@@ -75,6 +77,14 @@ public class LoanBorrowerDetails
 	public void setSalary(int salary)
 	{
 		this.salary = salary;
+	}
+	public int getLoanAmount()
+	{
+		return loanAmount;
+	}
+	public void setLoanAmount(int loanAmount)
+	{
+		this.loanAmount = loanAmount;
 	}
 	public String getCity()
 	{
@@ -133,11 +143,11 @@ public class LoanBorrowerDetails
 		this.status = status;
 	}
 	@Override
-	public String toString()
+	public String toString() 
 	{
 		return "LoanBorrowerDetails [applicationId=" + applicationId + ", borrowerId=" + borrowerId + ", purposeOfLoan="
-				+ purposeOfLoan + ", salary=" + salary + ", city=" + city + ", state=" + state + ", pincode=" + pincode
-				+ ", accountNo=" + accountNo + ", panNo=" + panNo + ", proof=" + Arrays.toString(proof) + ", status="
-				+ status + "]";
+				+ purposeOfLoan + ", salary=" + salary + ", loanAmount=" + loanAmount + ", city=" + city + ", state="
+				+ state + ", pincode=" + pincode + ", accountNo=" + accountNo + ", panNo=" + panNo + ", proof="
+				+ Arrays.toString(proof) + ", status=" + status + "]";
 	}
 }

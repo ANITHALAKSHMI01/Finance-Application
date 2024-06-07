@@ -112,7 +112,7 @@ public class AdminImplementation implements AdminDAO
 	{
 		ArrayList<LoanBorrowerDetails> list=new ArrayList<>();
 		Connection connection=ConnectionUtil.getConnection();
-		String select="select account_id,customer_id,purpose,account_no,pan_no,salary,city,state,pincode,proof,status  from customer_details";
+		String select="select account_id,customer_id,purpose,account_no,pan_no,salary,loan_amount,city,state,pincode,proof,status  from customer_details";
 		PreparedStatement prepareStatement=connection.prepareStatement(select);
 		ResultSet resultSet=prepareStatement.executeQuery();
 		while(resultSet.next())
@@ -124,11 +124,12 @@ public class AdminImplementation implements AdminDAO
 			loanBorrower.setAccountNo(Long.parseLong(resultSet.getString(4)));
 			loanBorrower.setPanNo(resultSet.getString(5));
 			loanBorrower.setSalary(Integer.parseInt(resultSet.getString(6)));
-			loanBorrower.setCity(resultSet.getString(7));
-			loanBorrower.setState(resultSet.getString(8));
-			loanBorrower.setPincode(Integer.parseInt(resultSet.getString(9)));
-			loanBorrower.setProof(resultSet.getBytes(10));
-			loanBorrower.setStatus(resultSet.getString(11));
+			loanBorrower.setLoanAmount(Integer.parseInt(resultSet.getString(7)));
+			loanBorrower.setCity(resultSet.getString(8));
+			loanBorrower.setState(resultSet.getString(9));
+			loanBorrower.setPincode(Integer.parseInt(resultSet.getString(10)));
+			loanBorrower.setProof(resultSet.getBytes(11));
+			loanBorrower.setStatus(resultSet.getString(12));
 			list.add(loanBorrower);
 		}
 		return list;
@@ -143,5 +144,22 @@ public class AdminImplementation implements AdminDAO
 		prepareStatement.setString(2,loan.getBorrowerId());
 		prepareStatement.executeUpdate();
 		connection.close();
+	}
+	@Override
+	public List<LoanBorrowerDetails> viewProof(String id) throws ClassNotFoundException, SQLException
+	{
+		ArrayList<LoanBorrowerDetails> list=new ArrayList<>();
+		Connection connection=ConnectionUtil.getConnection();
+		String select="select proof  from customer_details where customer_id=?";
+		PreparedStatement prepareStatement=connection.prepareStatement(select);
+		prepareStatement.setString(1,id);
+		ResultSet resultSet=prepareStatement.executeQuery();
+		LoanBorrowerDetails loan=new LoanBorrowerDetails();
+		while(resultSet.next())
+		{
+			loan.setProof(resultSet.getBytes(1));
+			list.add(loan);
+		}
+		return list;
 	}
 }

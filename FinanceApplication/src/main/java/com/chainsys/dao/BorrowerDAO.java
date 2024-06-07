@@ -15,7 +15,7 @@ public interface BorrowerDAO
 	void updateUser(LoanApp loan) throws ClassNotFoundException, SQLException;
 	List<LoanApp> selectBorrower(String email) throws ClassNotFoundException, SQLException;
 	String checkId(String id) throws ClassNotFoundException, SQLException;
-	void addLender(LoanBorrowerDetails loanBorrow) throws ClassNotFoundException, SQLException, IOException;
+	int addLender(LoanBorrowerDetails loanBorrow) throws ClassNotFoundException, SQLException, IOException;
 	List<LoanBorrowerDetails> lenderLoan(String id) throws ClassNotFoundException, SQLException;
 	void updateAppliedLoan(LoanBorrowerDetails loanBorrow) throws ClassNotFoundException, SQLException;
 }

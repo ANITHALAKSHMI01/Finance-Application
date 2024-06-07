@@ -27,6 +27,7 @@ public class BorrowerHomePage extends HttpServlet
 	public static BorrowerImplementation borrower=new BorrowerImplementation();
 	public static LoanBorrowerDetails loanBorrower=new LoanBorrowerDetails();
 	public static String email,id;
+	public static int row,maxLoan;
     public BorrowerHomePage()
     {
         super();
@@ -56,6 +57,7 @@ public class BorrowerHomePage extends HttpServlet
 		String borrowerId=request.getParameter("id");
 		String purposeOfLoan=request.getParameter("purpose");
 		String salary=request.getParameter("salary");
+		String loanAmount=request.getParameter("amount");
 		String city=request.getParameter("city");
 		String state=request.getParameter("state");
 		String pincode=request.getParameter("pincode");
@@ -77,11 +79,13 @@ public class BorrowerHomePage extends HttpServlet
 		{
 			e.fillInStackTrace();
 		}
+		int amount=Integer.parseInt(loanAmount);
 		int pincode1=Integer.parseInt(pincode);
 		int salary1=Integer.parseInt(salary);
 		long accountNumber=Long.parseLong(accountNo);
 		String status="Not Approved";
-		LoanBorrowerDetails loanBorrower=new LoanBorrowerDetails(borrowerId,purposeOfLoan,salary1,city,state,pincode1,accountNumber,panNo,file,status);
+//		maxLoan=salary1*5;
+		LoanBorrowerDetails loanBorrower=new LoanBorrowerDetails(borrowerId,purposeOfLoan,salary1,amount,city,state,pincode1,accountNumber,panNo,file,status);
 		try 
 		{
 			id=borrower.checkId(email);
@@ -91,20 +95,37 @@ public class BorrowerHomePage extends HttpServlet
 		}
 		if(borrowerId.equals(id))
 		{
-			try 
-			{
-				borrower.addLender(loanBorrower);
-			} 
-			catch (ClassNotFoundException | SQLException e)
-			{
-				e.printStackTrace();
-			}
-//			RequestDispatcher dispatcher=request.getRequestDispatcher("loanApplicationPage1.jsp");
-//			dispatcher.include(request, response);
+//			if(amount<=maxLoan)
+//			{
+				try 
+				{
+					row=borrower.addLender(loanBorrower);
+				} 
+				catch (ClassNotFoundException | SQLException e)
+				{
+					e.printStackTrace();
+				}
+				if(row>0)
+				{
+					response.sendRedirect("applicationFinish.jsp");
+				}
+				else
+				{
+					response.sendRedirect("loanApplication.jsp");
+					System.out.println("No row inserted");
+				}
 		}
+//			else
+//			{
+//				response.setContentType("Html/text");
+//				RequestDispatcher dispatcher=request.getRequestDispatcher("loanApplication.jsp");
+//				out.println("<font color=blue>You're only eligible for+maxLoan</font>"); 
+//				dispatcher.include(request, response);
+//			}
 		else
 		{
 			response.sendRedirect("loanApplication.jsp");
+			System.out.println("No row inserted");
 		}
 	}
 }

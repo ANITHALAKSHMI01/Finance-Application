@@ -19,6 +19,7 @@
 	<th>Borrower Id</th>
 	 <th>Purpose</th>
 	 <th>Salary</th>
+	 <th>Loan Amount</th>
 	 <th>Account No</th>
 	 <th>Pan No</th>
 	  <th>City</th>
@@ -44,6 +45,7 @@
 				<td><%=loan.getBorrowerId()%></td>
 				<td><%=loan.getPurposeOfLoan()%></td>
 				<td><%=loan.getSalary()%></td>
+				<td><%=loan.getLoanAmount()%></td>
 				<td><%=loan.getAccountNo()%></td>
 				<td><%=loan.getPanNo()%></td>
 				<td><%=loan.getCity()%></td>
