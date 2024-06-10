@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.chainsys.dao.AdminImplementation;
 import com.chainsys.dao.BorrowerImplementation;
+import com.chainsys.model.LoanBorrowerDetails;
 @WebServlet("/AdminHomeServlet")
 public class AdminHomeServlet extends HttpServlet
 {
@@ -40,6 +41,27 @@ public class AdminHomeServlet extends HttpServlet
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		
+		LoanBorrowerDetails loanBorrower=new LoanBorrowerDetails();
+		loanBorrower.setBorrowerId(request.getParameter("id"));
+		loanBorrower.setStatus(request.getParameter("approval"));
+		try 
+		{
+			admin.approveBorrower(loanBorrower);
+		} 
+		catch (ClassNotFoundException | SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		try 
+		{
+			List<LoanBorrowerDetails> list=admin.viewlendersDetail();
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("lenders.jsp").forward(request, response);
+//			System.out.println(list);
+		}
+		catch (ClassNotFoundException | SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

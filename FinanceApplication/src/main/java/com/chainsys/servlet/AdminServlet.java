@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.chainsys.dao.AdminImplementation;
 import com.chainsys.dao.BorrowerImplementation;
+import com.chainsys.dao.AdminValidation;
 import com.chainsys.model.LoanApp;
 @WebServlet("/AdminServlet")
 public class AdminServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-//	public static LoanApp loan=new LoanApp();
 	public static List list;
 	public static String password1;
 	public static AdminImplementation admin=new AdminImplementation();
@@ -29,6 +29,8 @@ public class AdminServlet extends HttpServlet
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		List emailId=null;
+		List phoneNo1=null;
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		String name=request.getParameter("name");
@@ -40,25 +42,49 @@ public class AdminServlet extends HttpServlet
 		String location=request.getParameter("location");
 		String id=name.substring(0,3)+phoneNo.substring(3,5);
 		String category="Admin";
-		if(password.equals("Ad101@"))
-		{
-			out.println("<h2>Registered Successfully...</h2>");
-			 out.println("<a href='financeHome.jsp'><button>Home</button></a>");
-			LoanApp loan=new LoanApp(id,name,category,dateOfBirth,phoneNumber,email,password,location);
 			try 
 			{
-				admin.addUser(loan);
-			}
+				emailId=AdminValidation.checkEmail();
+			} 
 			catch (ClassNotFoundException | SQLException e) 
 			{
 				e.printStackTrace();
 			}
-//			response.sendRedirect("adminLogin.jsp");
-		}
-		else
-		{
-			response.sendRedirect("adminRegistration.jsp");
-		}
+			try 
+			{
+				phoneNo1=AdminValidation.checkPhoneNo();
+			} 
+			catch (ClassNotFoundException | SQLException e) 
+			{
+				e.printStackTrace();
+			}
+			if(emailId.contains(email) || phoneNo1.contains(phoneNumber) )
+			{
+				RequestDispatcher dispatcher=request.getRequestDispatcher("adminRegistration.jsp");
+				out.println("<font color=red>Email or Phone No already exist.</font>"); 
+				dispatcher.include(request, response);
+			}
+			else
+			{
+				if(password.equals("Ad101@"))
+				{
+					out.println("<h2>Registered Successfully...</h2>");
+					 out.println("<a href='financeHome.jsp'><button>Home</button></a>");
+					LoanApp loan=new LoanApp(id,name,category,dateOfBirth,phoneNumber,email,password,location);
+					try 
+					{
+						admin.addUser(loan);
+					}
+					catch (ClassNotFoundException | SQLException e) 
+					{
+						e.printStackTrace();
+					}
+				}
+				else
+				{
+					response.sendRedirect("adminRegistration.jsp");
+				}
+			}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{

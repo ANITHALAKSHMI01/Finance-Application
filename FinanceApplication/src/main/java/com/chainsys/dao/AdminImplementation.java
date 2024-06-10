@@ -162,4 +162,15 @@ public class AdminImplementation implements AdminDAO
 		}
 		return list;
 	}
+	@Override
+	public void approveBorrower(LoanBorrowerDetails loan) throws ClassNotFoundException, SQLException 
+	{
+		Connection connection=ConnectionUtil.getConnection();
+		String update="update customer_details set status=? where customer_id=? ";
+		PreparedStatement prepareStatement=connection.prepareStatement(update);
+		prepareStatement.setString(1,loan.getStatus());
+		prepareStatement.setString(2,loan.getBorrowerId());
+		prepareStatement.executeUpdate();
+		connection.close();
+	}
 }

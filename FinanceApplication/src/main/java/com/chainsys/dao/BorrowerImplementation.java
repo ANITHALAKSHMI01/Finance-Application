@@ -9,12 +9,13 @@ import java.util.List;
 
 import javax.servlet.http.Part;
 
+import com.chainsys.model.AmountDetails;
 import com.chainsys.model.LoanApp;
 import com.chainsys.model.LoanBorrowerDetails;
 import com.chainsys.util.ConnectionUtil;
 public class BorrowerImplementation implements BorrowerDAO
 {
-	public static String password,borrowerId;
+	public static String password,borrowerId,status;
 	@Override
 	public String checkBorrower(String email) throws ClassNotFoundException, SQLException
 	{
@@ -158,7 +159,6 @@ public class BorrowerImplementation implements BorrowerDAO
 	@Override
 	public List<LoanBorrowerDetails> lenderLoan(String id) throws ClassNotFoundException, SQLException 
 	{
-//		System.out.println(id);
 		ArrayList<LoanBorrowerDetails> list=new ArrayList<>();
 		Connection connection=ConnectionUtil.getConnection();
 		String select="select account_id,customer_id,purpose,account_no,pan_no,salary,loan_amount,city,state,pincode,proof,status  from customer_details where customer_id=?";
@@ -201,5 +201,57 @@ public class BorrowerImplementation implements BorrowerDAO
 		prepareStatement.setString(9,loanBorrow.getBorrowerId());
 		prepareStatement.executeUpdate();
 		connection.close();
+	}
+	@Override
+	public void billGenerate(AmountDetails amount) throws ClassNotFoundException, SQLException 
+	{
+		Connection connection=ConnectionUtil.getConnection();
+		String insert="insert into loan_details(customer_id,date_issued,interest,tenure,distribusal_amount,reduction)values(?,?,?,?,?,?)";
+		PreparedStatement prepareStatement=connection.prepareStatement(insert);
+		prepareStatement.setString(1, amount.getBorrowerId());
+		prepareStatement.setString(2, amount.getDate());
+		prepareStatement.setInt(3, amount.getInterest());
+		prepareStatement.setInt(4, amount.getTenure());
+		prepareStatement.setInt(5, amount.getDistribusalAmount());
+		prepareStatement.setInt(6, amount.getReduction());
+		prepareStatement.executeUpdate();
+		connection.close();
+	}
+	@Override
+	public List<AmountDetails> viewBill(String id) throws ClassNotFoundException, SQLException 
+	{
+		ArrayList<AmountDetails> list=new ArrayList<>();
+		Connection connection=ConnectionUtil.getConnection();
+		String select="select loan_id,customer_id,date_issued,interest,tenure,distribusal_amount,reduction from loan_details where customer_id=?";
+		PreparedStatement prepareStatement=connection.prepareStatement(select);
+		prepareStatement.setString(1, id);
+		ResultSet resultSet=prepareStatement.executeQuery();
+		while(resultSet.next())
+		{
+			AmountDetails amount=new AmountDetails();
+			amount.setLoanId(Integer.parseInt(resultSet.getString(1)));
+			amount.setBorrowerId(resultSet.getString(2));
+			amount.setDate(resultSet.getString(3));
+			amount.setInterest(Integer.parseInt(resultSet.getString(4)));
+			amount.setTenure(Integer.parseInt(resultSet.getString(5)));
+			amount.setDistribusalAmount(Integer.parseInt(resultSet.getString(6)));
+			amount.setReduction(Integer.parseInt(resultSet.getString(7)));
+			list.add(amount);
+		}
+		return list;
+	}
+	@Override
+	public String checkStatus(String id) throws ClassNotFoundException, SQLException 
+	{
+		Connection connection=ConnectionUtil.getConnection();
+		String select="select status from customer_details where customer_id=?";
+		PreparedStatement prepareStatement=connection.prepareStatement(select);
+		prepareStatement.setString(1, id);
+		ResultSet resultSet=prepareStatement.executeQuery();
+		while(resultSet.next())
+		{
+			status=resultSet.getString(1);
+		}
+		return status;
 	}
 }

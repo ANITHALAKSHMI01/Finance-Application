@@ -6,9 +6,67 @@
 <meta charset="ISO-8859-1">
 <title>Admin Register Form</title>
 </head>
+<style>
+    body
+    {
+  		background-color:skyblue;
+    }
+	h1
+	{
+		text-align:center;
+		position:relative;
+		top:50px;
+	}
+	div
+	{
+		border:2px solid white;
+		box-shadow:1px 1px 1px 1px;
+		background-color:white;
+		width:fit-content;
+		height:fit-content;
+		padding:30px;
+		position:relative;
+		left:400px;
+		top:50px;
+		border-radius:10px;
+	}
+	label
+	{
+		font-size:20px;
+	}
+	#email
+	{
+		position:relative;
+		left:40px;
+	}
+	#pass
+	{
+		position:relative;
+		left:45px;
+	}
+	input
+	{
+		height:20px;
+		width:200px;
+		padding:5px;
+	}
+	button
+	{
+		position:relative;
+		left:120px;
+		padding:6px;
+		width:100px;
+		font-size:18px;
+		background-color:green;
+		color:white;
+		border-radius:10px;
+		border-color:green;
+	}
+</style>
 <body>
 <h1>Admin Registration</h1>
-<form action="AdminServlet" method="get">
+<div>
+	<form action="AdminServlet" method="get">
 	<label for="name">Name</label>
 	<input id="name" type="text" name="name" placeholder="Name" pattern="^[A-Za-z]*" required><br><br>
 	<label for="dob">D.O.B</label>
@@ -23,5 +81,6 @@
 	<input id="loc" type="text" placeholder="Location" name="location" pattern="^[A-Za-z]*" required><br><br>
 	<button>Register</button>
 </form>
+</div>
 </body>
 </html>

@@ -59,6 +59,9 @@ overflow-x:hidden;
 			<aside>
 				<a href="ApplicationServlet" method="get" >Status</a>
 			</aside>
+			<aside>
+				<a href="BillServlet" method="get" >View Bill</a>
+			</aside>
 			<!-- <aside>
 				<a href="" >History</a>
 			</aside> -->

@@ -12,4 +12,5 @@ public interface AdminDAO
 	List<LoanBorrowerDetails> viewlendersDetail() throws ClassNotFoundException, SQLException;
 	void updateStatus(LoanBorrowerDetails loan) throws ClassNotFoundException, SQLException;
 	List<LoanBorrowerDetails>  viewProof(String id) throws ClassNotFoundException, SQLException;
+	void approveBorrower(LoanBorrowerDetails loan) throws ClassNotFoundException, SQLException;
 }

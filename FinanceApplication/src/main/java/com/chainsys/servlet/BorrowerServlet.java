@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.chainsys.dao.AdminImplementation;
 import com.chainsys.dao.BorrowerImplementation;
+import com.chainsys.dao.BorrowerValidation;
 import com.chainsys.model.LoanApp;
 @WebServlet("/BorrowerServlet")
 public class BorrowerServlet extends HttpServlet
@@ -28,6 +28,9 @@ public class BorrowerServlet extends HttpServlet
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		List emailId=null;
+		List phoneNo1=null;
+		List password1=null;
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		String name=request.getParameter("name");
@@ -40,16 +43,48 @@ public class BorrowerServlet extends HttpServlet
 		String id=name.substring(1,4)+phoneNo.substring(3,5);
 		String category="Borrower";
 		LoanApp loan=new LoanApp(id,name,category,dateOfBirth,phoneNumber,email,password,location);
-		out.println("<h2>Registered Successfully...</h2>");
-		 out.println("<a href='financeHome.jsp'><button>Home</button></a>");
 		try 
 		{
-			admin.addUser(loan);
-//			response.sendRedirect("borrowerLogin.jsp");
-		}
+			emailId=BorrowerValidation.checkEmail();
+		} 
 		catch (ClassNotFoundException | SQLException e) 
 		{
 			e.printStackTrace();
+		}
+		try 
+		{
+			phoneNo1=BorrowerValidation.checkPhoneNo();
+		} 
+		catch (ClassNotFoundException | SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		try
+		{
+			password1=BorrowerValidation.checkPassword();
+		} 
+		catch (ClassNotFoundException | SQLException e)
+		{
+			e.printStackTrace();
+		}
+		if(emailId.contains(email) || phoneNo1.contains(phoneNumber) || password1.contains(password) )
+		{
+			RequestDispatcher dispatcher=request.getRequestDispatcher("adminRegistration.jsp");
+			out.println("<font color=red>Email or Password or Phone No already exist.</font>"); 
+			dispatcher.include(request, response);
+		}
+		else
+		{
+			out.println("<h2>Registered Successfully...</h2>");
+			out.println("<a href='financeHome.jsp'><button>Home</button></a>");
+			try 
+			{
+				admin.addUser(loan);
+			}
+			catch (ClassNotFoundException | SQLException e) 
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

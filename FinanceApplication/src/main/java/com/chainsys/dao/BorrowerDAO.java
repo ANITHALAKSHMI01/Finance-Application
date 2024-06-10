@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.Part;
 
+import com.chainsys.model.AmountDetails;
 import com.chainsys.model.LoanApp;
 import com.chainsys.model.LoanBorrowerDetails;
 public interface BorrowerDAO
@@ -18,4 +19,7 @@ public interface BorrowerDAO
 	int addLender(LoanBorrowerDetails loanBorrow) throws ClassNotFoundException, SQLException, IOException;
 	List<LoanBorrowerDetails> lenderLoan(String id) throws ClassNotFoundException, SQLException;
 	void updateAppliedLoan(LoanBorrowerDetails loanBorrow) throws ClassNotFoundException, SQLException;
+	void billGenerate(AmountDetails amount) throws ClassNotFoundException, SQLException;
+	List<AmountDetails> viewBill(String id) throws ClassNotFoundException, SQLException;
+	String checkStatus(String id) throws ClassNotFoundException, SQLException;
 }
