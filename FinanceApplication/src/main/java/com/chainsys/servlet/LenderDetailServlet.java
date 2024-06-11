@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import com.chainsys.dao.AdminImplementation;
 import com.chainsys.dao.BorrowerImplementation;
+import com.chainsys.model.AmountDetails;
 import com.chainsys.model.LoanBorrowerDetails;
 import com.chainsys.util.ConnectionUtil;
 @WebServlet("/LenderDetailServlet")

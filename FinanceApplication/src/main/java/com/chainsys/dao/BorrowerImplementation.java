@@ -139,7 +139,7 @@ public class BorrowerImplementation implements BorrowerDAO
 	public int addLender(LoanBorrowerDetails loanBorrow) throws ClassNotFoundException, SQLException
 	{
 		Connection connection=ConnectionUtil.getConnection();
-		String insert="insert into customer_details(customer_id,purpose,account_no,pan_no,salary,city,state,pincode,proof,status,loan_amount)values(?,?,?,?,?,?,?,?,?,?,?)";
+		String insert="insert into customer_details(customer_id,purpose,account_no,pan_no,salary,city,state,pincode,proof,status,loan_amount,is_generate)values(?,?,?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement prepareStatement=connection.prepareStatement(insert);
 		prepareStatement.setString(1, loanBorrow.getBorrowerId());
 		prepareStatement.setString(2, loanBorrow.getPurposeOfLoan());
@@ -152,6 +152,7 @@ public class BorrowerImplementation implements BorrowerDAO
 		prepareStatement.setBytes(9,loanBorrow.getProof());
 		prepareStatement.setString(10,loanBorrow.getStatus());
 		prepareStatement.setInt(11,loanBorrow.getLoanAmount());
+		prepareStatement.setInt(12, 0);
 		int row=prepareStatement.executeUpdate();
 		connection.close();
 		return row;
@@ -206,7 +207,7 @@ public class BorrowerImplementation implements BorrowerDAO
 	public void billGenerate(AmountDetails amount) throws ClassNotFoundException, SQLException 
 	{
 		Connection connection=ConnectionUtil.getConnection();
-		String insert="insert into loan_details(customer_id,date_issued,interest,tenure,distribusal_amount,reduction)values(?,?,?,?,?,?)";
+		String insert="insert into loan_details(customer_id,date_issued,interest,tenure,distribusal_amount,reduction,status)values(?,?,?,?,?,?,?)";
 		PreparedStatement prepareStatement=connection.prepareStatement(insert);
 		prepareStatement.setString(1, amount.getBorrowerId());
 		prepareStatement.setString(2, amount.getDate());
@@ -214,6 +215,7 @@ public class BorrowerImplementation implements BorrowerDAO
 		prepareStatement.setInt(4, amount.getTenure());
 		prepareStatement.setInt(5, amount.getDistribusalAmount());
 		prepareStatement.setInt(6, amount.getReduction());
+		prepareStatement.setInt(7, 0);
 		prepareStatement.executeUpdate();
 		connection.close();
 	}
@@ -253,5 +255,29 @@ public class BorrowerImplementation implements BorrowerDAO
 			status=resultSet.getString(1);
 		}
 		return status;
+	}
+	@Override
+	public List<AmountDetails> viewApprovedBill(String id) throws ClassNotFoundException, SQLException 
+	{	
+		ArrayList<AmountDetails> list=new ArrayList<>();
+		Connection connection=ConnectionUtil.getConnection();
+		String select="select loan_id,customer_id,date_issued,interest,tenure,distribusal_amount,reduction from loan_details where customer_id=?";
+		PreparedStatement prepareStatement=connection.prepareStatement(select);
+		prepareStatement.setString(1, id);
+//		prepareStatement.setInt(2, 1);
+		ResultSet resultSet=prepareStatement.executeQuery();
+		while(resultSet.next())
+		{
+			AmountDetails amount=new AmountDetails();
+			amount.setLoanId(Integer.parseInt(resultSet.getString(1)));
+			amount.setBorrowerId(resultSet.getString(2));
+			amount.setDate(resultSet.getString(3));
+			amount.setInterest(Integer.parseInt(resultSet.getString(4)));
+			amount.setTenure(Integer.parseInt(resultSet.getString(5)));
+			amount.setDistribusalAmount(Integer.parseInt(resultSet.getString(6)));
+			amount.setReduction(Integer.parseInt(resultSet.getString(7)));
+			list.add(amount);
+	}
+	return list;
 	}
 }

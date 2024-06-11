@@ -9,6 +9,48 @@
 <meta charset="ISO-8859-1">
 <title>Borrower Profile</title>
 </head>
+<style>
+	body
+	{
+		background-color:wheat;
+	}
+	div
+	{
+		border:2px solid whitesmoke;
+		width:fit-content;
+		height:fit-content;
+		padding:30px;
+		position:relative;
+		left:450px;
+		top:120px;
+		background-color:whitesmoke;
+		box-shadow:1px 1px 1px 1px rgba(0,0,0,0.2);
+	}
+	label
+	{
+		font-size:20px;
+		color:grey;
+	}
+	p
+	{
+		display:inline;
+		font-size:20px;
+		color:blue;
+		position:relative;
+		left:20px;
+	}
+	button
+	{
+		width:100px;
+		padding:5px;
+		position:relative;
+		left:20px;
+		background-color:green;
+		color:white;
+		border-color:green;
+		font-size:20px;
+	}
+</style>
 <body>
 <table border="2px">
 	<thead>

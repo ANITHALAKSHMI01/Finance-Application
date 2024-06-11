@@ -63,6 +63,35 @@
 		border-color:green;
 	}
 </style>
+<script>
+	function validation()
+	{
+		var email=document.getElementById('email');
+		var phoneNo=document.getElementById('phone');
+		var password=document.getElementById('pass');
+		var location=document.getElementById('loc');
+		if(!email.checkValidity())
+		{
+			alert("Invalid Email(Ex. xyz01@gmail.com).");
+			return;  
+		}
+		if(!phoneNo.checkValidity())
+		{
+			alert("Phone should start with 6-9 and 10 digits must.");
+			return;  
+		}
+		if(!password.checkValidity())
+		{
+			alert("Password should contain atleast one lowercase,uppercase,number,special character and 6 digits must.");
+			return;  
+		}
+		if(!location.checkValidity())
+		{
+			alert("Location should be alphabet.");
+			return;  
+		}
+	}
+</script>
 <body>
 <h1>Admin Registration</h1>
 <div>
@@ -74,12 +103,12 @@
 	<label for="phone">Phone Number</label>
 	<input id="phone" type="tel" name="phoneNo" placeholder="Phone Number" maxlength=10 pattern="[6789][0-9]{9}" required><br><br>
 	<label for="email">Email</label>
-	<input id="email" type="email" placeholder="Email Id" name="emailId" required><br><br>
+	<input id="email" type="email" placeholder="Email Id" name="emailId" pattern="[a-z0-9_/-/.]+[@][a-z]+[/.][a-z]{2,}$" required><br><br>
 	<label for="pass">Password</label>
 	<input id="pass" type="password" placeholder="Password" name="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@!#$%^&*]).{6}$" maxlength=6 required><br><br>
 	<label for="loc">Location</label>
 	<input id="loc" type="text" placeholder="Location" name="location" pattern="^[A-Za-z]*" required><br><br>
-	<button>Register</button>
+	<button onclick="validation()">Register</button>
 </form>
 </div>
 </body>

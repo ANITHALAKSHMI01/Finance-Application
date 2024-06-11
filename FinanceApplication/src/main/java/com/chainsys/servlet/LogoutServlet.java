@@ -64,6 +64,16 @@ public class LogoutServlet extends HttpServlet
 			{
 				e.printStackTrace();
 			}
+			try 
+			{
+				list=borrower.viewBill(id);
+			} 
+			catch (ClassNotFoundException | SQLException e) 
+			{
+				e.printStackTrace();
+			}
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("billGeneration.jsp").forward(request, response);
 		}
 		else
 		{

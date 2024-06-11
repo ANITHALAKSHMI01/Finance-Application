@@ -22,4 +22,5 @@ public interface BorrowerDAO
 	void billGenerate(AmountDetails amount) throws ClassNotFoundException, SQLException;
 	List<AmountDetails> viewBill(String id) throws ClassNotFoundException, SQLException;
 	String checkStatus(String id) throws ClassNotFoundException, SQLException;
+	List<AmountDetails> viewApprovedBill(String id) throws ClassNotFoundException, SQLException;
 }

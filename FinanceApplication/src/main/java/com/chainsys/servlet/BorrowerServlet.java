@@ -75,8 +75,8 @@ public class BorrowerServlet extends HttpServlet
 		}
 		else
 		{
-			out.println("<h2>Registered Successfully...</h2>");
-			out.println("<a href='financeHome.jsp'><button>Home</button></a>");
+//			out.println("<h2>Registered Successfully...</h2>");
+//			out.println("<a href='financeHome.jsp'><button>Home</button></a>");
 			try 
 			{
 				admin.addUser(loan);
@@ -85,10 +85,12 @@ public class BorrowerServlet extends HttpServlet
 			{
 				e.printStackTrace();
 			}
+			response.sendRedirect("afterRegistration.jsp");
 		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		response.setContentType("text/html");
 		List list=null;
 		PrintWriter out=response.getWriter();
 		String emailId=request.getParameter("emailId");
@@ -110,7 +112,7 @@ public class BorrowerServlet extends HttpServlet
 		else
 		{
 			RequestDispatcher dispatcher=request.getRequestDispatcher("borrowerLogin.jsp");
-			out.println("<font color=red>Invalid User.</font>"); 
+			out.println("<center><font color=red>Invalid User.</font></center>"); 
 			dispatcher.include(request, response);
 		}
 	}

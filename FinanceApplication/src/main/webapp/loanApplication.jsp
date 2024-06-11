@@ -43,7 +43,7 @@
         <label for="state">State</label>
         <input id="state" type="text" name="state" pattern="^[A-Za-z]*" required><br><br>
         <label for="pin">Pincode</label>
-        <input id="pin" type="number" name="pincode" placeholder="Pincode" required><br><br>
+        <input id="pin" type="text" name="pincode" maxlength=6 placeholder="Pincode" pattern="^[1-9][0-9]{5}" required><br><br>
         <label for="accNo">Account No</label>
         <input id="accNo" type="text" maxlength=15 minlength=13 name="accountNo" placeholder="Account No" pattern="[1-9][0-9]{12,14}"><br><br>
         <label for="pan">Pan No</label>

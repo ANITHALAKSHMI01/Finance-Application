@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.chainsys.model.AmountDetails;
 import com.chainsys.model.LoanApp;
 import com.chainsys.model.LoanBorrowerDetails;
 import com.chainsys.util.ConnectionUtil;
@@ -107,13 +109,60 @@ public class AdminImplementation implements AdminDAO
 		}
 		return list;
 	}
+//	@Override
+//	public List<AmountDetails> getId() throws ClassNotFoundException, SQLException 
+//	{
+//		ArrayList<AmountDetails> list=new ArrayList<>();
+//		Connection connection=ConnectionUtil.getConnection();
+//		String select="select customer_id from loan_details where status=?";
+//		PreparedStatement prepareStatement=connection.prepareStatement(select);
+//		prepareStatement.setInt(1, 1);
+//		ResultSet resultSet=prepareStatement.executeQuery();
+//		while(resultSet.next())
+//		{
+//			AmountDetails amount=new AmountDetails();
+//			String id=resultSet.getString(1);
+//			amount.setBorrowerId(id);
+//			list.add(amount);
+//		}
+//		return list;
+//	}
 	@Override
 	public List<LoanBorrowerDetails> viewlendersDetail() throws ClassNotFoundException, SQLException 
 	{
 		ArrayList<LoanBorrowerDetails> list=new ArrayList<>();
 		Connection connection=ConnectionUtil.getConnection();
-		String select="select account_id,customer_id,purpose,account_no,pan_no,salary,loan_amount,city,state,pincode,proof,status  from customer_details";
+		String select="select account_id,customer_id,purpose,account_no,pan_no,salary,loan_amount,city,state,pincode,proof,status  from customer_details where is_generate=?";
 		PreparedStatement prepareStatement=connection.prepareStatement(select);
+		prepareStatement.setInt(1, 0);
+		ResultSet resultSet=prepareStatement.executeQuery();
+		while(resultSet.next())
+		{
+			LoanBorrowerDetails loanBorrower=new LoanBorrowerDetails();
+			loanBorrower.setApplicationId(Integer.parseInt(resultSet.getString(1)));
+			loanBorrower.setBorrowerId(resultSet.getString(2));
+			loanBorrower.setPurposeOfLoan(resultSet.getString(3));
+			loanBorrower.setAccountNo(Long.parseLong(resultSet.getString(4)));
+			loanBorrower.setPanNo(resultSet.getString(5));
+			loanBorrower.setSalary(Integer.parseInt(resultSet.getString(6)));
+			loanBorrower.setLoanAmount(Integer.parseInt(resultSet.getString(7)));
+			loanBorrower.setCity(resultSet.getString(8));
+			loanBorrower.setState(resultSet.getString(9));
+			loanBorrower.setPincode(Integer.parseInt(resultSet.getString(10)));
+			loanBorrower.setProof(resultSet.getBytes(11));
+			loanBorrower.setStatus(resultSet.getString(12));
+			list.add(loanBorrower);
+		}
+		return list;
+	}
+	@Override
+	public List<LoanBorrowerDetails> searchStatus(String status) throws ClassNotFoundException, SQLException 
+	{
+		ArrayList<LoanBorrowerDetails> list=new ArrayList<>();
+		Connection connection=ConnectionUtil.getConnection();
+		String select="select account_id,customer_id,purpose,account_no,pan_no,salary,loan_amount,city,state,pincode,proof,status  from customer_details where status=?";
+		PreparedStatement prepareStatement=connection.prepareStatement(select);
+		prepareStatement.setString(1, status);
 		ResultSet resultSet=prepareStatement.executeQuery();
 		while(resultSet.next())
 		{
@@ -170,6 +219,17 @@ public class AdminImplementation implements AdminDAO
 		PreparedStatement prepareStatement=connection.prepareStatement(update);
 		prepareStatement.setString(1,loan.getStatus());
 		prepareStatement.setString(2,loan.getBorrowerId());
+		prepareStatement.executeUpdate();
+		connection.close();
+	}
+	@Override
+	public void sendBill(String id) throws ClassNotFoundException, SQLException
+	{
+		Connection connection=ConnectionUtil.getConnection();
+		String update="update customer_details set is_generate=? where customer_id=? ";
+		PreparedStatement prepareStatement=connection.prepareStatement(update);
+		prepareStatement.setInt(1,1);
+		prepareStatement.setString(2,id);
 		prepareStatement.executeUpdate();
 		connection.close();
 	}

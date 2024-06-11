@@ -63,6 +63,23 @@
 		border-color:green;
 	}
 </style>
+<script>
+	function validation()
+	{
+		var email=document.getElementById('email');
+		var password=document.getElementById('pass');
+		if(!email.checkValidity())
+		{
+			alert("Invalid Email(Ex. xyz01@gmail.com).");
+			return;  
+		}
+		if(!password.checkValidity())
+		{
+			alert("Password should contain atleast one lowercase,uppercase,number,special character and 6 digits must.");
+			return;  
+		}
+	}
+</script>
 <body>
 <h1>Admin Login</h1>
 <div>
@@ -70,10 +87,10 @@
 	<!-- <label for="adminId">Admin Id</label>
 	<input id="adminId" type=""> -->
 	<label for="email">Email</label>
-	<input id="email" type="email" placeholder="Email Id" name="emailId" required><br><br>
+	<input id="email" type="email" placeholder="Email Id" name="emailId"  pattern="[a-z0-9_/-/.]+[@][a-z]+[/.][a-z]{2,}$" required><br><br>
 	<label for="pass">Password</label>
 	<input id="pass" type="password" placeholder="Password" name="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@!#$%^&*]).{6}$" maxlength=6 required><br><br>
-	<button>Login</button>
+	<button onclick="validation()">Login</button>
 </form>
 </div>
 </body>

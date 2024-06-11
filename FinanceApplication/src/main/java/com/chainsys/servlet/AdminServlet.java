@@ -68,8 +68,8 @@ public class AdminServlet extends HttpServlet
 			{
 				if(password.equals("Ad101@"))
 				{
-					out.println("<h2>Registered Successfully...</h2>");
-					 out.println("<a href='financeHome.jsp'><button>Home</button></a>");
+//					out.println("<h2>Registered Successfully...</h2>");
+//					 out.println("<a href='financeHome.jsp'><button>Home</button></a>");
 					LoanApp loan=new LoanApp(id,name,category,dateOfBirth,phoneNumber,email,password,location);
 					try 
 					{
@@ -79,6 +79,7 @@ public class AdminServlet extends HttpServlet
 					{
 						e.printStackTrace();
 					}
+					response.sendRedirect("afterRegistration.jsp");
 				}
 				else
 				{
@@ -88,6 +89,7 @@ public class AdminServlet extends HttpServlet
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		String emailId=request.getParameter("emailId");
 		String password=request.getParameter("password");
@@ -108,7 +110,7 @@ public class AdminServlet extends HttpServlet
 		else
 		{  
 			RequestDispatcher dispatcher=request.getRequestDispatcher("adminLogin.jsp");
-			out.println("<font color=red>Invalid User.</font>"); 
+			out.println("<center><font color=red>Invalid User.</font></center>"); 
 			dispatcher.include(request, response);
 		}
 	}

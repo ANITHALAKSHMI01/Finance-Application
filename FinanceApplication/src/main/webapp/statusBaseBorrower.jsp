@@ -11,9 +11,6 @@
 <title>Lenders</title>
 </head>
 <body>
-<form action="SearchServlet" method="get">
-	<input type="text" placeholder="Search" name="search" pattern="^[A-Za-z]*">
-</form>
 <table border="2px">
 	<thead>
 		<tr>
@@ -28,9 +25,9 @@
 	  <th>State</th>
 	  <th>Pincode</th>
 	 <th>Proof</th>
-	 <th>status</th>
+	 <!-- <th>status</th>
 	<th>Approval</th>
-	<th>Generate Bill</th>
+	<th>Generate Bill</th> -->
 	<!--  <th>View Proof</th> -->
 	   </tr>
 	</thead>
@@ -62,32 +59,7 @@
 				        <input type="submit" name="view" value="View" class="button">
 					</form>
 					</td>
-					<td><%=loan.getStatus() %></td>
-				<%-- <td><%=loan.getStatus()%><br><br>
-				<input type="hidden" name="id" value="<%= loan.getBorrowerId()%>">
-				<a href="updateStatus.jsp?editId=<%=loan.getBorrowerId()%>"><button class="but1">Update</button></a>
-				</td> --%>
-				<td>
-					<form action="AdminHomeServlet" method="post">
-						<input type="hidden" name="id" value="<%= loan.getBorrowerId()%>">
-				      <select name="approval">
-				    	<option>Select</option> 
-				      	<option>Approved</option>
-				      	<option>On Progress</option>
-		                <option>Rejected</option>
-	                	<option>Not Approved</option>
-				      </select>
-				      <input type="submit" name="approve" value="Update" class="button">
-					</form>
-				</td>
-				<td>
-					<form action="LogoutServlet"method="post">
-						<input type="hidden" name="id" value="<%= loan.getBorrowerId()%>">
-						<input type="hidden" name="amount" value="<%=loan.getLoanAmount()%>">
-						<input type="submit" name="generate" value="Generate" class="button">
-					</form>
-				</td> 
-			<%
+					<%
 			   }
 				  		
 				  }
@@ -100,6 +72,5 @@
 			 </tr>
 		</tbody>
 </table>
-<a href="adminAfterLogin.jsp"><button>Back</button></a>
 </body>
 </html>

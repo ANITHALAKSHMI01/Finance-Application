@@ -10,7 +10,7 @@
 <title>Borrower Details</title>
 </head>
 <body>
-<table border="2px">
+ <table border="2px">
 	<thead>
 		<tr>
 	<th>Borrower Id</th>
@@ -41,7 +41,7 @@
                      <input type="submit" name="delete" value="Delete" class="button">
                 </form>
           </td> 
-         <%--  <td>  <input type="hidden" name="id" value="<%= loan.getId() %>">
+          <%-- <td>  <input type="hidden" name="id" value="<%= loan.getId() %>">
 	          <a href="updateBorrower.jsp?editId=<%=loan.getId()%>"><button class="but1">Edit</button></a>
 	     </td> --%>
 	  </tr>
@@ -49,7 +49,7 @@
            }
            %>
 	</tbody>
-</table>
+</table> 
 <a href="adminAfterLogin.jsp"><button>Back</button></a>
 </body>
 </html>
