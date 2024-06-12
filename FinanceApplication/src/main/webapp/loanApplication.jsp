@@ -18,10 +18,119 @@
         }
     }
 </script>
+<style>
+	.button
+	{
+		position:relative;
+		left:190px;
+		bottom:38px;
+		background-color:gray;
+		border-color:gray;
+	}
+    body
+    {
+  		background-color:skyblue;
+    }
+	h1
+	{
+		text-align:center;
+		position:relative;
+		top:50px;
+	}
+	div
+	{
+		border:2px solid white;
+		box-shadow:1px 1px 1px 1px;
+		background-color:white;
+		width:fit-content;
+		height:600px;
+		/* height:fit-content; */
+		padding:30px;
+		position:relative;
+		left:400px;
+		top:50px;
+		border-radius:10px;
+	}
+	label
+	{
+		font-size:20px;
+	}
+	#id
+	{
+		position:relative;
+		left:39px;
+	}
+	#purpose
+	{
+		width:210px;
+	}
+	#sal
+	{
+		position:relative;
+		left:85px;
+	}
+	#loan
+	{
+		position:relative;
+		left:25px;
+	}
+	#city
+	{
+		width:215px;
+		padding:8px;
+		position:relative;
+		left:100px;
+	}
+	input
+	{
+		height:20px;
+		width:200px;
+		padding:5px;
+	}
+	button
+	{
+		position:relative;
+		left:60px;
+		padding:6px;
+		width:100px;
+		font-size:18px;
+		background-color:green;
+		color:white;
+		border-radius:10px;
+		border-color:green;
+	}
+	#state
+	{
+		position:relative;
+		left:95px;
+	}
+	#pin
+	{
+		position:relative;
+		left:72px;
+	}
+	#accNo
+	{
+		position:relative;
+		left:40px;
+	}
+	#pan
+	{
+		position:relative;
+		left:80px;
+	}
+	#proof
+	{
+		position:relative;
+		left:90px;
+		padding:5px;
+	}
+</style>
 </head>
 <body>
     <h1>Application Form</h1>
-    <form action="BorrowerHomePage" method="post" enctype="multipart/form-data">
+    <div>
+    	<form action="BorrowerHomePage" method="post" enctype="multipart/form-data">
         <label for="id">Borrower Id</label>
         <input id="id" type="text" name="id" placeholder="Borrower Id" pattern="^[A-Za-z0-9]*" required><br><br>
         <label for="purpose">Purpose Of Loan</label>
@@ -31,7 +140,7 @@
         <label for="loan">Loan Amount</label>
         <input id="loan" type="number" name="amount" placeholder="loan" required><br><br>
         <label for="city">City</label>
-        <select name="city" required>
+        <select name="city" id="city" required>
 		<option>Tenkasi</option>
 		<option>Tirunelveli</option>
 		<option>Madurai</option>
@@ -54,6 +163,7 @@
         <input id="proof" type="file" name="proof"><br><br>
         <button>Apply</button>
     </form>
-    <a href="borrowerAfterLogin.jsp"><button>Back</button></a>
+    <a href="borrowerAfterLogin.jsp"><button class="button">Back</button></a>
+    </div>
 </body>
 </html>

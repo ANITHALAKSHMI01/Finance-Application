@@ -52,7 +52,7 @@
 	}
 </style>
 <body>
-<table border="2px">
+<%-- <table border="2px">
 	<thead>
 		<tr>
 	<th>Borrower Id</th>
@@ -61,7 +61,6 @@
 	 <th>Phone Number</th>
 	 <th>Email Id</th>
 	  <th>Location</th>
-	<!--  <th>Delete</th> -->
 	 <th>Update</th>
 	   </tr>
 	</thead>
@@ -77,12 +76,6 @@
 	   <td><%=loan.getPhoneNo() %></td>
 	   <td><%=loan.getEmail() %></td>
 	   <td><%=loan.getLocation()%></td>
-	  <%--   <td>
-               <form action="BorrowerUpdate" method="get">
-                     <input type="hidden" name="deleteId" value="<%=loan.getId()%>">
-                     <input type="submit" name="delete" value="Delete" class="button">
-                </form>
-          </td>  --%>
           <td>  <input type="hidden" name="id" value="<%= loan.getId() %>">
 	          <a href="updateBorrower.jsp?editId=<%=loan.getId()%>"><button class="but1">Edit</button></a>
 	     </td>
@@ -91,7 +84,24 @@
            }
            %>
 	</tbody>
-</table>
+</table> --%>
+<div>
+ <%List<LoanApp> list=(ArrayList<LoanApp>)request.getAttribute("list");
+	  for(LoanApp loan: list)
+	  {
+	  %>
+	  <label>Borrower Id </label><p><%= loan.getId()%></p><br><br>
+<label>Name     </label><p> <%= loan.getName()%></p><br><br>
+<label>Date Of Birth  </label><p> <%= loan.getDateOfBirth() %></p><br><br>
+<label>Phone Number</label> <p> <%= loan.getPhoneNo() %></p><br><br>
+<label>Email Id  </label><p><%= loan.getEmail() %></p><br><br>
+<label>Location  </label><p><%= loan.getLocation()%></p><br><br>
+<input type="hidden" name="id" value="<%= loan.getId() %>">
+ <a href="updateBorrower.jsp?editId=<%=loan.getId()%>"><button class="but1">Edit</button></a>
+<%
+   }
+ %>
 <a href="borrowerAfterLogin.jsp"><button>Back</button></a>
+</div>
 </body>
 </html>

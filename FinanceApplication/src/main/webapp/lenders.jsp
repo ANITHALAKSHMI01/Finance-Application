@@ -10,11 +10,72 @@
 <meta charset="ISO-8859-1">
 <title>Lenders</title>
 </head>
+<style>
+button
+	{
+		width:100px;
+		padding:5px;
+		position:relative;
+		left:750px;
+		top:70px;
+		background-color:green;
+		color:white;
+		border-color:green;
+		font-size:20px;
+	}
+h1 
+{
+	text-align:center;
+	color:#AA336A;
+}
+th
+{
+	background-color:blue;
+    color: white;
+	opacity:0.7;
+	font-size:20px;
+}
+td
+{
+	  color: grey;
+	   font-size: 15px;
+       font-family: Arial, Helvetica, sans-serif;
+}
+th, td
+{
+	padding: 5px;
+	text-align: center;
+}
+ table 
+{
+	position: relative;
+	top: 50px;
+} 
+.button
+{
+	padding:8px;
+	background-color:green;
+	border-color:green;
+	width:90px;
+	color:white;
+	font-size:15px;
+}
+#search
+{
+	position:relative;
+	left:150px;
+	top:30px;
+}
+#approve
+{
+	padding:10px;
+}
+</style>
 <body>
 <form action="SearchServlet" method="get">
-	<input type="text" placeholder="Search" name="search" pattern="^[A-Za-z]*">
+	<input type="text" placeholder="Search" id="search" name="search" pattern="^[A-Za-z]*">
 </form>
-<table border="2px">
+<table border="1px" cellspacing="0px">
 	<thead>
 		<tr>
 	<th>Application Id</th>
@@ -31,12 +92,13 @@
 	 <th>status</th>
 	<th>Approval</th>
 	<th>Generate Bill</th>
-	<!--  <th>View Proof</th> -->
 	   </tr>
 	</thead>
 	<tbody>
 			<%
 			List<LoanBorrowerDetails> list=(ArrayList<LoanBorrowerDetails>)request.getAttribute("list");
+			 if (list != null && !list.isEmpty())
+			  {
 				  try
 				  {
 				  		for (LoanBorrowerDetails loan : list)
@@ -63,26 +125,23 @@
 					</form>
 					</td>
 					<td><%=loan.getStatus() %></td>
-				<%-- <td><%=loan.getStatus()%><br><br>
-				<input type="hidden" name="id" value="<%= loan.getBorrowerId()%>">
-				<a href="updateStatus.jsp?editId=<%=loan.getBorrowerId()%>"><button class="but1">Update</button></a>
-				</td> --%>
 				<td>
 					<form action="AdminHomeServlet" method="post">
-						<input type="hidden" name="id" value="<%= loan.getBorrowerId()%>">
-				      <select name="approval">
+						<input type="hidden" name="id" value="<%= loan.getApplicationId()%>">
+				      <select name="approval" id="approve">
 				    	<option>Select</option> 
 				      	<option>Approved</option>
 				      	<option>On Progress</option>
 		                <option>Rejected</option>
 	                	<option>Not Approved</option>
 				      </select>
-				      <input type="submit" name="approve" value="Update" class="button">
+				      <input type="submit" name="approve" value="Update" class="button" style="position:relative;top:20px;">
 					</form>
 				</td>
 				<td>
 					<form action="LogoutServlet"method="post">
-						<input type="hidden" name="id" value="<%= loan.getBorrowerId()%>">
+					   	<input type="hidden" name="borrower" value="<%= loan.getBorrowerId()%>">
+						<input type="hidden" name="id" value="<%= loan.getApplicationId()%>">
 						<input type="hidden" name="amount" value="<%=loan.getLoanAmount()%>">
 						<input type="submit" name="generate" value="Generate" class="button">
 					</form>
@@ -95,9 +154,17 @@
 				  { 
 						e.printStackTrace();
 				  }
-				  
-			%>
-			 </tr>
+			  } 
+				else 
+				{
+	        %>
+	        </tr>
+	        <tr>
+	            <td colspan="13">No Records found</td>
+	        </tr>
+	        <%
+	        }
+	        %>
 		</tbody>
 </table>
 <a href="adminAfterLogin.jsp"><button>Back</button></a>

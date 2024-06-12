@@ -10,9 +10,10 @@ public class AmountDetails
 	private int tenure;
 	private int distribusalAmount;
 	private int status;
-	public AmountDetails(String borrowerId,int loanAmount,String date,int reduction,int interest,int tenure,int distribusalAmount)
+	public AmountDetails(String borrowerId,int loanId,int loanAmount,String date,int reduction,int interest,int tenure,int distribusalAmount)
 	{
 		this.borrowerId=borrowerId;
+		this.loanId=loanId;
 		this.loanAmount=loanAmount;
 		this.date=date;
 		this.reduction=reduction;

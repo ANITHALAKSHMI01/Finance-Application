@@ -56,7 +56,6 @@ public class AdminLenders extends HttpServlet
 				List<LoanBorrowerDetails> list=admin.viewProof(id);
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("viewProof.jsp").forward(request, response);
-				//			System.out.println(list);
 			}
 			catch (ClassNotFoundException | SQLException e)
 			{

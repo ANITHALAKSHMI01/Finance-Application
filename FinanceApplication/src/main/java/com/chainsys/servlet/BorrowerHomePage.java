@@ -84,7 +84,6 @@ public class BorrowerHomePage extends HttpServlet
 		int salary1=Integer.parseInt(salary);
 		long accountNumber=Long.parseLong(accountNo);
 		String status="Not Approved";
-//		maxLoan=salary1*5;
 		LoanBorrowerDetails loanBorrower=new LoanBorrowerDetails(borrowerId,purposeOfLoan,salary1,amount,city,state,pincode1,accountNumber,panNo,file,status);
 		try 
 		{
@@ -95,8 +94,6 @@ public class BorrowerHomePage extends HttpServlet
 		}
 		if(borrowerId.equals(id))
 		{
-//			if(amount<=maxLoan)
-//			{
 				try 
 				{
 					row=borrower.addLender(loanBorrower);
@@ -115,13 +112,6 @@ public class BorrowerHomePage extends HttpServlet
 					System.out.println("No row inserted");
 				}
 		}
-//			else
-//			{
-//				response.setContentType("Html/text");
-//				RequestDispatcher dispatcher=request.getRequestDispatcher("loanApplication.jsp");
-//				out.println("<font color=blue>You're only eligible for+maxLoan</font>"); 
-//				dispatcher.include(request, response);
-//			}
 		else
 		{
 			response.sendRedirect("loanApplication.jsp");

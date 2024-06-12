@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+       <%@ page import="java.sql.SQLException" %>
+        <%@ page import="com.chainsys.dao.AdminImplementation" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,6 +52,50 @@ overflow-x:hidden;
 	top:10px;
 	left:10px;
 }
+main
+{
+	position:relative;
+	top:200px;
+}
+.card 
+{
+  background-color: transparent;
+  width: 300px;
+  height: 200px;
+  border: 1px solid #f1f1f1;
+  perspective: 1000px; 
+}
+.card-inner 
+{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+.card:hover .card-inner
+ {
+  transform: rotateY(180deg);
+}
+ .card-front, .card-back
+ {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+.card-front 
+{
+  background-color: #bbb;
+  color: black;
+}
+.card-back
+ {
+  background-color: dodgerblue;
+  color: white;
+  transform: rotateY(180deg);
+}
 </style>
 <title>Admin Home</title>
 </head>
@@ -73,5 +119,74 @@ overflow-x:hidden;
 			</aside>
 		</section>
 	</nav>
+	<main>
+		<div class="card">
+		<div class="card-inner">
+			<div class="card-front">
+				Registered Borrowers
+			</div>
+			<div class="card-back">
+				<% int total=0;
+			try
+			{
+				AdminImplementation admin=new AdminImplementation();
+				total=admin.totalRegisteredBorrowers();
+			} 
+			catch (ClassNotFoundException | SQLException e) 
+			{
+				e.printStackTrace();
+			}
+			%>
+			<p><%=total%></p>
+			</div>
+		</div>
+	</div>
+	</main>
+	<main>
+		<div class="card">
+		<div class="card-inner">
+			<div class="card-front">
+				Lenders
+			</div>
+			<div class="card-back">
+				<% int total1=0;
+			try
+			{
+				AdminImplementation admin=new AdminImplementation();
+				total1=admin.totalLenders();
+			} 
+			catch (ClassNotFoundException | SQLException e) 
+			{
+				e.printStackTrace();
+			}
+			%>
+			<p><%=total1%></p>
+			</div>
+		</div>
+	</div>
+	</main>
+	<main>
+		<div class="card">
+		<div class="card-inner">
+			<div class="card-front">
+				Approved Lenders
+			</div>
+			<div class="card-back">
+				<% int total2=0;
+			try
+			{
+				AdminImplementation admin=new AdminImplementation();
+				total2=admin.totalApprovedLenders();
+			} 
+			catch (ClassNotFoundException | SQLException e) 
+			{
+				e.printStackTrace();
+			}
+			%>
+			<p><%=total2%></p>
+			</div>
+		</div>
+	</div>
+	</main>
 </body>
 </html>

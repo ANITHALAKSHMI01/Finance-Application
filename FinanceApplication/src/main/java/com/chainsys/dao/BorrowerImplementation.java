@@ -139,7 +139,7 @@ public class BorrowerImplementation implements BorrowerDAO
 	public int addLender(LoanBorrowerDetails loanBorrow) throws ClassNotFoundException, SQLException
 	{
 		Connection connection=ConnectionUtil.getConnection();
-		String insert="insert into customer_details(customer_id,purpose,account_no,pan_no,salary,city,state,pincode,proof,status,loan_amount,is_generate)values(?,?,?,?,?,?,?,?,?,?,?,?)";
+		String insert="insert into customer_details(customer_id,purpose,account_no,pan_no,salary,city,state,pincode,proof,status,loan_amount,is_generate,is_active)values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement prepareStatement=connection.prepareStatement(insert);
 		prepareStatement.setString(1, loanBorrow.getBorrowerId());
 		prepareStatement.setString(2, loanBorrow.getPurposeOfLoan());
@@ -153,6 +153,7 @@ public class BorrowerImplementation implements BorrowerDAO
 		prepareStatement.setString(10,loanBorrow.getStatus());
 		prepareStatement.setInt(11,loanBorrow.getLoanAmount());
 		prepareStatement.setInt(12, 0);
+		prepareStatement.setInt(13, 0);
 		int row=prepareStatement.executeUpdate();
 		connection.close();
 		return row;
@@ -243,12 +244,12 @@ public class BorrowerImplementation implements BorrowerDAO
 		return list;
 	}
 	@Override
-	public String checkStatus(String id) throws ClassNotFoundException, SQLException 
+	public String checkStatus(int id) throws ClassNotFoundException, SQLException 
 	{
 		Connection connection=ConnectionUtil.getConnection();
-		String select="select status from customer_details where customer_id=?";
+		String select="select status from customer_details where account_id=?";
 		PreparedStatement prepareStatement=connection.prepareStatement(select);
-		prepareStatement.setString(1, id);
+		prepareStatement.setInt(1, id);
 		ResultSet resultSet=prepareStatement.executeQuery();
 		while(resultSet.next())
 		{
@@ -264,7 +265,6 @@ public class BorrowerImplementation implements BorrowerDAO
 		String select="select loan_id,customer_id,date_issued,interest,tenure,distribusal_amount,reduction from loan_details where customer_id=?";
 		PreparedStatement prepareStatement=connection.prepareStatement(select);
 		prepareStatement.setString(1, id);
-//		prepareStatement.setInt(2, 1);
 		ResultSet resultSet=prepareStatement.executeQuery();
 		while(resultSet.next())
 		{

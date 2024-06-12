@@ -6,18 +6,112 @@
 <meta charset="ISO-8859-1">
 <title>Update Admin Details</title>
 </head>
+<style>
+    body
+    {
+  		background-color:skyblue;
+    }
+	h1
+	{
+		text-align:center;
+		position:relative;
+		top:100px;
+	}
+	div
+	{
+		border:2px solid white;
+		box-shadow:1px 1px 1px 1px;
+		background-color:white;
+		width:fit-content;
+		height:fit-content;
+		padding:30px;
+		position:relative;
+		left:450px;
+		top:120px;
+		border-radius:10px;
+	}
+	label
+	{
+		font-size:25px;
+	}
+	#name
+	{
+		position:relative;
+		left:90px;
+	}
+	#email
+	{
+		position:relative;
+		left:90px;
+	}
+	#loc
+	{
+		position:relative;
+		left:63px;
+	}
+	input
+	{
+		height:20px;
+		width:200px;
+		padding:5px;
+	}
+	button
+	{
+		position:relative;
+		left:140px;
+		padding:6px;
+		width:100px;
+		font-size:18px;
+		background-color:green;
+		color:white;
+		border-radius:10px;
+		border-color:green;
+	}
+</style>
+<script>
+	function validation()
+	{
+		var name=document.getElementById('name');
+		var email=document.getElementById('email');
+		var phoneNo=document.getElementById('phone');
+		var location=document.getElementById('loc');
+		if(!name.checkValidity())
+		{
+			alert("Name should be alphabet.");
+			return;  
+		}
+		if(!email.checkValidity())
+		{
+			alert("Invalid Email(Ex. xyz01@gmail.com).");
+			return;  
+		}
+		if(!phoneNo.checkValidity())
+		{
+			alert("Phone should start with 6-9 and 10 digits must.");
+			return;  
+		}
+		if(!location.checkValidity())
+		{
+			alert("Location should be alphabet.");
+			return;  
+		}
+	}
+</script>
 <body>
-<form action="AdminUpdate" method="post">
+<div>
+	<form action="AdminUpdate" method="post">
    <label for="name">Name</label>
    <input id="name" type="text" name="name" placeholder="Name" pattern="^[A-Za-z]*" required><br><br>
    <label for="phone">Phone Number</label>
 	<input id="phone" type="tel" name="phoneNo" placeholder="Phone Number" maxlength=10 pattern="[6789][0-9]{9}" required><br><br>
     <label for="email">Email</label>
-	<input id="email" type="email" placeholder="Email Id" name="emailId" required><br><br>
+	<input id="email" type="email" placeholder="Email Id" name="emailId" pattern="[a-z0-9_/-/.]+[@][a-z]+[/.][a-z]{2,}$" required><br><br>
 	<label for="loc">Location</label>
 	<input id="loc" type="text" placeholder="Location" name="location" pattern="^[A-Za-z]*" required><br><br>
 	<input type="hidden" name="id" value="<%= request.getParameter("editId") %>">
-	<input type="submit" class="button" name="update">
+	<!-- <input type="submit" class="button" name="update" onclick="validation()"> -->
+	<button  onclick="validation()">Update</button>
 </form>
+</div>
 </body>
 </html>

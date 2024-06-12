@@ -38,14 +38,14 @@ public class LogoutServlet extends HttpServlet
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		response.setContentType("html/text");
-//		List list=null;
-		String id=request.getParameter("id");
+		String borroweId=request.getParameter("borrower");
+		int id=Integer.parseInt(request.getParameter("id"));
 		int loanAmount=Integer.parseInt(request.getParameter("amount"));
 		LocalDate dateToday = LocalDate.now(); 
 		String dateString =dateToday.toString();
 		int reduce=(loanAmount*10)/100;
 		int distribusalAmount=loanAmount-reduce;
-		AmountDetails amount=new AmountDetails(id,loanAmount,dateString,reduce,10,12,distribusalAmount);
+		AmountDetails amount=new AmountDetails(borroweId,id,loanAmount,dateString,reduce,10,12,distribusalAmount);
 		try 
 		{
 			status=borrower.checkStatus(id);
@@ -66,7 +66,7 @@ public class LogoutServlet extends HttpServlet
 			}
 			try 
 			{
-				list=borrower.viewBill(id);
+				list=borrower.viewBill(borroweId);
 			} 
 			catch (ClassNotFoundException | SQLException e) 
 			{
@@ -77,11 +77,9 @@ public class LogoutServlet extends HttpServlet
 		}
 		else
 		{
-			PrintWriter out=response.getWriter();
 			try 
 			{
-				List<LoanBorrowerDetails> list=admin.viewlendersDetail();
-				out.println("<font color=red>Not Approved Borrower.</font>"); 
+				List<LoanBorrowerDetails> list=admin.viewlendersDetail(); 
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("lenders.jsp").forward(request, response);
 			}

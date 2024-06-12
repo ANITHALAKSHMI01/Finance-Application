@@ -9,14 +9,7 @@
 <meta charset="ISO-8859-1">
 <title>Bill Generation</title>
 </head>
-<!-- <style>
-	h4
-	{
-		color:green;
-	}
-</style> -->
 <body>
-	<!-- <h4>Amount will be credited within 2 days</h4> -->
 	<%
 	List<AmountDetails> list = (ArrayList<AmountDetails>) request.getAttribute("list");
 	for (AmountDetails amount : list) 

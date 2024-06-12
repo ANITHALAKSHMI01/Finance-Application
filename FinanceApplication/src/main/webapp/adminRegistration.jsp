@@ -34,15 +34,30 @@
 	{
 		font-size:20px;
 	}
+	#name
+	{
+		position:relative;
+		left:70px;
+	}
 	#email
 	{
 		position:relative;
-		left:40px;
+		left:73px;
+	}
+	#dob
+	{
+		position:relative;
+		left:68px;
 	}
 	#pass
 	{
 		position:relative;
 		left:45px;
+	}
+	#loc
+	{
+		position:relative;
+		left:52px;
 	}
 	input
 	{
@@ -53,7 +68,7 @@
 	button
 	{
 		position:relative;
-		left:120px;
+		left:125px;
 		padding:6px;
 		width:100px;
 		font-size:18px;
@@ -66,10 +81,16 @@
 <script>
 	function validation()
 	{
+		var name=document.getElementById('name');
 		var email=document.getElementById('email');
 		var phoneNo=document.getElementById('phone');
 		var password=document.getElementById('pass');
 		var location=document.getElementById('loc');
+		if(!name.checkValidity())
+		{
+			alert("Name should be alphabet.");
+			return;  
+		}
 		if(!email.checkValidity())
 		{
 			alert("Invalid Email(Ex. xyz01@gmail.com).");

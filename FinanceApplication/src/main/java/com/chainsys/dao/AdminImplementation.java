@@ -5,8 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.chainsys.model.AmountDetails;
 import com.chainsys.model.LoanApp;
 import com.chainsys.model.LoanBorrowerDetails;
 import com.chainsys.util.ConnectionUtil;
@@ -109,24 +107,6 @@ public class AdminImplementation implements AdminDAO
 		}
 		return list;
 	}
-//	@Override
-//	public List<AmountDetails> getId() throws ClassNotFoundException, SQLException 
-//	{
-//		ArrayList<AmountDetails> list=new ArrayList<>();
-//		Connection connection=ConnectionUtil.getConnection();
-//		String select="select customer_id from loan_details where status=?";
-//		PreparedStatement prepareStatement=connection.prepareStatement(select);
-//		prepareStatement.setInt(1, 1);
-//		ResultSet resultSet=prepareStatement.executeQuery();
-//		while(resultSet.next())
-//		{
-//			AmountDetails amount=new AmountDetails();
-//			String id=resultSet.getString(1);
-//			amount.setBorrowerId(id);
-//			list.add(amount);
-//		}
-//		return list;
-//	}
 	@Override
 	public List<LoanBorrowerDetails> viewlendersDetail() throws ClassNotFoundException, SQLException 
 	{
@@ -215,10 +195,10 @@ public class AdminImplementation implements AdminDAO
 	public void approveBorrower(LoanBorrowerDetails loan) throws ClassNotFoundException, SQLException 
 	{
 		Connection connection=ConnectionUtil.getConnection();
-		String update="update customer_details set status=? where customer_id=? ";
+		String update="update customer_details set status=? where account_id=? ";
 		PreparedStatement prepareStatement=connection.prepareStatement(update);
 		prepareStatement.setString(1,loan.getStatus());
-		prepareStatement.setString(2,loan.getBorrowerId());
+		prepareStatement.setInt(2,loan.getApplicationId());
 		prepareStatement.executeUpdate();
 		connection.close();
 	}
@@ -232,5 +212,52 @@ public class AdminImplementation implements AdminDAO
 		prepareStatement.setString(2,id);
 		prepareStatement.executeUpdate();
 		connection.close();
+	}
+	@Override
+	public int totalRegisteredBorrowers() throws ClassNotFoundException, SQLException
+	{
+		int total=0;
+		Connection connection=ConnectionUtil.getConnection();
+		String select="select count(*) from user where category=?";
+		PreparedStatement prepareStatement=connection.prepareStatement(select);
+		prepareStatement.setString(1, "Borrower");
+		ResultSet resultSet=prepareStatement.executeQuery();
+		while(resultSet.next())
+		{
+			total=resultSet.getInt(1);
+		}
+		connection.close();
+		return total;
+	}
+	@Override
+	public int totalLenders() throws ClassNotFoundException, SQLException 
+	{
+		int total=0;
+		Connection connection=ConnectionUtil.getConnection();
+		String select="select count(*) from customer_details";
+		PreparedStatement prepareStatement=connection.prepareStatement(select);
+		ResultSet resultSet=prepareStatement.executeQuery();
+		while(resultSet.next())
+		{
+			total=resultSet.getInt(1);
+		}
+		connection.close();
+		return total;
+	}
+	@Override
+	public int totalApprovedLenders() throws ClassNotFoundException, SQLException 
+	{
+		int total=0;
+		Connection connection=ConnectionUtil.getConnection();
+		String select="select count(*) from customer_details where status=?";
+		PreparedStatement prepareStatement=connection.prepareStatement(select);
+		prepareStatement.setString(1, "Approved");
+		ResultSet resultSet=prepareStatement.executeQuery();
+		while(resultSet.next())
+		{
+			total=resultSet.getInt(1);
+		}
+		connection.close();
+		return total;
 	}
 }

@@ -11,8 +11,63 @@
 <meta charset="ISO-8859-1">
 <title>Lender Loan Profile</title>
 </head>
+<style>
+button
+	{
+		width:100px;
+		padding:5px;
+		position:relative;
+		left:560px;
+		top:70px;
+		background-color:green;
+		color:white;
+		border-color:green;
+		font-size:20px;
+	}
+h1 
+{
+	text-align:center;
+	color:#AA336A;
+}
+th
+{
+	background-color:blue;
+    color: white;
+	opacity:0.7;
+	font-size:20px;
+}
+td
+{
+	  color: grey;
+	   font-size: 15px;
+       font-family: Arial, Helvetica, sans-serif;
+}
+th, td
+{
+	padding: 10px;
+	text-align: center;
+}
+ table 
+{
+	position: relative;
+	top: 50px;
+	left:5px; 
+} 
+.button
+{
+	width:100px;
+		padding:5px;
+		position:relative;
+		left:1px; 
+		top:10px;
+		background-color:green;
+		color:white;
+		border-color:green;
+		font-size:20px;
+}
+</style>
 <body>
-	<table border="2px">
+	<table border="2px" cellspacing="0px">
 	<thead>
 		<tr>
 	<th>Application Id</th>
@@ -33,6 +88,8 @@
 	<tbody>
 			<%
 			List<LoanBorrowerDetails> list=(ArrayList<LoanBorrowerDetails>)request.getAttribute("list");
+			  if (list != null && !list.isEmpty())
+			  {
 				  try
 				  {
 				  		for (LoanBorrowerDetails loan : list)
@@ -56,7 +113,7 @@
 			
 				<td><%=loan.getStatus()%></td>
 				<td><input type="hidden" name="id" value="<%= loan.getBorrowerId()%>">
-				<a href="updateAppliedDetails.jsp?editId=<%=loan.getBorrowerId()%>"><button class="but1">Update</button></a></td>
+				<a href="updateAppliedDetails.jsp?editId=<%=loan.getBorrowerId()%>"><button class="button">Update</button></a></td>
 			
 			<%
 			   }
@@ -66,8 +123,18 @@
 				  { 
 						e.printStackTrace();
 				   }
-				  
-			%>
+			  } 
+			else 
+			{
+        %>
+         </tr>
+        <tr>
+            <td colspan="13">No Records found</td>
+        </tr>
+        <%
+        }
+        %>
+				 
 		</tbody>
 </table>
 <a href="borrowerAfterLogin.jsp"><button>Back</button></a>

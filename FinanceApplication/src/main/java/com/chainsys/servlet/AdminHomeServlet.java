@@ -1,16 +1,12 @@
 package com.chainsys.servlet;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import com.chainsys.dao.AdminImplementation;
 import com.chainsys.dao.BorrowerImplementation;
 import com.chainsys.model.LoanBorrowerDetails;
@@ -18,19 +14,19 @@ import com.chainsys.model.LoanBorrowerDetails;
 public class AdminHomeServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	public static List list;
 	public static BorrowerImplementation borrower=new BorrowerImplementation();
 	public static AdminImplementation admin=new AdminImplementation();
     public AdminHomeServlet() 
     {
         super();
     }
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		List list=null;
 		try 
 		{
 			list=borrower.displayBorrowers();
-			System.out.println("Displayed successfully..");
 		} 
 		catch (ClassNotFoundException | SQLException e)
 		{
@@ -39,10 +35,11 @@ public class AdminHomeServlet extends HttpServlet
     	request.setAttribute("list", list);
     	request.getRequestDispatcher("borrowerDetails.jsp").forward(request, response);
 	}
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		LoanBorrowerDetails loanBorrower=new LoanBorrowerDetails();
-		loanBorrower.setBorrowerId(request.getParameter("id"));
+		loanBorrower.setApplicationId(Integer.parseInt(request.getParameter("id")));
 		loanBorrower.setStatus(request.getParameter("approval"));
 		try 
 		{
@@ -54,10 +51,9 @@ public class AdminHomeServlet extends HttpServlet
 		}
 		try 
 		{
-			List<LoanBorrowerDetails> list=admin.viewlendersDetail();
-			request.setAttribute("list", list);
+			List<LoanBorrowerDetails> lenders=admin.viewlendersDetail();
+			request.setAttribute("list", lenders);
 			request.getRequestDispatcher("lenders.jsp").forward(request, response);
-//			System.out.println(list);
 		}
 		catch (ClassNotFoundException | SQLException e)
 		{

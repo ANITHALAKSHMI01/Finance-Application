@@ -29,6 +29,7 @@ public class LenderDetailServlet extends HttpServlet
     {
         super();
     }
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		try 
@@ -36,13 +37,13 @@ public class LenderDetailServlet extends HttpServlet
 			List<LoanBorrowerDetails> list=admin.viewlendersDetail();
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("lenders.jsp").forward(request, response);
-//			System.out.println(list);
 		}
 		catch (ClassNotFoundException | SQLException e)
 		{
 			e.printStackTrace();
 		}
 	}
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		LoanBorrowerDetails loanBorrower=new LoanBorrowerDetails();
@@ -61,7 +62,6 @@ public class LenderDetailServlet extends HttpServlet
 			List<LoanBorrowerDetails> list=admin.viewlendersDetail();
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("lenders.jsp").forward(request, response);
-//			System.out.println(list);
 		}
 		catch (ClassNotFoundException | SQLException e)
 		{

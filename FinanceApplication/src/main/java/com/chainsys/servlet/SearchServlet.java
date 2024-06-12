@@ -19,6 +19,7 @@ public class SearchServlet extends HttpServlet
     {
         super();
     }
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		List<LoanBorrowerDetails> list=null;
@@ -34,9 +35,9 @@ public class SearchServlet extends HttpServlet
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("statusBaseBorrower.jsp").forward(request, response);
 	}
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		
-	}
-
+   // TODO document why this method is empty
+    }
 }

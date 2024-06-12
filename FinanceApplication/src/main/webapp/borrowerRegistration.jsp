@@ -66,9 +66,15 @@
 <script>
 	function validation()
 	{
+		var name=document.getElementById('name');
 		var email=document.getElementById('email');
 		var phoneNo=document.getElementById('phone');
 		var password=document.getElementById('pass');
+		if(!name.checkValidity())
+		{
+			alert("Name should be alphabet.");
+			return;  
+		}
 		if(!email.checkValidity())
 		{
 			alert("Invalid Email(Ex. xyz01@gmail.com).");

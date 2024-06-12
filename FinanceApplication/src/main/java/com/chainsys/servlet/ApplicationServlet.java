@@ -40,13 +40,11 @@ public class ApplicationServlet extends HttpServlet
 		{
 			e.printStackTrace();
 		}
-		System.out.println(id);
 		try 
 		{
 			list=borrower.lenderLoan(id);
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("appliedLoan.jsp").forward(request, response);
-//			System.out.println(list);
 		} 
 		catch (ClassNotFoundException | SQLException e)
 		{
@@ -94,7 +92,6 @@ public class ApplicationServlet extends HttpServlet
 			list=borrower.lenderLoan(id);
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("appliedLoan.jsp").forward(request, response);
-//			System.out.println(list);
 		} 
 		catch (ClassNotFoundException | SQLException e)
 		{
