@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+     <%@ page import="java.sql.SQLException" %>
+        <%@ page import="com.chainsys.dao.BorrowerSide" %>
+        <%@ page import="com.chainsys.dao.BorrowerImplementation" %>
+        <%@ page import=" javax.servlet.http.HttpSession" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,14 +66,17 @@ overflow-x:hidden;
 			<aside>
 				<a href="BorrowerHomePage" method="get" style="color: transparent;"><p style="color:white; font-size:22px;">Profile<p></a>
 			</aside>
-			<aside>
+			<!-- <aside>
 				<a href="loanApplication.jsp" style="color: transparent;"><p style="color:white; font-size:22px;">Apply</p></a>
+			</aside> -->
+			<aside>
+				<a href="AllowBorrower" method="get"  style="color: transparent;"><p style="color:white; font-size:22px;">Apply</p></a>
 			</aside>
 			<aside>
 				<a href="ApplicationServlet" method="get"  style="color: transparent;"><p style="color:white; font-size:22px;">Status</p></a>
 			</aside>
 			<aside>
-				<a href="BillServlet" method="get"  style="color: transparent;"><p style="color:white; font-size:22px;">View Bill</p></a>
+				<a href="BillServlet" method="get"  style="color: transparent;"><p style="color:white; font-size:22px;">Invoice</p></a>
 			</aside>
 			<!-- <aside>
 				<a href="" >History</a>

@@ -61,7 +61,6 @@ public class BillServlet extends HttpServlet
 		try 
 		{
 			List<LoanBorrowerDetails> list=admin.viewlendersDetail();
-			/* out.println("<font color=red>Not Approved Borrower.</font>"); */
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("lenders.jsp").forward(request, response);
 		}

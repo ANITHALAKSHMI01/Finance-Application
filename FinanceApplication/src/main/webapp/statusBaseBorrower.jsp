@@ -25,6 +25,7 @@
 	  <th>State</th>
 	  <th>Pincode</th>
 	 <th>Proof</th>
+	 <th>Remove Lender</th>
 	 <!-- <th>status</th>
 	<th>Approval</th>
 	<th>Generate Bill</th> -->
@@ -59,6 +60,13 @@
 				        <input type="submit" name="view" value="View" class="button">
 					</form>
 					</td>
+					<td>
+					<form action="SearchServlet" method="post">
+						<input type="hidden" name="borrowerId" value="<%= loan.getBorrowerId()%>">
+						<input type="hidden" name="id" value="<%= loan.getApplicationId()%>">
+						 <input type="submit" class="delete" name="delete" value="Delete" class="button">
+					</form>
+				</td>
 					<%
 			   }
 				  		

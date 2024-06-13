@@ -15,7 +15,7 @@ public class AdminImplementation implements AdminDAO
 	public void addUser(LoanApp loan) throws ClassNotFoundException, SQLException 
 	{
 		Connection connection=ConnectionUtil.getConnection();
-		String insert="insert into user(id,name,category,date_of_birth,phone_no,email,password,location,status)values(?,?,?,?,?,?,?,?,?)";
+		String insert="insert into user(id,name,category,date_of_birth,phone_no,email,password,location,status,active)values(?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement prepareStatement=connection.prepareStatement(insert);
 		prepareStatement.setString(1, loan.getId());
 		prepareStatement.setString(2, loan.getName());
@@ -26,6 +26,7 @@ public class AdminImplementation implements AdminDAO
 		prepareStatement.setString(7, loan.getPassword());
 		prepareStatement.setString(8, loan.getLocation());
 		prepareStatement.setInt(9, 1);
+		prepareStatement.setInt(10, 0);
 		prepareStatement.executeUpdate();
 		connection.close();
 	}
@@ -112,9 +113,10 @@ public class AdminImplementation implements AdminDAO
 	{
 		ArrayList<LoanBorrowerDetails> list=new ArrayList<>();
 		Connection connection=ConnectionUtil.getConnection();
-		String select="select account_id,customer_id,purpose,account_no,pan_no,salary,loan_amount,city,state,pincode,proof,status  from customer_details where is_generate=?";
+		String select="select account_id,customer_id,purpose,account_no,pan_no,salary,loan_amount,city,state,pincode,proof,status  from customer_details where is_generate=? && is_active=?";
 		PreparedStatement prepareStatement=connection.prepareStatement(select);
 		prepareStatement.setInt(1, 0);
+		prepareStatement.setInt(2, 0);
 		ResultSet resultSet=prepareStatement.executeQuery();
 		while(resultSet.next())
 		{
@@ -140,9 +142,10 @@ public class AdminImplementation implements AdminDAO
 	{
 		ArrayList<LoanBorrowerDetails> list=new ArrayList<>();
 		Connection connection=ConnectionUtil.getConnection();
-		String select="select account_id,customer_id,purpose,account_no,pan_no,salary,loan_amount,city,state,pincode,proof,status  from customer_details where status=?";
+		String select="select account_id,customer_id,purpose,account_no,pan_no,salary,loan_amount,city,state,pincode,proof,status  from customer_details where status=? && is_active=?";
 		PreparedStatement prepareStatement=connection.prepareStatement(select);
 		prepareStatement.setString(1, status);
+		prepareStatement.setInt(2, 0);
 		ResultSet resultSet=prepareStatement.executeQuery();
 		while(resultSet.next())
 		{
@@ -259,5 +262,16 @@ public class AdminImplementation implements AdminDAO
 		}
 		connection.close();
 		return total;
+	}
+	@Override
+	public void removeBorrower(int id) throws ClassNotFoundException, SQLException 
+	{
+		Connection connection=ConnectionUtil.getConnection();
+		String update="update customer_details set is_active=? where account_id=? ";
+		PreparedStatement prepareStatement=connection.prepareStatement(update);
+		prepareStatement.setInt(1,1);
+		prepareStatement.setInt(2,id);
+		prepareStatement.executeUpdate();
+		connection.close(); 
 	}
 }

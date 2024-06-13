@@ -18,4 +18,6 @@ public interface AdminDAO
 	int totalRegisteredBorrowers() throws ClassNotFoundException, SQLException;
 	int totalLenders() throws ClassNotFoundException, SQLException;
 	int totalApprovedLenders() throws ClassNotFoundException, SQLException;
+	void removeBorrower(int id)throws ClassNotFoundException, SQLException;
 }
+

@@ -1,14 +1,10 @@
 package com.chainsys.dao;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.Part;
-
 import com.chainsys.model.AmountDetails;
 import com.chainsys.model.LoanApp;
 import com.chainsys.model.LoanBorrowerDetails;
@@ -163,9 +159,10 @@ public class BorrowerImplementation implements BorrowerDAO
 	{
 		ArrayList<LoanBorrowerDetails> list=new ArrayList<>();
 		Connection connection=ConnectionUtil.getConnection();
-		String select="select account_id,customer_id,purpose,account_no,pan_no,salary,loan_amount,city,state,pincode,proof,status  from customer_details where customer_id=?";
+		String select="select account_id,customer_id,purpose,account_no,pan_no,salary,loan_amount,city,state,pincode,proof,status  from customer_details where customer_id=? && is_active=?";
 		PreparedStatement prepareStatement=connection.prepareStatement(select);
 		prepareStatement.setString(1, id);
+		prepareStatement.setInt(2, 0);
 		ResultSet resultSet=prepareStatement.executeQuery();
 		while(resultSet.next())
 		{
@@ -225,9 +222,10 @@ public class BorrowerImplementation implements BorrowerDAO
 	{
 		ArrayList<AmountDetails> list=new ArrayList<>();
 		Connection connection=ConnectionUtil.getConnection();
-		String select="select loan_id,customer_id,date_issued,interest,tenure,distribusal_amount,reduction from loan_details where customer_id=?";
+		String select="select loan_id,customer_id,date_issued,interest,tenure,distribusal_amount,reduction from loan_details where customer_id=? && status=?";
 		PreparedStatement prepareStatement=connection.prepareStatement(select);
 		prepareStatement.setString(1, id);
+		prepareStatement.setInt(2, 0);
 		ResultSet resultSet=prepareStatement.executeQuery();
 		while(resultSet.next())
 		{
@@ -262,9 +260,10 @@ public class BorrowerImplementation implements BorrowerDAO
 	{	
 		ArrayList<AmountDetails> list=new ArrayList<>();
 		Connection connection=ConnectionUtil.getConnection();
-		String select="select loan_id,customer_id,date_issued,interest,tenure,distribusal_amount,reduction from loan_details where customer_id=?";
+		String select="select loan_id,customer_id,date_issued,interest,tenure,distribusal_amount,reduction from loan_details where customer_id=? && status=?";
 		PreparedStatement prepareStatement=connection.prepareStatement(select);
 		prepareStatement.setString(1, id);
+		prepareStatement.setInt(2, 0);
 		ResultSet resultSet=prepareStatement.executeQuery();
 		while(resultSet.next())
 		{
@@ -277,7 +276,7 @@ public class BorrowerImplementation implements BorrowerDAO
 			amount.setDistribusalAmount(Integer.parseInt(resultSet.getString(6)));
 			amount.setReduction(Integer.parseInt(resultSet.getString(7)));
 			list.add(amount);
-	}
-	return list;
+		}
+	  return list;
 	}
 }

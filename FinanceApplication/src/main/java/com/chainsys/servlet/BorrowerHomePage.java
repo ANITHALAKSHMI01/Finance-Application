@@ -17,6 +17,7 @@ import javax.servlet.http.Part;
 import javax.sql.rowset.serial.SerialBlob;
 
 import com.chainsys.dao.BorrowerImplementation;
+import com.chainsys.dao.BorrowerSide;
 import com.chainsys.model.LoanBorrowerDetails;
 @MultipartConfig
 @WebServlet("/BorrowerHomePage")
@@ -51,6 +52,7 @@ public class BorrowerHomePage extends HttpServlet
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		int active=0;
 		byte[] file=null;
 		response.setContentType("multipart/form-data");
 		PrintWriter out=response.getWriter();
@@ -94,28 +96,34 @@ public class BorrowerHomePage extends HttpServlet
 		}
 		if(borrowerId.equals(id))
 		{
+			try 
+			{
+				row=borrower.addLender(loanBorrower);
+			} 
+			catch (ClassNotFoundException | SQLException e)
+			{
+				e.printStackTrace();
+			}
+			if(row>0)
+			{
 				try 
 				{
-					row=borrower.addLender(loanBorrower);
+					BorrowerSide.updateActive(borrowerId);
 				} 
-				catch (ClassNotFoundException | SQLException e)
+				catch (ClassNotFoundException | SQLException e) 
 				{
 					e.printStackTrace();
 				}
-				if(row>0)
-				{
-					response.sendRedirect("applicationFinish.jsp");
-				}
-				else
-				{
-					response.sendRedirect("loanApplication.jsp");
-					System.out.println("No row inserted");
-				}
+				response.sendRedirect("applicationFinish.jsp");
+			}
+			else
+			{
+				response.sendRedirect("loanApplication.jsp");
+			}
 		}
 		else
 		{
 			response.sendRedirect("loanApplication.jsp");
-			System.out.println("No row inserted");
 		}
 	}
 }

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.chainsys.dao.AdminImplementation;
+import com.chainsys.dao.BorrowerSide;
+import com.chainsys.model.AmountDetails;
 import com.chainsys.model.LoanBorrowerDetails;
 @WebServlet("/SearchServlet")
 public class SearchServlet extends HttpServlet 
@@ -38,6 +40,49 @@ public class SearchServlet extends HttpServlet
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-   // TODO document why this method is empty
+		List list=null;
+		int loanId=0;
+		AmountDetails amount=new AmountDetails();
+		String borrowerId=request.getParameter("borrowerId");
+		String delete = request.getParameter("delete");
+        if(delete != null && delete.equals("Delete"))
+        {
+        	int id=Integer.parseInt(request.getParameter("id"));
+        	
+        	try 
+        	{
+				admin.removeBorrower(id);
+			} 
+        	catch (ClassNotFoundException | SQLException e) 
+        	{
+				e.printStackTrace();
+			}
+        	try
+        	{
+				loanId=BorrowerSide.getLoanId(borrowerId);
+			} 
+        	catch (ClassNotFoundException | SQLException e) 
+        	{
+				e.printStackTrace();
+			}
+        	try 
+        	{
+				BorrowerSide.removeBill(loanId);
+			} 
+        	catch (ClassNotFoundException | SQLException e) 
+        	{
+				e.printStackTrace();
+			}
+        	try 
+    		{
+    			list=admin.viewlendersDetail();
+    		} 
+    		catch (ClassNotFoundException | SQLException e)
+    		{
+    			e.printStackTrace();
+    		}
+        	request.setAttribute("list", list);
+        	request.getRequestDispatcher("lenders.jsp").forward(request,response);
+        }
     }
 }

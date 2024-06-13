@@ -70,6 +70,15 @@ th, td
 {
 	padding:10px;
 }
+.delete
+{
+    padding:8px;
+	background-color:red;
+	border-color:red;
+	width:90px;
+	color:white;
+	font-size:15px;
+}
 </style>
 <body>
 <form action="SearchServlet" method="get">
@@ -92,6 +101,7 @@ th, td
 	 <th>status</th>
 	<th>Approval</th>
 	<th>Generate Bill</th>
+	<!-- <th>Remove Lender</th> -->
 	   </tr>
 	</thead>
 	<tbody>
@@ -128,7 +138,7 @@ th, td
 				<td>
 					<form action="AdminHomeServlet" method="post">
 						<input type="hidden" name="id" value="<%= loan.getApplicationId()%>">
-				      <select name="approval" id="approve">
+				      	<select name="approval" id="approve">
 				    	<option>Select</option> 
 				      	<option>Approved</option>
 				      	<option>On Progress</option>
@@ -146,6 +156,12 @@ th, td
 						<input type="submit" name="generate" value="Generate" class="button">
 					</form>
 				</td> 
+				<%-- <td>
+					<form action="SearchServlet" method="post">
+						<input type="hidden" name="id" value="<%= loan.getApplicationId()%>">
+						 <input type="submit" class="delete" name="delete" value="Delete" class="button">
+					</form>
+				</td> --%>
 			<%
 			   }
 				  		

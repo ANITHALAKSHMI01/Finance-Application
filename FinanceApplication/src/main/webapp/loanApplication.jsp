@@ -148,7 +148,6 @@
 		<option>Coimbatore</option>
 		<option>Chennai</option>
 	   </select><br><br>
-      <!--   <input id="city" type="text" name="city" pattern="^[A-Za-z]*" required><br><br> -->
         <label for="state">State</label>
         <input id="state" type="text" name="state" pattern="^[A-Za-z]*" required><br><br>
         <label for="pin">Pincode</label>
