@@ -4,20 +4,6 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Application</title>
-<script>
-    function checkLoanEligibility()
-    {
-        var salary = document.getElementById("sal").value;
-        var loan = document.getElementById("loan");
-        var maxLoan = salary * 10;
-        loan.setAttribute("max", maxLoan); 
-        if (parseFloat(loan.value) > maxLoan) 
-        {
-            alert("You are eligible for a loan amount up to " + maxLoan + ".");
-		     loan.value = maxLoan; 
-        }
-    }
-</script>
 <style>
 	.button
 	{
@@ -44,8 +30,7 @@
 		background-color:white;
 		width:fit-content;
 		height:600px;
-		/* height:fit-content; */
-		padding:30px;
+		padding:40px;
 		position:relative;
 		left:400px;
 		top:50px;
@@ -117,7 +102,12 @@
 	#pan
 	{
 		position:relative;
-		left:80px;
+		left:100px;
+	}
+	#pay
+	{
+		position:relative;
+		left:70px;
 	}
 	#proof
 	{
@@ -133,12 +123,12 @@
     	<form action="BorrowerHomePage" method="post" enctype="multipart/form-data">
         <label for="id">Borrower Id</label>
         <input id="id" type="text" name="id" placeholder="Borrower Id" pattern="^[A-Za-z0-9]*" required><br><br>
-        <label for="purpose">Purpose Of Loan</label>
-        <textarea rows="5" cols="" id="purpose" name="purpose"></textarea><br><br>
         <label for="sal">Salary</label>
-        <input id="sal" type="number" name="salary" placeholder="Salary" required oninput="checkLoanEligibility()"><br><br>
+        <input id="sal" type="number" name="salary" placeholder="Salary" required><br><br>
         <label for="loan">Loan Amount</label>
         <input id="loan" type="number" name="amount" placeholder="loan" required><br><br>
+        <label for="sal">Tenure(In Months)</label>
+        <input id="repay" type="number" name="repayment" placeholder="Repayment Period" required><br><br>
         <label for="city">City</label>
         <select name="city" id="city" required>
 		<option>Tenkasi</option>
@@ -154,10 +144,10 @@
         <input id="pin" type="text" name="pincode" maxlength=6 placeholder="Pincode" pattern="^[1-9][0-9]{5}" required><br><br>
         <label for="accNo">Account No</label>
         <input id="accNo" type="text" maxlength=15 minlength=13 name="accountNo" placeholder="Account No" pattern="[1-9][0-9]{12,14}"><br><br>
-        <label for="pan">Pan No</label>
-        <input id="pan" type="text" maxlength=10 name="panNo" placeholder="Pan No" pattern="[A-Z0-9]{10}"><br><br>
-         <!-- <label for="pay">Pay Slip</label>
-        <input id="pay" type="file" name="paySlip"><br><br> -->
+        <label for="pan">PAN</label>
+        <input id="pan" type="text" maxlength=10 name="pan" placeholder="PAN" pattern="[A-Z0-9]{10}"><br><br>
+        <label for="pay">Pay Slip</label>
+        <input id="pay" type="file" name="paySlip"><br><br> 
         <label for="proof">Proof</label>
         <input id="proof" type="file" name="proof"><br><br>
         <button>Apply</button>

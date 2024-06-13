@@ -91,19 +91,10 @@ h3
 	top:10px;
 	left:10px;
 }
-/* #image
-{
-   position:relative;
-	top:70px; 
-	left:10px;
-	width:200px;
-	height:200px;
-} */
 #image2
 {
 	position:relative;
 	left:700px;
-/* 	top:40px; */
 	width:400px;
 	height:400px;
 }
@@ -116,29 +107,9 @@ h3
             <section id="right_nav">
              <aside><a href="#" style="color: transparent;"><p style="color:white; font-size:22px;">Home</p></a></aside>
              <aside><a href="" style="color: transparent;"><p style="color:white; font-size:22px;">About</p></a></aside>
-            <!--  <aside><a href="">Loans</a></aside> -->
-            <!--  <aside><a href="#scroll_container" style="color: transparent;"><p>Achievements</p></a></aside> -->
-           <!--   <aside><i class="fa-solid fa-magnifying-glass"></i><input type="search" placeholder="Search" ></aside></section>  -->
-      <aside><ul  class="nav-ul" type="none">
-              <li style="color:white; font-size:22px;">
-                Register
-                <ul class="dropdown">
-                  <li><a  href="adminRegistration.jsp" style="text-decoration:none; color:#000000">Admin</a></li>
-                  <li><a href="borrowerRegistration.jsp" style="text-decoration:none; color:#000000">Borrower</a></li>
-                </ul>
-              </li>
-            </ul>
-            <ul  class="nav-ul"></aside>
-           <aside><ul  class="nav-ul" type="none">
-              <li style="color:white; font-size:22px;">
-                Login
-                <ul class="dropdown">
-                  <li><a  href="adminLogin.jsp" style="text-decoration:none; color:#000000">Admin</a></li>
-                  <li><a href="borrowerLogin.jsp" style="text-decoration:none; color:#000000">Borrower</a></li>
-                </ul>
-              </li>
-            </ul>
-            <ul  class="nav-ul"></aside>
+           <aside>
+                  <a href="login.jsp" style="color: transparent;"><p style="color:white; font-size:22px;">Login</p></a>
+            </aside>
               <aside><a href="#contact" style="color: transparent;"><p>Contact Us</p></a></aside> 
  </nav>
 <div>
@@ -146,10 +117,8 @@ h3
 	<h1>Royal Finance</h1>
 		<h3>Money is numbers and numbers never end.</h3>
 		<h3>If it takes money to be happy. </h3>
-<!-- 		<h3>your search for happiness will never end.</h3> -->
 	</section>
 	<section class="sec"><img alt="image" src="ProofImages/home.jpg" id="image2"></section>
-	<!-- <img alt="Logo" src="ProofImages/finance.png" id="image"> -->
 </div>
 </body>
 </html>

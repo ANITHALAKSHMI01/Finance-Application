@@ -1,23 +1,23 @@
 package com.chainsys.model;
-public class LoanApp
+public class User
 {
 	private String id;
 	private String name;
-	private String category;
+	private String role;
 	private String dateOfBirth;
 	private long phoneNo;
 	private String email;
 	private String password;
 	private String location;
-	public LoanApp()
+	public User()
 	{
 		
 	}
-	public LoanApp(String id,String name,String category,String dateOfBirth,long phoneNo,String email,String password,String location)
+	public User(String id,String name,String role,String dateOfBirth,long phoneNo,String email,String password,String location)
 	{
 		this.id=id;
 		this.name=name;
-		this.category=category;
+		this.role=role;
 		this.dateOfBirth=dateOfBirth;
 		this.phoneNo=phoneNo;
 		this.email=email;
@@ -40,13 +40,13 @@ public class LoanApp
 	{
 		this.name = name;
 	}
-	public String getCategory()
+	public String getRole()
 	{
-		return category;
+		return role;
 	}
-	public void setCategory(String category)
+	public void setRole(String role)
 	{
-		this.category = category;
+		this.role = role;
 	}
 	public String getDateOfBirth()
 	{
@@ -91,7 +91,7 @@ public class LoanApp
 	@Override
 	public String toString() 
 	{
-		return "LoanApp [id=" + id + ", name=" + name + ", category=" + category + ", dateOfBirth=" + dateOfBirth
+		return "LoanApp [id=" + id + ", name=" + name + ", role=" + role + ", dateOfBirth=" + dateOfBirth
 				+ ", phoneNo=" + phoneNo + ", email=" + email + ", password=" + password + ", location=" + location
 				+ "]";
 	}

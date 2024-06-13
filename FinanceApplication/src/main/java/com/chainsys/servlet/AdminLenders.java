@@ -33,7 +33,7 @@ public class AdminLenders extends HttpServlet
 		System.out.println(email);
 		try 
 		{
-			list=admin.selectAdmin(email);
+			list=borrower.selectUser(email);
 			System.out.println(list);
 		} 
 		catch (ClassNotFoundException | SQLException e) 

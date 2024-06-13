@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.chainsys.dao.AdminImplementation;
 import com.chainsys.dao.BorrowerImplementation;
-import com.chainsys.model.LoanApp;
+import com.chainsys.model.User;
 @WebServlet("/AdminUpdate")
 public class AdminUpdate extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	public static BorrowerImplementation borrower=new BorrowerImplementation();
 	public static AdminImplementation admin=new AdminImplementation();
-	public static LoanApp loan=new LoanApp();
+	public static User loan=new User();
     public AdminUpdate()
     {
         super();
@@ -34,7 +34,6 @@ public class AdminUpdate extends HttpServlet
            	try 
            	{
    				borrower.removeUser(loan);
-   				System.out.println("Row deleted");
    			} 
            	catch (ClassNotFoundException | SQLException e) 
            	{
@@ -56,21 +55,20 @@ public class AdminUpdate extends HttpServlet
    	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
    	{
    		List list=null;
-   		String name=request.getParameter("name");
+//   		String name=request.getParameter("name");
    		String phoneNo=request.getParameter("phoneNo");
    		long phoneNumber=Long.parseLong(phoneNo);
-   		String email=request.getParameter("emailId");
+//   		String email=request.getParameter("emailId");
    		String location=request.getParameter("location");
    		String id=request.getParameter("id");
    		loan.setId(id);
-   		loan.setName(name);
-   		loan.setEmail(email);
+//   		loan.setName(name);
+//   		loan.setEmail(email);
    		loan.setPhoneNo(phoneNumber);
    		loan.setLocation(location);
    		try 
        	{
    			borrower.updateUser(loan);
-   			System.out.println("Row Updated");
    		} 
        	catch (ClassNotFoundException | SQLException e) 
        	{
@@ -79,7 +77,6 @@ public class AdminUpdate extends HttpServlet
        	try 
    		{
        		list=admin.displayDetails();
-   			System.out.println("Displayed successfully..");
    		} 
    		catch (ClassNotFoundException | SQLException e)
    		{

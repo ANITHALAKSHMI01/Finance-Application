@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.chainsys.dao.BorrowerImplementation;
-import com.chainsys.model.LoanApp;
+import com.chainsys.model.User;
 @WebServlet("/BorrowerUpdate")
 public class BorrowerUpdate extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
 	public static BorrowerImplementation borrower=new BorrowerImplementation();
-	public static LoanApp loan=new LoanApp();
+	public static User user=new User();
     public BorrowerUpdate()
     {
         super();
@@ -28,11 +28,10 @@ public class BorrowerUpdate extends HttpServlet
         if(delete != null && delete.equals("Delete"))
         {
         	String id=request.getParameter("deleteId");
-        	loan.setId(id);
+        	user.setId(id);
         	try 
         	{
-				borrower.removeUser(loan);
-				System.out.println("Row deleted");
+				borrower.removeUser(user);
 			} 
         	catch (ClassNotFoundException | SQLException e) 
         	{
@@ -41,7 +40,6 @@ public class BorrowerUpdate extends HttpServlet
         	try 
     		{
     			list=borrower.displayBorrowers();
-    			System.out.println("Displayed successfully..");
     		} 
     		catch (ClassNotFoundException | SQLException e)
     		{
@@ -54,21 +52,20 @@ public class BorrowerUpdate extends HttpServlet
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		List list=null;
-		String name=request.getParameter("name");
+//		String name=request.getParameter("name");
 		String phoneNo=request.getParameter("phoneNo");
 		long phoneNumber=Long.parseLong(phoneNo);
-		String email=request.getParameter("emailId");
+     	String email=request.getParameter("emailId");
 		String location=request.getParameter("location");
 		String id=request.getParameter("id");
-		loan.setId(id);
-		loan.setName(name);
-		loan.setEmail(email);
-		loan.setPhoneNo(phoneNumber);
-		loan.setLocation(location);
+		user.setId(id);
+//		user.setName(name);
+//		user.setEmail(email);
+		user.setPhoneNo(phoneNumber);
+		user.setLocation(location);
 		try 
     	{
-			borrower.updateUser(loan);
-			System.out.println("Row Updated");
+			borrower.updateUser(user);
 		} 
     	catch (ClassNotFoundException | SQLException e) 
     	{
@@ -76,8 +73,7 @@ public class BorrowerUpdate extends HttpServlet
 		}
     	try 
 		{
-    		list=borrower.selectBorrower(email);
-			System.out.println("Displayed successfully..");
+    		list=borrower.selectUser(email);
 		} 
 		catch (ClassNotFoundException | SQLException e)
 		{

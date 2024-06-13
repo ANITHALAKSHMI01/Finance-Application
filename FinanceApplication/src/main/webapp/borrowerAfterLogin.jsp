@@ -47,6 +47,11 @@ overflow-x:hidden;
     align-items: center; 
     gap: 30px;
 }
+#image
+{
+position:relative;
+	left:180px;
+}
 #image1
 {
 	border-radius:50%;
@@ -55,6 +60,21 @@ overflow-x:hidden;
 	position:relative;
 	top:10px;
 	left:10px;
+}
+#detail
+{
+	position:relative;
+	top:150px;
+	left:250px;
+}
+h1
+{
+	font-size:40px;
+	color:orangered;
+}
+.para
+{
+	font-size:25px;
 }
 </style>
 <body>
@@ -66,9 +86,6 @@ overflow-x:hidden;
 			<aside>
 				<a href="BorrowerHomePage" method="get" style="color: transparent;"><p style="color:white; font-size:22px;">Profile<p></a>
 			</aside>
-			<!-- <aside>
-				<a href="loanApplication.jsp" style="color: transparent;"><p style="color:white; font-size:22px;">Apply</p></a>
-			</aside> -->
 			<aside>
 				<a href="AllowBorrower" method="get"  style="color: transparent;"><p style="color:white; font-size:22px;">Apply</p></a>
 			</aside>
@@ -78,13 +95,19 @@ overflow-x:hidden;
 			<aside>
 				<a href="BillServlet" method="get"  style="color: transparent;"><p style="color:white; font-size:22px;">Invoice</p></a>
 			</aside>
-			<!-- <aside>
-				<a href="" >History</a>
-			</aside> -->
 			<aside>
 				<a href="LogoutServlet" method="get" style="color: transparent;"><p style="color:white; font-size:22px;">Logout</p></a>
 			</aside>
 		</section>
 	</nav>
+	<div id="detail">
+	<h1>Get Amount Online with Royal Finance</h1><br>
+	<p class="para">Register and submit documents online. Interest rates 10%. Quick Registration.</p>
+	<p class="para">
+Avail amount ranging from Rs.10,000, not on a long term or short term but <br> on your own terms. 
+Experience a completely online and paperless process.</p>
+<img src="ProofImages/lending.jpg" alt="image" id="image" style="width:430px;height:330px;">	
+	</div>
+	
 </body>
 </html>

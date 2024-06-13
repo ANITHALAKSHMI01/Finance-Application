@@ -4,45 +4,48 @@ public class LoanBorrowerDetails
 {
 	private int applicationId;
 	private String borrowerId;
-	private String purposeOfLoan;
 	private int salary;
 	private int loanAmount;
+	private int tenure;
 	private String city;
 	private String state;
 	private int pincode;
 	private long accountNo;
-	private String panNo;
+	private String pan;
+	private byte[] paySlip;
 	private byte[] proof;
 	private String status;
 	public LoanBorrowerDetails()
 	{
 		
 	}
-	public LoanBorrowerDetails(int applicationId,String borrowerId,String purposeOfLoan,int salary,String city,String state,int pincode,long accountNo,String panNo,byte[] proof,String status)
+	public LoanBorrowerDetails(int applicationId,String borrowerId,int salary,int tenure,String city,String state,int pincode,long accountNo,String pan,byte[] paySlip,byte[] proof,String status)
 	{
 		this.applicationId=applicationId;
 		this.borrowerId=borrowerId;
-		this.purposeOfLoan=purposeOfLoan;
 		this.salary=salary;
+		this.tenure=tenure;
 		this.city=city;
 		this.state=state;
 		this.pincode=pincode;
 		this.accountNo=accountNo;
-		this.panNo=panNo;
+		this.pan=pan;
+		this.paySlip=paySlip;
 		this.proof=proof;
 		this.status=status;
 	}
-	public LoanBorrowerDetails(String borrowerId,String purposeOfLoan,int salary,int loanAmount,String city,String state,int pincode,long accountNo,String panNo,byte[] proof,String status)
+	public LoanBorrowerDetails(String borrowerId,int salary,int loanAmount,int tenure,String city,String state,int pincode,long accountNo,String pan,byte[] paySlip,byte[] proof,String status)
 	{
 		this.borrowerId=borrowerId;
-		this.purposeOfLoan=purposeOfLoan;
 		this.salary=salary;
 		this.loanAmount=loanAmount;
+		this.tenure=tenure;
 		this.city=city;
 		this.state=state;
 		this.pincode=pincode;
 		this.accountNo=accountNo;
-		this.panNo=panNo;
+		this.pan=pan;
+		this.paySlip=paySlip;
 		this.proof=proof;
 		this.status=status;
 	}
@@ -62,14 +65,6 @@ public class LoanBorrowerDetails
 	{
 		this.borrowerId = borrowerId;
 	}
-	public String getPurposeOfLoan()
-	{
-		return purposeOfLoan;
-	}
-	public void setPurposeOfLoan(String purposeOfLoan)
-	{
-		this.purposeOfLoan = purposeOfLoan;
-	}
 	public int getSalary()
 	{
 		return salary;
@@ -85,6 +80,14 @@ public class LoanBorrowerDetails
 	public void setLoanAmount(int loanAmount)
 	{
 		this.loanAmount = loanAmount;
+	}
+	public int getTenure()
+	{
+		return tenure;
+	}
+	public void setTenure(int tenure) 
+	{
+		this.tenure = tenure;
 	}
 	public String getCity()
 	{
@@ -118,13 +121,13 @@ public class LoanBorrowerDetails
 	{
 		this.accountNo = accountNo;
 	}
-	public String getPanNo() 
+	public String getPan() 
 	{
-		return panNo;
+		return pan;
 	}
-	public void setPanNo(String panNo) 
+	public void setPan(String pan) 
 	{
-		this.panNo = panNo;
+		this.pan = pan;
 	}
 	public byte[] getProof() 
 	{
@@ -133,6 +136,14 @@ public class LoanBorrowerDetails
 	public void setProof(byte[] proof) 
 	{
 		this.proof = proof;
+	}
+	public byte[] getPaySlip() 
+	{
+		return paySlip;
+	}
+	public void setPaySlip(byte[] paySlip)
+	{
+		this.paySlip = paySlip;
 	}
 	public String getStatus()
 	{
@@ -143,11 +154,11 @@ public class LoanBorrowerDetails
 		this.status = status;
 	}
 	@Override
-	public String toString() 
+	public String toString()
 	{
-		return "LoanBorrowerDetails [applicationId=" + applicationId + ", borrowerId=" + borrowerId + ", purposeOfLoan="
-				+ purposeOfLoan + ", salary=" + salary + ", loanAmount=" + loanAmount + ", city=" + city + ", state="
-				+ state + ", pincode=" + pincode + ", accountNo=" + accountNo + ", panNo=" + panNo + ", proof="
-				+ Arrays.toString(proof) + ", status=" + status + "]";
+		return "LoanBorrowerDetails [applicationId=" + applicationId + ", borrowerId=" + borrowerId + ", salary="
+				+ salary + ", loanAmount=" + loanAmount + ", tenure=" + tenure + ", city=" + city + ", state=" + state
+				+ ", pincode=" + pincode + ", accountNo=" + accountNo + ", pan=" + pan + ", paySlip="
+				+ Arrays.toString(paySlip) + ", proof=" + Arrays.toString(proof) + ", status=" + status + "]";
 	}
 }

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-     <%@ page import="com.chainsys.model.LoanApp" %>
+     <%@ page import="com.chainsys.model.User" %>
     <%@ page import="java.util.List" %>
      <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
@@ -77,9 +77,10 @@ table
 	   </tr>
 	</thead>
 	<tbody>
-	  <%List<LoanApp> list=(ArrayList<LoanApp>)request.getAttribute("list");
-	  for(LoanApp loan: list)
-	  {
+	  <%
+	  List<User> list=(ArrayList<User>)request.getAttribute("list");
+	  	  for(User loan: list)
+	  	  {
 	  %>
 	  <tr>
 	  <td> <%=loan.getId()%></td>

@@ -87,14 +87,33 @@ main
 }
 .card-front 
 {
-  background-color: #bbb;
+  background-color: orangered;
+  opacity:0.7;
   color: black;
+  font-size:25px;
 }
 .card-back
  {
   background-color: dodgerblue;
   color: white;
   transform: rotateY(180deg);
+}
+.main_block
+{
+	display:flex;
+	justify-content:center;
+	gap:40px;
+}
+.card-front  .head
+{
+	position:relative;
+	top:70px;
+}
+.card-back .value
+{
+	position:relative;
+	top:70px;
+	font-size:40px;
 }
 </style>
 <title>Admin Home</title>
@@ -119,11 +138,12 @@ main
 			</aside>
 		</section>
 	</nav>
-	<main>
+	<div class="main_block">
+		<main>
 		<div class="card">
 		<div class="card-inner">
 			<div class="card-front">
-				Registered Borrowers
+				<p class="head">Current Registered Borrowers</p>
 			</div>
 			<div class="card-back">
 				<% int total=0;
@@ -137,7 +157,7 @@ main
 				e.printStackTrace();
 			}
 			%>
-			<p><%=total%></p>
+			<p class="value"><%=total%></p>
 			</div>
 		</div>
 	</div>
@@ -146,7 +166,7 @@ main
 		<div class="card">
 		<div class="card-inner">
 			<div class="card-front">
-				Lenders
+			<p class="head">Current Lenders</p>
 			</div>
 			<div class="card-back">
 				<% int total1=0;
@@ -160,7 +180,7 @@ main
 				e.printStackTrace();
 			}
 			%>
-			<p><%=total1%></p>
+			<p class="value"><%=total1%></p>
 			</div>
 		</div>
 	</div>
@@ -169,7 +189,7 @@ main
 		<div class="card">
 		<div class="card-inner">
 			<div class="card-front">
-				Approved Lenders
+			<p class="head">Current Approved Lenders</p>
 			</div>
 			<div class="card-back">
 				<% int total2=0;
@@ -183,10 +203,11 @@ main
 				e.printStackTrace();
 			}
 			%>
-			<p><%=total2%></p>
+			<p class="value"><%=total2%></p>
 			</div>
 		</div>
 	</div>
 	</main>
+	</div>
 </body>
 </html>

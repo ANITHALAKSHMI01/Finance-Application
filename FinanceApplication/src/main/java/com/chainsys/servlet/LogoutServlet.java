@@ -41,11 +41,12 @@ public class LogoutServlet extends HttpServlet
 		String borroweId=request.getParameter("borrower");
 		int id=Integer.parseInt(request.getParameter("id"));
 		int loanAmount=Integer.parseInt(request.getParameter("amount"));
+		int tenure=Integer.parseInt(request.getParameter("tenure"));
 		LocalDate dateToday = LocalDate.now(); 
 		String dateString =dateToday.toString();
 		int reduce=(loanAmount*10)/100;
 		int distribusalAmount=loanAmount-reduce;
-		AmountDetails amount=new AmountDetails(borroweId,id,loanAmount,dateString,reduce,10,12,distribusalAmount);
+		AmountDetails amount=new AmountDetails(borroweId,id,loanAmount,dateString,reduce,10,tenure,distribusalAmount);
 		try 
 		{
 			status=borrower.checkStatus(id);
@@ -87,40 +88,6 @@ public class LogoutServlet extends HttpServlet
 			{
 				e.printStackTrace();
 			}
-//			RequestDispatcher dispatcher=request.getRequestDispatcher("adminLogin.jsp");
-//			out.println("<font color=red>Not Approved Borrower.</font>"); 
-//			dispatcher.include(request, response);
 		}
-//		try 
-//		{
-//			borrower.billGenerate(amount);
-//		} 
-//		catch (ClassNotFoundException | SQLException e) 
-//		{
-//			e.printStackTrace();
-//		}
-		
-		
-//		try 
-//		{
-//			list=borrower.viewBill(id);
-//		} 
-//		catch (ClassNotFoundException | SQLException e) 
-//		{
-//			e.printStackTrace();
-//		}
-//		request.setAttribute("list", list);
-//		request.getRequestDispatcher("billGeneration.jsp").forward(request, response);
-		
-//		try 
-//		{
-//			List<LoanBorrowerDetails> list=admin.viewlendersDetail();
-//			request.setAttribute("list", list);
-//			request.getRequestDispatcher("lenders.jsp").forward(request, response);
-//		}
-//		catch (ClassNotFoundException | SQLException e)
-//		{
-//			e.printStackTrace();
-//		}
 	}
 }

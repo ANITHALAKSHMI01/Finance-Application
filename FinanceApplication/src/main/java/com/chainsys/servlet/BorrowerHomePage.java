@@ -40,7 +40,7 @@ public class BorrowerHomePage extends HttpServlet
 		System.out.println(email);
 		try 
 		{
-			list=borrower.selectBorrower(email);
+			list=borrower.selectUser(email);
 			System.out.println(list);
 		} 
 		catch (ClassNotFoundException | SQLException e) 
@@ -52,19 +52,20 @@ public class BorrowerHomePage extends HttpServlet
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		int active=0;
 		byte[] file=null;
+		byte[] paySlip=null;
 		response.setContentType("multipart/form-data");
 		PrintWriter out=response.getWriter();
 		String borrowerId=request.getParameter("id");
-		String purposeOfLoan=request.getParameter("purpose");
 		String salary=request.getParameter("salary");
 		String loanAmount=request.getParameter("amount");
+		String tenure=request.getParameter("repayment");
 		String city=request.getParameter("city");
 		String state=request.getParameter("state");
 		String pincode=request.getParameter("pincode");
 		String accountNo=request.getParameter("accountNo");
-		String panNo=request.getParameter("panNo");
+		String panNo=request.getParameter("pan");
+		Part slip=request.getPart("paySlip");
 		Part filePart = request.getPart("proof");
 		String fileName =filePart.getSubmittedFileName();
 		String uploadPath="C:/Users/Anit3573/git/finance/FinanceApplication/src/main/webapp/ProofImages" +fileName;
@@ -81,12 +82,26 @@ public class BorrowerHomePage extends HttpServlet
 		{
 			e.fillInStackTrace();
 		}
+		try
+		{
+			FileOutputStream fileOut=new FileOutputStream(uploadPath);
+			InputStream input=slip.getInputStream();
+			paySlip=new byte[(input.available())];
+			input.read(paySlip);
+			fileOut.write(paySlip);
+			fileOut.close();
+		}
+		catch(Exception e)
+		{
+			e.fillInStackTrace();
+		}
 		int amount=Integer.parseInt(loanAmount);
+		int period=Integer.parseInt(tenure);
 		int pincode1=Integer.parseInt(pincode);
 		int salary1=Integer.parseInt(salary);
 		long accountNumber=Long.parseLong(accountNo);
 		String status="Not Approved";
-		LoanBorrowerDetails loanBorrower=new LoanBorrowerDetails(borrowerId,purposeOfLoan,salary1,amount,city,state,pincode1,accountNumber,panNo,file,status);
+		LoanBorrowerDetails loanBorrower=new LoanBorrowerDetails(borrowerId,salary1,amount,period,city,state,pincode1,accountNumber,panNo,paySlip,file,status);
 		try 
 		{
 			id=borrower.checkId(email);

@@ -101,17 +101,15 @@
 <div>
 	<form action="AdminUpdate" method="post">
    <label for="name">Name</label>
-   <input id="name" type="text" name="name" placeholder="Name" pattern="^[A-Za-z]*" required><br><br>
+    <input id="name" type="text" name="name" value="<%=request.getParameter("name")%>" readonly><br><br> 
    <label for="phone">Phone Number</label>
 	<input id="phone" type="tel" name="phoneNo" placeholder="Phone Number" maxlength=10 pattern="[6789][0-9]{9}" required><br><br>
     <label for="email">Email</label>
-	<input id="email" type="email" placeholder="Email Id" name="emailId" pattern="[a-z0-9_/-/.]+[@][a-z]+[/.][a-z]{2,}$" required><br><br>
+	<input id="email" type="email" value="<%=request.getParameter("email")%>" name="emailId" readonly><br><br>
 	<label for="loc">Location</label>
 	<input id="loc" type="text" placeholder="Location" name="location" pattern="^[A-Za-z]*" required><br><br>
-	<input type="hidden" name="id" value="<%= request.getParameter("editId") %>">
-	<!-- <input type="submit" class="button" name="update" onclick="validation()"> -->
-	<button  onclick="validation()">Update</button>
-</form>
+	<input type="hidden" name="id" value="<%= request.getParameter("id") %>">
+	<button  onclick="validation()">Update</button></form>
 </div>
 </body>
 </html>

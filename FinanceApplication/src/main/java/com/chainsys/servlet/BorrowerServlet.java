@@ -13,24 +13,22 @@ import javax.servlet.http.HttpSession;
 import com.chainsys.dao.AdminImplementation;
 import com.chainsys.dao.BorrowerImplementation;
 import com.chainsys.dao.BorrowerValidation;
-import com.chainsys.model.LoanApp;
+import com.chainsys.model.User;
 @WebServlet("/BorrowerServlet")
 public class BorrowerServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	public static AdminImplementation admin=new AdminImplementation();
 	public static BorrowerImplementation borrower=new BorrowerImplementation();
-	public static LoanApp loan=new LoanApp();
-	public static String password1;
     public BorrowerServlet() 
     {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		List emailId=null;
-		List phoneNo1=null;
-		List password1=null;
+		List<String> emailId=null;
+		List<String> phoneNo1=null;
+		List<String> password1=null;
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		String name=request.getParameter("name");
@@ -41,8 +39,8 @@ public class BorrowerServlet extends HttpServlet
 		String password=request.getParameter("password");
 		String location=request.getParameter("location");
 		String id=name.substring(1,4)+phoneNo.substring(3,5);
-		String category="Borrower";
-		LoanApp loan=new LoanApp(id,name,category,dateOfBirth,phoneNumber,email,password,location);
+		String role="Borrower";
+		User user=new User(id,name,role,dateOfBirth,phoneNumber,email,password,location);
 		try 
 		{
 			emailId=BorrowerValidation.checkEmail();
@@ -75,11 +73,9 @@ public class BorrowerServlet extends HttpServlet
 		}
 		else
 		{
-//			out.println("<h2>Registered Successfully...</h2>");
-//			out.println("<a href='financeHome.jsp'><button>Home</button></a>");
 			try 
 			{
-				admin.addUser(loan);
+				admin.user(user);
 			}
 			catch (ClassNotFoundException | SQLException e) 
 			{
@@ -90,28 +86,34 @@ public class BorrowerServlet extends HttpServlet
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		response.setContentType("text/html");
+		String password1=null;
 		List list=null;
+		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		String emailId=request.getParameter("emailId");
 		String password=request.getParameter("password");
 		try 
 		{
-			password1=borrower.checkBorrower(emailId);
+			password1=borrower.checkUser(emailId);
 		} 
 		catch (ClassNotFoundException | SQLException e)
 		{
 			e.printStackTrace();
 		}
 		HttpSession session=request.getSession();
-		if(password.equals(password1))
+		if(password.equals("Ad101@") && emailId.equals("anitha01@gmail.com"))
+		{
+			session.setAttribute("emailId", emailId);
+			response.sendRedirect("adminAfterLogin.jsp");
+		}
+		else if(password.equals(password1))
 		{
 			session.setAttribute("emailId", emailId);
 			response.sendRedirect("borrowerAfterLogin.jsp");
 		}
 		else
 		{
-			RequestDispatcher dispatcher=request.getRequestDispatcher("borrowerLogin.jsp");
+			RequestDispatcher dispatcher=request.getRequestDispatcher("login.jsp");
 			out.println("<center><font color=red>Invalid User.</font></center>"); 
 			dispatcher.include(request, response);
 		}

@@ -70,15 +70,6 @@ th, td
 {
 	padding:10px;
 }
-.delete
-{
-    padding:8px;
-	background-color:red;
-	border-color:red;
-	width:90px;
-	color:white;
-	font-size:15px;
-}
 </style>
 <body>
 <form action="SearchServlet" method="get">
@@ -89,19 +80,19 @@ th, td
 		<tr>
 	<th>Application Id</th>
 	<th>Borrower Id</th>
-	 <th>Purpose</th>
 	 <th>Salary</th>
 	 <th>Loan Amount</th>
+	 <th>Tenure</th>
 	 <th>Account No</th>
-	 <th>Pan No</th>
+	 <th>PAN</th>
 	  <th>City</th>
 	  <th>State</th>
 	  <th>Pincode</th>
+	  <th>Pay Slip</th>
 	 <th>Proof</th>
 	 <th>status</th>
 	<th>Approval</th>
 	<th>Generate Bill</th>
-	<!-- <th>Remove Lender</th> -->
 	   </tr>
 	</thead>
 	<tbody>
@@ -115,18 +106,27 @@ th, td
 				  		{
 					byte[] image = loan.getProof();
 					String proof = Base64.getEncoder().encodeToString(image);
+					byte[] image1=loan.getPaySlip();
+					String paySlip = Base64.getEncoder().encodeToString(image1);
 			%>
 			<tr>
 				<td><%=loan.getApplicationId()%></td>
 				<td><%=loan.getBorrowerId()%></td>
-				<td><%=loan.getPurposeOfLoan()%></td>
 				<td><%=loan.getSalary()%></td>
 				<td><%=loan.getLoanAmount()%></td>
+				<td><%=loan.getTenure() %></td>
 				<td><%=loan.getAccountNo()%></td>
-				<td><%=loan.getPanNo()%></td>
+				<td><%=loan.getPan()%></td>
 				<td><%=loan.getCity()%></td>
 				<td><%=loan.getState()%></td>
 				<td><%=loan.getPincode()%></td>
+				<td><img src="data:image/jpeg;base64,<%=paySlip%>"
+					alt="Pay Slip" style="width:200px; height:200px;"><br><br>
+					<form action="AdminLenders" method="post">
+						<input type="hidden" name="viewId" value="<%= loan.getBorrowerId()%>">
+				        <input type="submit" name="view" value="View" class="button">
+					</form>
+					</td>
 				<td><img src="data:image/jpeg;base64,<%=proof%>"
 					alt="Proof" style="width:200px; height:200px;"><br><br>
 					<form action="AdminLenders" method="post">
@@ -153,15 +153,10 @@ th, td
 					   	<input type="hidden" name="borrower" value="<%= loan.getBorrowerId()%>">
 						<input type="hidden" name="id" value="<%= loan.getApplicationId()%>">
 						<input type="hidden" name="amount" value="<%=loan.getLoanAmount()%>">
+						<input type="hidden" name="tenure" value="<%=loan.getTenure()%>">
 						<input type="submit" name="generate" value="Generate" class="button">
 					</form>
 				</td> 
-				<%-- <td>
-					<form action="SearchServlet" method="post">
-						<input type="hidden" name="id" value="<%= loan.getApplicationId()%>">
-						 <input type="submit" class="delete" name="delete" value="Delete" class="button">
-					</form>
-				</td> --%>
 			<%
 			   }
 				  		
@@ -176,7 +171,7 @@ th, td
 	        %>
 	        </tr>
 	        <tr>
-	            <td colspan="13">No Records found</td>
+	            <td colspan="15">No Records found</td>
 	        </tr>
 	        <%
 	        }

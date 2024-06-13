@@ -71,13 +71,12 @@ public class ApplicationServlet extends HttpServlet
 			e.fillInStackTrace();
 		}
 		loanBorrower.setBorrowerId(request.getParameter("id"));
-		loanBorrower.setPurposeOfLoan(request.getParameter("purpose"));
 		loanBorrower.setSalary(Integer.parseInt(request.getParameter("salary")));
 		loanBorrower.setCity(request.getParameter("city"));
 		loanBorrower.setState(request.getParameter("state"));
 		loanBorrower.setPincode(Integer.parseInt(request.getParameter("pincode")));
 		loanBorrower.setAccountNo(Long.parseLong(request.getParameter("accountNo")));
-		loanBorrower.setPanNo(request.getParameter("panNo"));
+		loanBorrower.setPan(request.getParameter("panNo"));
 		loanBorrower.setProof(file);
 		try 
 		{
