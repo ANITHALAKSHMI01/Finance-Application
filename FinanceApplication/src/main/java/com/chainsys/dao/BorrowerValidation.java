@@ -8,13 +8,14 @@ import java.util.List;
 import com.chainsys.util.ConnectionUtil;
 public class BorrowerValidation 
 {
-	public static  List checkEmail() throws ClassNotFoundException, SQLException 
+	static String role="Borrower";
+	public static  List<String> checkEmail() throws ClassNotFoundException, SQLException 
 	{
-		ArrayList list=new ArrayList<>();
+		ArrayList<String> list=new ArrayList<>();
 		Connection connection=ConnectionUtil.getConnection();
 		String select="select email from user where category=? && status=?";
 		PreparedStatement prepareStatement = connection.prepareStatement(select);
-		prepareStatement.setString(1,"Borrower");
+		prepareStatement.setString(1,role);
 		prepareStatement.setInt(2, 1);
 		ResultSet resultSet = prepareStatement.executeQuery();
 		while (resultSet.next()) 
@@ -24,13 +25,13 @@ public class BorrowerValidation
 		}
 		return list;
 	}
-	public static  List checkPhoneNo() throws ClassNotFoundException, SQLException 
+	public static  List<Long> checkPhoneNo() throws ClassNotFoundException, SQLException 
 	{
-		ArrayList list=new ArrayList<>();
+		ArrayList<Long> list=new ArrayList<>();
 		Connection connection=ConnectionUtil.getConnection();
 		String select="select phone_no from user where category=? && status=?";
 		PreparedStatement prepareStatement = connection.prepareStatement(select);
-		prepareStatement.setString(1,"Borrower");
+		prepareStatement.setString(1,role);
 		prepareStatement.setInt(2, 1);
 		ResultSet resultSet = prepareStatement.executeQuery();
 		while (resultSet.next()) 
@@ -41,19 +42,50 @@ public class BorrowerValidation
 		}
 		return list;
 	}
-	public static  List checkPassword() throws ClassNotFoundException, SQLException 
+	public static  List<String> checkPassword() throws ClassNotFoundException, SQLException 
 	{
-		ArrayList list=new ArrayList<>();
+		ArrayList<String> list=new ArrayList<>();
 		Connection connection=ConnectionUtil.getConnection();
 		String select="select password from user where category=? && status=?";
 		PreparedStatement prepareStatement = connection.prepareStatement(select);
-		prepareStatement.setString(1,"Borrower");
+		prepareStatement.setString(1,role);
 		prepareStatement.setInt(2, 1);
 		ResultSet resultSet = prepareStatement.executeQuery();
 		while (resultSet.next()) 
 		{
 			String password=resultSet.getString(1);
 			list.add(password);;
+		}
+		return list;
+	}
+	public static List<Long> checkAccountNo() throws ClassNotFoundException, SQLException
+	{
+		ArrayList<Long> list=new ArrayList<>();
+		Connection connection=ConnectionUtil.getConnection();
+		String select="select account_no from customer_details where is_active=?";
+		PreparedStatement prepareStatement = connection.prepareStatement(select);
+		prepareStatement.setInt(1, 0);
+		ResultSet resultSet = prepareStatement.executeQuery();
+		while (resultSet.next()) 
+		{
+			String accountNo=resultSet.getString(1);
+			long accountNo1=Long.parseLong(accountNo);
+			list.add(accountNo1);
+		}
+		return list;
+	}
+	public static List<String> checkPan() throws ClassNotFoundException, SQLException
+	{
+		ArrayList<String> list=new ArrayList<>();
+		Connection connection=ConnectionUtil.getConnection();
+		String select="select pan_no from customer_details where is_active=?";
+		PreparedStatement prepareStatement = connection.prepareStatement(select);
+		prepareStatement.setInt(1, 0);
+		ResultSet resultSet = prepareStatement.executeQuery();
+		while (resultSet.next()) 
+		{
+			String pan=resultSet.getString(1);
+			list.add(pan);;
 		}
 		return list;
 	}

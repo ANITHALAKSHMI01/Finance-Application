@@ -27,7 +27,7 @@ public class BorrowerServlet extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		List<String> emailId=null;
-		List<String> phoneNo1=null;
+		List<Long> phoneNo1=null;
 		List<String> password1=null;
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
@@ -67,7 +67,7 @@ public class BorrowerServlet extends HttpServlet
 		}
 		if(emailId.contains(email) || phoneNo1.contains(phoneNumber) || password1.contains(password) )
 		{
-			RequestDispatcher dispatcher=request.getRequestDispatcher("adminRegistration.jsp");
+			RequestDispatcher dispatcher=request.getRequestDispatcher("borrowerRegistration.jsp");
 			out.println("<font color=red>Email or Password or Phone No already exist.</font>"); 
 			dispatcher.include(request, response);
 		}

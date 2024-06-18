@@ -16,24 +16,25 @@ import com.chainsys.model.User;
 public class AdminUpdate extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	public static BorrowerImplementation borrower=new BorrowerImplementation();
-	public static AdminImplementation admin=new AdminImplementation();
-	public static User loan=new User();
     public AdminUpdate()
     {
         super();
     }
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
    	{
-   		List list=null;
+    	AdminImplementation admin=new AdminImplementation();
+    	BorrowerImplementation borrower=new BorrowerImplementation();
+    	User user=new User();
+   		List<User> list=null;
    		String delete = request.getParameter("delete");
            if(delete != null && delete.equals("Delete"))
            {
            	String id=request.getParameter("deleteId");
-           	loan.setId(id);
+           	user.setId(id);
            	try 
            	{
-   				borrower.removeUser(loan);
+   				borrower.removeUser(user);
    			} 
            	catch (ClassNotFoundException | SQLException e) 
            	{
@@ -42,7 +43,6 @@ public class AdminUpdate extends HttpServlet
            	try 
        		{
            		list=admin.displayDetails();
-       			System.out.println("Displayed successfully..");
        		} 
        		catch (ClassNotFoundException | SQLException e)
        		{
@@ -52,23 +52,23 @@ public class AdminUpdate extends HttpServlet
            	request.getRequestDispatcher("adminDetails.jsp").forward(request,response);
    	  }
    	}
+   	@Override
    	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
    	{
-   		List list=null;
-//   		String name=request.getParameter("name");
+   		AdminImplementation admin=new AdminImplementation();
+   		BorrowerImplementation borrower=new BorrowerImplementation();
+   		User user=new User();
+   		List<User> list=null;
    		String phoneNo=request.getParameter("phoneNo");
    		long phoneNumber=Long.parseLong(phoneNo);
-//   		String email=request.getParameter("emailId");
    		String location=request.getParameter("location");
    		String id=request.getParameter("id");
-   		loan.setId(id);
-//   		loan.setName(name);
-//   		loan.setEmail(email);
-   		loan.setPhoneNo(phoneNumber);
-   		loan.setLocation(location);
+   		user.setId(id);
+   		user.setPhoneNo(phoneNumber);
+   		user.setLocation(location);
    		try 
        	{
-   			borrower.updateUser(loan);
+   			borrower.updateUser(user);
    		} 
        	catch (ClassNotFoundException | SQLException e) 
        	{

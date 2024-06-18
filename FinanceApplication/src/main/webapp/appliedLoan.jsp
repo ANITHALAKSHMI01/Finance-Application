@@ -83,7 +83,7 @@ th, td
 	  <th>Pay Slip</th>
 	 <th>Proof</th>
 	 <th>status</th>
-	 <th>Edit</th>
+	<!--  <th>Edit</th> -->
 	   </tr>
 	</thead>
 	<tbody>
@@ -118,8 +118,8 @@ th, td
 					alt="Proof" style="width:200px; height:200px;"><br><br>
 					</td>
 					<td><%=loan.getStatus() %></td>
-				<td><input type="hidden" name="id" value="<%= loan.getBorrowerId()%>">
-				<a href="updateAppliedDetails.jsp?editId=<%=loan.getBorrowerId()%>"><button class="button">Update</button></a></td>
+				<%-- <td><input type="hidden" name="id" value="<%= loan.getBorrowerId()%>">
+				<a href="updateAppliedDetails.jsp?editId=<%=loan.getBorrowerId()%>"><button class="button">Update</button></a></td> --%>
 			
 			<%
 			   }

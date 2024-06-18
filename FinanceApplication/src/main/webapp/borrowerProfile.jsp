@@ -74,8 +74,6 @@
 <input type="hidden" name="email" value="<%= loan.getEmail() %>">
 <button>Edit</button>
 </form>
-
-<%--  <a href="updateBorrower.jsp?editId=<%=loan.getId()%>?editName=<%= loan.getName() %>?editEmail=<%= loan.getEmail() %>"><button class="but1">Edit</button></a> --%>
 <%
    }
  %>

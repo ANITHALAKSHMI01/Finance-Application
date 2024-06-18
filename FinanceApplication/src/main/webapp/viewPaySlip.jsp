@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>View Proof</title>
+<title>Pay Slip</title>
 </head>
 <body>
 <table border="2px" cellspacing="0px">
@@ -24,12 +24,12 @@
 				  {
 				  		for (LoanBorrowerDetails loan : list)
 				  		{
-					byte[] image = loan.getProof();
-					String proof = Base64.getEncoder().encodeToString(image);
+					byte[] image = loan.getPaySlip();
+					String paySlip = Base64.getEncoder().encodeToString(image);
 			%>
 			<tr>
-	               <td><img src="data:image/jpeg;base64,<%=proof%>"
-					alt="Proof"></td>
+	               <td><img src="data:image/jpeg;base64,<%=paySlip%>"
+					alt="PaySlip"></td>
 					<%
 			   }
 				  		

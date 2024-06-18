@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.chainsys.dao.AdminImplementation;
 import com.chainsys.dao.BorrowerImplementation;
+import com.chainsys.dao.BorrowerSide;
 import com.chainsys.model.LoanBorrowerDetails;
 @WebServlet("/BillServlet")
 public class BillServlet extends HttpServlet 
@@ -19,13 +20,15 @@ public class BillServlet extends HttpServlet
 	private static final long serialVersionUID = 1L;
 	public static BorrowerImplementation borrower=new BorrowerImplementation();
 	public static AdminImplementation admin=new AdminImplementation();
-	public static String email,id;
     public BillServlet() 
     {
         super();
     }
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		String email=null;
+		String id=null;
 		List list=null;
 		HttpSession session=request.getSession();
 		email=(String) session.getAttribute("emailId");
@@ -47,12 +50,52 @@ public class BillServlet extends HttpServlet
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("borrowerBill.jsp").forward(request, response);
 	}
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		int payAmount=0;
+		int totalAmount=0;
 		String id=request.getParameter("id");
+		long adminAccountNo=675432189076543l;
+		long accountNo=Long.parseLong(request.getParameter("account"));
+		int amount=Integer.parseInt(request.getParameter("amount"));
 		try
 		{
 			admin.sendBill(id);
+		} 
+		catch (ClassNotFoundException | SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		try
+		{
+			payAmount=BorrowerSide.getAmount(accountNo);
+		} 
+		catch (ClassNotFoundException | SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		try
+		{
+			totalAmount=BorrowerSide.getAmount(adminAccountNo);
+		} 
+		catch (ClassNotFoundException | SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		int balance=totalAmount-amount;
+		int creditAmount=payAmount+amount;
+		try 
+		{
+			BorrowerSide.updateBalance(creditAmount, accountNo);
+		} 
+		catch (ClassNotFoundException | SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		try 
+		{
+			BorrowerSide.updateBalance(balance, adminAccountNo);
 		} 
 		catch (ClassNotFoundException | SQLException e) 
 		{

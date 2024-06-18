@@ -148,6 +148,23 @@ public class AdminImplementation implements AdminDAO
 		return list;
 	}
 	@Override
+	public List<LoanBorrowerDetails> viewPaySlip(String id) throws ClassNotFoundException, SQLException
+	{
+		ArrayList<LoanBorrowerDetails> list=new ArrayList<>();
+		Connection connection=ConnectionUtil.getConnection();
+		String select="select pay_slip  from customer_details where customer_id=?";
+		PreparedStatement prepareStatement=connection.prepareStatement(select);
+		prepareStatement.setString(1,id);
+		ResultSet resultSet=prepareStatement.executeQuery();
+		LoanBorrowerDetails loan=new LoanBorrowerDetails();
+		while(resultSet.next())
+		{
+			loan.setPaySlip(resultSet.getBytes(1));
+			list.add(loan);
+		}
+		return list;
+	}
+	@Override
 	public void approveBorrower(LoanBorrowerDetails loan) throws ClassNotFoundException, SQLException 
 	{
 		Connection connection=ConnectionUtil.getConnection();

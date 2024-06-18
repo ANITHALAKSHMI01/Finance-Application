@@ -25,7 +25,7 @@ public class SearchServlet extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		List<LoanBorrowerDetails> list=null;
-		String status=request.getParameter("search");
+		String status=request.getParameter("filter");
 		try
 		{
 			list=admin.searchStatus(status);

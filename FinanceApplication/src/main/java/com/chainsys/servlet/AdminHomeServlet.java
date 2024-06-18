@@ -14,8 +14,6 @@ import com.chainsys.model.LoanBorrowerDetails;
 public class AdminHomeServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	public static BorrowerImplementation borrower=new BorrowerImplementation();
-	public static AdminImplementation admin=new AdminImplementation();
     public AdminHomeServlet() 
     {
         super();
@@ -23,6 +21,7 @@ public class AdminHomeServlet extends HttpServlet
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		BorrowerImplementation borrower=new BorrowerImplementation();
 		List list=null;
 		try 
 		{
@@ -38,6 +37,7 @@ public class AdminHomeServlet extends HttpServlet
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		AdminImplementation admin=new AdminImplementation();
 		LoanBorrowerDetails loanBorrower=new LoanBorrowerDetails();
 		loanBorrower.setApplicationId(Integer.parseInt(request.getParameter("id")));
 		loanBorrower.setStatus(request.getParameter("approval"));

@@ -4,14 +4,11 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import com.chainsys.dao.AdminImplementation;
 import com.chainsys.dao.BorrowerImplementation;
 import com.chainsys.model.AmountDetails;
@@ -67,7 +64,8 @@ public class LogoutServlet extends HttpServlet
 			}
 			try 
 			{
-				list=borrower.viewBill(borroweId);
+//				list=borrower.viewBill(borroweId);
+				list=borrower.viewApprovedBill(borroweId);
 			} 
 			catch (ClassNotFoundException | SQLException e) 
 			{

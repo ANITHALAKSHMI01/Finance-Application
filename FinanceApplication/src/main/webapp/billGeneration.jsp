@@ -22,9 +22,15 @@
 	Interest:<%=amount.getInterest()%>%<br>
 	Tenure :<%=amount.getTenure() %>Months<br>
 	Distribusal Amount:<%=amount.getDistribusalAmount()%>
-	<form action="BillServlet" method="post">
+	<%-- <form action="BillServlet" method="post">
 		<input type="hidden" name="id" value="<%=amount.getBorrowerId() %>">
 		<button>Send</button>
+	</form> --%>
+	<form action="payBorrower.jsp">
+		<input type="hidden" name="id" value="<%=amount.getBorrowerId() %>">
+		<input type="hidden" name="loanId" value="<%=amount.getLoanId() %>">
+		<input type="hidden" name="amount" value="<%=amount.getDistribusalAmount()%>">
+		<button>Next</button>
 	</form>
 	<%} %>
 </body>

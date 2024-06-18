@@ -21,6 +21,7 @@ public class BorrowerUpdate extends HttpServlet
     {
         super();
     }
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		List list=null;
@@ -49,18 +50,16 @@ public class BorrowerUpdate extends HttpServlet
         	request.getRequestDispatcher("borrowerDetails.jsp").forward(request,response);
 	  }
 	}
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		List list=null;
-//		String name=request.getParameter("name");
 		String phoneNo=request.getParameter("phoneNo");
 		long phoneNumber=Long.parseLong(phoneNo);
      	String email=request.getParameter("emailId");
 		String location=request.getParameter("location");
 		String id=request.getParameter("id");
 		user.setId(id);
-//		user.setName(name);
-//		user.setEmail(email);
 		user.setPhoneNo(phoneNumber);
 		user.setLocation(location);
 		try 

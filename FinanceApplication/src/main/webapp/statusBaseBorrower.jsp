@@ -16,8 +16,8 @@ button
 		width:100px;
 		padding:5px;
 		position:relative;
-		left:750px;
-		top:500px;
+		left:550px;
+		top:300px;
 		background-color:green;
 		color:white;
 		border-color:green;
@@ -79,9 +79,14 @@ th, td
 	color:white;
 	font-size:15px;
 	position:relative;
-	left:1380px;
-	top:250px;
+	/* left:1380px; */
+	top:20px;
 }
+ .back
+{
+	position:relative;
+	top:1000px;
+} 
 </style>
 <body>
 <table border="2px" cellspacing="0px">
@@ -143,6 +148,7 @@ th, td
 					</form>
 					</td>
 					<td><%=loan.getStatus()%></td>
+					<td>
 					<form action="SearchServlet" method="post">
 						<input type="hidden" name="borrowerId" value="<%= loan.getBorrowerId()%>">
 						<input type="hidden" name="id" value="<%= loan.getApplicationId()%>">
@@ -163,13 +169,13 @@ th, td
 	        %>
 	        </tr>
 	        <tr>
-	            <td colspan="13">No Records found</td>
+	            <td colspan="14">No Records found</td>
 	        </tr>
 	        <%
 	        }
 	        %>
 		</tbody>
-		<a href="LenderDetailServlet" method="get"style="color: transparent;"><button>Back</button></a>
+		<a href="LenderDetailServlet" method="get"style="color: transparent;"><button class="back">Back</button></a>
 </table>
 </body>
 </html>

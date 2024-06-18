@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page import="com.chainsys.dao.BorrowerImplementation" %>
+<%@ page import="java.sql.SQLException" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,11 +51,11 @@
 	{
 		width:210px;
 	}
-	#sal
+/* 	#sal
 	{
 		position:relative;
 		left:85px;
-	}
+	} */
 	#loan
 	{
 		position:relative;
@@ -118,16 +120,30 @@
 </style>
 </head>
 <body>
+	 <%
+	String email=null;
+	String id=null;
+	BorrowerImplementation borrower=new BorrowerImplementation();
+	email=(String) session.getAttribute("emailId");
+	try 
+	{
+		id=borrower.checkId(email);
+	} catch (ClassNotFoundException | SQLException e) 
+	{
+		e.printStackTrace();
+	}
+	%> 
     <h1>Application Form</h1>
     <div>
     	<form action="BorrowerHomePage" method="post" enctype="multipart/form-data">
         <label for="id">Borrower Id</label>
-        <input id="id" type="text" name="id" placeholder="Borrower Id" pattern="^[A-Za-z0-9]*" required><br><br>
-        <label for="sal">Salary</label>
+<!--         <input id="id" type="text" name="id" placeholder="Borrower Id" pattern="^[A-Za-z0-9]*" required><br><br> --> 
+        <input id="id" type="text" name="id" value="<%=id!=null ? id:"" %>" readonly><br><br> 
+        <label for="sal">Salary(In Months)</label>
         <input id="sal" type="number" name="salary" placeholder="Salary" required><br><br>
         <label for="loan">Loan Amount</label>
         <input id="loan" type="number" name="amount" placeholder="loan" required><br><br>
-        <label for="sal">Tenure(In Months)</label>
+        <label for="repay">Tenure(In Months)</label>
         <input id="repay" type="number" name="repayment" placeholder="Repayment Period" required><br><br>
         <label for="city">City</label>
         <select name="city" id="city" required>
@@ -143,7 +159,7 @@
         <label for="pin">Pincode</label>
         <input id="pin" type="text" name="pincode" maxlength=6 placeholder="Pincode" pattern="^[1-9][0-9]{5}" required><br><br>
         <label for="accNo">Account No</label>
-        <input id="accNo" type="text" maxlength=15 minlength=13 name="accountNo" placeholder="Account No" pattern="[1-9][0-9]{12,14}"><br><br>
+        <input id="accNo" type="text" maxlength=15 name="accountNo" placeholder="Account No" pattern="[1-9][0-9]{12,14}"><br><br>
         <label for="pan">PAN</label>
         <input id="pan" type="text" maxlength=10 name="pan" placeholder="PAN" pattern="[A-Z0-9]{10}"><br><br>
         <label for="pay">Pay Slip</label>
