@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import com.chainsys.dao.AdminImplementation;
 import com.chainsys.dao.BorrowerImplementation;
 import com.chainsys.model.LoanBorrowerDetails;
+import com.chainsys.model.User;
 @WebServlet("/AdminLenders")
 public class AdminLenders extends HttpServlet 
 {
@@ -22,7 +23,7 @@ public class AdminLenders extends HttpServlet
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		List list=null;
+		List<User> list=null;
 		BorrowerImplementation borrower=new BorrowerImplementation();
 		HttpSession session=request.getSession();
 		String email=(String) session.getAttribute("emailId");

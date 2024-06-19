@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.chainsys.dao.AdminImplementation;
 import com.chainsys.dao.BorrowerImplementation;
 import com.chainsys.dao.BorrowerSide;
+import com.chainsys.model.AmountDetails;
 import com.chainsys.model.LoanBorrowerDetails;
 @WebServlet("/BillServlet")
 public class BillServlet extends HttpServlet 
@@ -29,7 +30,7 @@ public class BillServlet extends HttpServlet
 	{
 		String email=null;
 		String id=null;
-		List list=null;
+		List<AmountDetails> list=null;
 		HttpSession session=request.getSession();
 		email=(String) session.getAttribute("emailId");
 		try 

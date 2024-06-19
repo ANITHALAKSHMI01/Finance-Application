@@ -81,7 +81,7 @@ button
 	<%
 	List<AmountDetails> list = (ArrayList<AmountDetails>) request.getAttribute("list");
 	 if (list != null && !list.isEmpty())
-	{%><div> <!-- <h4>Amount will be credited within 2 days</h4> --><%
+	 {
 	for (AmountDetails amount : list) 
 	{	
 	%>

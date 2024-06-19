@@ -115,7 +115,6 @@
 		<option>Coimbatore</option>
 		<option>Chennai</option>
 	</select><br><br> 
-	<!-- <input id="loc" type="text" placeholder="Location" name="location" pattern="^[A-Za-z]*" required><br><br> -->
 	<button onclick="validation()">Register</button>
 </form>
 </div>

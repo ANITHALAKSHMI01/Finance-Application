@@ -5,13 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import com.chainsys.model.User;
 import com.chainsys.util.ConnectionUtil;
 public class AdminValidation 
 {
-	public static  List checkEmail() throws ClassNotFoundException, SQLException 
+	public static  List<String> checkEmail() throws ClassNotFoundException, SQLException 
 	{
-		ArrayList list=new ArrayList<>();
+		ArrayList<String> list=new ArrayList<>();
 		Connection connection=ConnectionUtil.getConnection();
 		String select="select email from user where category=? && status=?";
 		PreparedStatement prepareStatement = connection.prepareStatement(select);
@@ -25,9 +24,9 @@ public class AdminValidation
 		}
 		return list;
 	}
-	public static  List checkPhoneNo() throws ClassNotFoundException, SQLException 
+	public static  List<Long> checkPhoneNo() throws ClassNotFoundException, SQLException 
 	{
-		ArrayList list=new ArrayList<>();
+		ArrayList<Long> list=new ArrayList<>();
 		Connection connection=ConnectionUtil.getConnection();
 		String select="select phone_no from user where category=? && status=?";
 		PreparedStatement prepareStatement = connection.prepareStatement(select);
@@ -38,8 +37,9 @@ public class AdminValidation
 		{
 			String phoneNo=resultSet.getString(1);
 			long phoneNo1=Long.parseLong(phoneNo);
-			list.add(phoneNo1);;
+			list.add(phoneNo1);
 		}
+		connection.close();
 		return list;
 	}
 }

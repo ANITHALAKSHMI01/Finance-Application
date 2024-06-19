@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.chainsys.dao.AdminImplementation;
 import com.chainsys.dao.BorrowerSide;
-import com.chainsys.model.AmountDetails;
 import com.chainsys.model.LoanBorrowerDetails;
 @WebServlet("/SearchServlet")
 public class SearchServlet extends HttpServlet 
@@ -40,9 +39,8 @@ public class SearchServlet extends HttpServlet
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		List list=null;
+		List<LoanBorrowerDetails> list=null;
 		int loanId=0;
-		AmountDetails amount=new AmountDetails();
 		String borrowerId=request.getParameter("borrowerId");
 		String delete = request.getParameter("delete");
         if(delete != null && delete.equals("Delete"))

@@ -16,7 +16,6 @@ import com.chainsys.model.LoanBorrowerDetails;
 public class AllowBorrower extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	public static BorrowerImplementation borrower=new BorrowerImplementation();
     public AllowBorrower()
     {
         super();
@@ -24,6 +23,7 @@ public class AllowBorrower extends HttpServlet
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		BorrowerImplementation borrower=new BorrowerImplementation();
 		String email=null;
 		String id=null;
 		response.setContentType("html/text");

@@ -24,6 +24,7 @@ public class BorrowerServlet extends HttpServlet
     {
         super();
     }
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		List<String> emailId=null;
@@ -84,10 +85,10 @@ public class BorrowerServlet extends HttpServlet
 			response.sendRedirect("afterRegistration.jsp");
 		}
 	}
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String password1=null;
-		List list=null;
 		response.setContentType("text/html");
 		PrintWriter out=response.getWriter();
 		String emailId=request.getParameter("emailId");

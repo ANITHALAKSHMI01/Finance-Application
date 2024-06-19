@@ -8,8 +8,6 @@
 </head>
 <body>
 <form action="ApplicationServlet" method="post" enctype="multipart/form-data">
-	 <!--    <label for="purpose">Purpose Of Loan</label>
-		<textarea rows="5" cols="" id="purpose" name="purpose"></textarea><br><br> -->
 		 <label for="sal">Salary</label>
         <input id="sal" type="number" name="salary" placeholder="Salary" required><br><br>
         <label for="loan">Loan Amount</label>
@@ -40,6 +38,6 @@
 	   <input type="hidden" name="id" value="<%= request.getParameter("editId") %>">
 	<input type="submit" class="button" name="update" value="Update">
 </form>
-<!-- <a href="borrowerAfterLogin.jsp"><button>Back</button></a> -->
+ <a href="borrowerAfterLogin.jsp"><button>Back</button></a> 
 </body>
 </html>

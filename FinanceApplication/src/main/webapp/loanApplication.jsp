@@ -137,7 +137,6 @@
     <div>
     	<form action="BorrowerHomePage" method="post" enctype="multipart/form-data">
         <label for="id">Borrower Id</label>
-<!--         <input id="id" type="text" name="id" placeholder="Borrower Id" pattern="^[A-Za-z0-9]*" required><br><br> --> 
         <input id="id" type="text" name="id" value="<%=id!=null ? id:"" %>" readonly><br><br> 
         <label for="sal">Salary(In Months)</label>
         <input id="sal" type="number" name="salary" placeholder="Salary" required><br><br>
@@ -163,7 +162,7 @@
         <label for="pan">PAN</label>
         <input id="pan" type="text" maxlength=10 name="pan" placeholder="PAN" pattern="[A-Z0-9]{10}"><br><br>
         <label for="pay">Pay Slip</label>
-        <input id="pay" type="file" name="paySlip"><br><br> 
+        <input id="pay" type="file" name="paySlip"><br><br>  
         <label for="proof">Proof</label>
         <input id="proof" type="file" name="proof"><br><br>
         <button>Apply</button>

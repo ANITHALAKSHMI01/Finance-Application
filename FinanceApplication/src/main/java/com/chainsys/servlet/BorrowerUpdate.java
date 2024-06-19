@@ -15,8 +15,6 @@ import com.chainsys.model.User;
 public class BorrowerUpdate extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-	public static BorrowerImplementation borrower=new BorrowerImplementation();
-	public static User user=new User();
     public BorrowerUpdate()
     {
         super();
@@ -24,7 +22,9 @@ public class BorrowerUpdate extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		List list=null;
+    	BorrowerImplementation borrower=new BorrowerImplementation();
+    	User user=new User();
+		List<User> list=null;
 		String delete = request.getParameter("delete");
         if(delete != null && delete.equals("Delete"))
         {
@@ -53,7 +53,9 @@ public class BorrowerUpdate extends HttpServlet
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		List list=null;
+		BorrowerImplementation borrower=new BorrowerImplementation();
+		User user=new User();
+		List<User> list=null;
 		String phoneNo=request.getParameter("phoneNo");
 		long phoneNumber=Long.parseLong(phoneNo);
      	String email=request.getParameter("emailId");

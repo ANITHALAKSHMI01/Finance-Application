@@ -18,13 +18,12 @@ import com.chainsys.dao.BorrowerImplementation;
 import com.chainsys.dao.BorrowerSide;
 import com.chainsys.dao.BorrowerValidation;
 import com.chainsys.model.LoanBorrowerDetails;
+import com.chainsys.model.User;
 @MultipartConfig
 @WebServlet("/BorrowerHomePage")
 public class BorrowerHomePage extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
-	public static String email,id;
-	public static int row;
     public BorrowerHomePage()
     {
         super();
@@ -32,7 +31,8 @@ public class BorrowerHomePage extends HttpServlet
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		List list=null;
+		List<User> list=null;
+		String email=null;
 		BorrowerImplementation borrower=new BorrowerImplementation();
 		HttpSession session=request.getSession();
 		email=(String) session.getAttribute("emailId");
@@ -51,11 +51,13 @@ public class BorrowerHomePage extends HttpServlet
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		BorrowerImplementation borrower=new BorrowerImplementation();
+		String id=null;
+		String email=null;
+		int row=0;
 		List<Long> accountNumber=null;
-		List<String> pan=null;
-		byte[] file=null;
-		byte[] paySlip=null;
-		PrintWriter out=response.getWriter();
+
+		LoanBorrowerDetails loanBorrower=new LoanBorrowerDetails();
+
 		response.setContentType("multipart/form-data");
 		String borrowerId=request.getParameter("id");
 		String salary=request.getParameter("salary");
@@ -66,138 +68,94 @@ public class BorrowerHomePage extends HttpServlet
 		String pincode=request.getParameter("pincode");
 		String accountNo=request.getParameter("accountNo");
 		String pan1=request.getParameter("pan");
-		
-		Part slip=request.getPart("paySlip");
-		String paySlip1 =slip.getSubmittedFileName();
-		String uploadPath1="C:/Users/Anit3573/git/finance/FinanceApplication/src/main/webapp/PaySlip/" +paySlip1;
-		try(FileOutputStream fileOut=new FileOutputStream(uploadPath1);
-			InputStream input=slip.getInputStream())
-		{
-//			FileOutputStream fileOut=new FileOutputStream(uploadPath1);
-//			InputStream input=slip.getInputStream();
-//			paySlip=new byte[(input.available())];
-			paySlip=input.readAllBytes();
-//			input.read(paySlip);
-			fileOut.write(paySlip);
-			fileOut.close();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		
-		Part filePart = request.getPart("proof");
-		String fileName =filePart.getSubmittedFileName();
-		String uploadPath="C:/Users/Anit3573/git/finance/FinanceApplication/src/main/webapp/ProofImages/" +fileName;
-		try(FileOutputStream fileOut=new FileOutputStream(uploadPath);
-			InputStream input=filePart.getInputStream())
-		{
-//			FileOutputStream fileOut=new FileOutputStream(uploadPath);
-//			InputStream input=filePart.getInputStream();
-//			file=new byte[(input.available())];
-			file=input.readAllBytes();
-//			input.read(file);
-			fileOut.write(file);
-			fileOut.close();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		
 		int amount=Integer.parseInt(loanAmount);
 		int period=Integer.parseInt(tenure);
 		int pincode1=Integer.parseInt(pincode);
 		int salary1=Integer.parseInt(salary);
 		long accountNumber1=Long.parseLong(accountNo);
 		String status="Not Approved";
-		try 
-		{
-			accountNumber=BorrowerValidation.checkAccountNo();
-			accountNumber.add(675432189076543l);
-		}
-		catch (ClassNotFoundException | SQLException e)
-		{
-			e.printStackTrace();
-		}
+		
+		loanBorrower.setBorrowerId(borrowerId);
+		loanBorrower.setSalary(salary1);
+		loanBorrower.setLoanAmount(amount);
+		loanBorrower.setTenure(period);
+		loanBorrower.setCity(city);
+		loanBorrower.setState(state);
+		loanBorrower.setPincode(pincode1);
+		loanBorrower.setAccountNo(accountNumber1);
+		loanBorrower.setPan(pan1);
+		loanBorrower.setStatus(status);
+	
+		
+		Part part=request.getPart("paySlip");
+		String fileName=part.getSubmittedFileName();
+		String path="C:/Users/Anit3573/git/finance/FinanceApplication/src/main/webapp/PaySlip/"  +fileName;
+		InputStream input=part.getInputStream();
 		try
 		{
-			pan=BorrowerValidation.checkPan();
-		} 
-		catch (ClassNotFoundException | SQLException e)
+		    byte[] file=input.readAllBytes();
+			FileOutputStream fileOut=new FileOutputStream(path);
+			fileOut.write(file);
+			loanBorrower.setPaySlip(file);
+			fileOut.flush();
+			fileOut.close();
+		}
+		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-		if(amount>0 && period>0 && salary1>0)
+		
+		Part part1=request.getPart("proof");
+		String fileName1=part.getSubmittedFileName();
+		String path1="C:/Users/Anit3573/git/finance/FinanceApplication/src/main/webapp/ProofImages/"  +fileName1;
+		InputStream input1=part1.getInputStream();
+		try
 		{
-			if(accountNumber.contains(accountNumber1) || pan.contains(pan1))
+			byte[] file1=input1.readAllBytes();
+			FileOutputStream fileOut1=new FileOutputStream(path1);
+			fileOut1.write(file1);
+			loanBorrower.setProof(file1);
+			fileOut1.flush();
+			fileOut1.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		HttpSession session=request.getSession();
+		email=(String) session.getAttribute("emailId");
+		try 
+		{
+			id=borrower.checkId(email);
+		} catch (ClassNotFoundException | SQLException e) 
+		{
+			e.printStackTrace();
+		}
+			int balance=1000;
+			try 
 			{
-				response.setContentType("text/html");
-				RequestDispatcher dispatcher=request.getRequestDispatcher("loanApplication.jsp");
-				out.println("<font color=red>Account No Or PAN already exist.</font>"); 
-				dispatcher.include(request, response);
+				BorrowerSide.addAccount(accountNumber1,balance);
+				row=borrower.addLender(loanBorrower);
+			} 
+			catch (ClassNotFoundException | SQLException e) 
+			{
+				e.printStackTrace();
 			}
-			else
+			if(row>0)
 			{
-				int balance=1000;
-				System.out.println(paySlip);
-				System.out.println(file);
-				LoanBorrowerDetails loanBorrower=new LoanBorrowerDetails(borrowerId,salary1,amount,period,city,state,pincode1,accountNumber1,pan1,paySlip,file,status);
 				try 
 				{
-					id=borrower.checkId(email);
-				} catch (ClassNotFoundException | SQLException e) 
+					BorrowerSide.updateActive(borrowerId);
+				} 
+				catch (ClassNotFoundException | SQLException e) 
 				{
 					e.printStackTrace();
 				}
-				if(borrowerId.equals(id))
-				{
-					try 
-					{
-						BorrowerSide.addAccount(accountNumber1,balance);
-					} 
-					catch (ClassNotFoundException | SQLException e) 
-					{
-						e.printStackTrace();
-					}
-					try 
-					{
-						row=borrower.addLender(loanBorrower);
-					} 
-					catch (ClassNotFoundException | SQLException e)
-					{
-						e.printStackTrace();
-					}
-					if(row>0)
-					{
-						try 
-						{
-							BorrowerSide.updateActive(borrowerId);
-						} 
-						catch (ClassNotFoundException | SQLException e) 
-						{
-							e.printStackTrace();
-						}
-						response.sendRedirect("applicationFinish.jsp");
-					}
-					else
-					{
-						response.sendRedirect("loanApplication.jsp");
-					}
-				}
-				else
-				{
-					response.sendRedirect("loanApplication.jsp");
-				}
+				response.sendRedirect("applicationFinish.jsp");
 			}
-			
-		}
-		else
-		{
-			response.setContentType("text/html");
-			RequestDispatcher dispatcher=request.getRequestDispatcher("loanApplication.jsp");
-			out.println("<font color=red>Amount Or Salary Or Tenure should be Positive.</font>"); 
-			dispatcher.include(request, response);
-		}
-	}	
+			else
+			{
+				response.sendRedirect("loanApplication.jsp");
+			}
+		}	
 }

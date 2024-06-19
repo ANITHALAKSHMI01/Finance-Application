@@ -17,7 +17,6 @@ public interface BorrowerDAO
 	List<LoanBorrowerDetails> lenderLoan(String id) throws ClassNotFoundException, SQLException;
 	void updateAppliedLoan(LoanBorrowerDetails loanBorrow) throws ClassNotFoundException, SQLException;
 	void billGenerate(AmountDetails amount) throws ClassNotFoundException, SQLException;
-//	List<AmountDetails> viewBill(String id) throws ClassNotFoundException, SQLException;
 	String checkStatus(int id) throws ClassNotFoundException, SQLException;
 	List<AmountDetails> viewApprovedBill(String id) throws ClassNotFoundException, SQLException;
 	List<LoanBorrowerDetails> searchBorrower(String id) throws ClassNotFoundException, SQLException;

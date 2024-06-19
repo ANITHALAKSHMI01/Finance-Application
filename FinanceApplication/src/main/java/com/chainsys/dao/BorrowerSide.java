@@ -67,8 +67,6 @@ public class BorrowerSide
 		PreparedStatement prepareStatement=connection.prepareStatement(update);
 		prepareStatement.setInt(1,1);
 		prepareStatement.setInt(2,id);
-//		&& status=?
-//		prepareStatement.setInt(3, 0);
 		prepareStatement.executeUpdate();
 		connection.close();
 	}

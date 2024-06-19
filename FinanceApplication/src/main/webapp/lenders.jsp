@@ -101,12 +101,10 @@ th, td
 	                	<option>Not Approved</option>
 				      </select>
 				      <input type="submit" name="filter" value="Filter" class="button"">
-	<!-- <input type="text" placeholder="Search" id="search" name="search" pattern="^[A-Za-z]*"> -->
 </form>
 	 </th>
 	<th>Approval</th>
 	<th>Generate Bill</th>
-	<!-- <th>Pay Amount</th> -->
 	   </tr>
 	</thead>
 	<tbody>

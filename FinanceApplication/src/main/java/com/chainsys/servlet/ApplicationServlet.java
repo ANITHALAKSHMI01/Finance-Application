@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import com.chainsys.dao.AdminImplementation;
 import com.chainsys.dao.BorrowerImplementation;
 import com.chainsys.model.LoanBorrowerDetails;
 @MultipartConfig
@@ -20,10 +19,6 @@ import com.chainsys.model.LoanBorrowerDetails;
 public class ApplicationServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-	public static String id;
-	public static BorrowerImplementation borrower=new BorrowerImplementation();
-	public static LoanBorrowerDetails loanBorrower=new LoanBorrowerDetails();
-	public static AdminImplementation admin=new AdminImplementation();
     public ApplicationServlet() 
     {
         super();
@@ -32,7 +27,9 @@ public class ApplicationServlet extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		List<LoanBorrowerDetails> list=null;
+		BorrowerImplementation borrower=new BorrowerImplementation();
 		String email=null;
+		String id=null;
 		HttpSession session=request.getSession();
 		email=(String) session.getAttribute("emailId");
 		try 
@@ -56,7 +53,10 @@ public class ApplicationServlet extends HttpServlet
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		String id=null;
 		List<LoanBorrowerDetails> list;
+		LoanBorrowerDetails loanBorrower=new LoanBorrowerDetails();
+		BorrowerImplementation borrower=new BorrowerImplementation();
 		byte[] file=null;
 		Part filePart = request.getPart("proof");
 		String fileName =filePart.getSubmittedFileName();

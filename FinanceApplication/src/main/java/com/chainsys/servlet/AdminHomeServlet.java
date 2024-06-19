@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.chainsys.dao.AdminImplementation;
 import com.chainsys.dao.BorrowerImplementation;
 import com.chainsys.model.LoanBorrowerDetails;
+import com.chainsys.model.User;
 @WebServlet("/AdminHomeServlet")
 public class AdminHomeServlet extends HttpServlet
 {
@@ -22,7 +23,7 @@ public class AdminHomeServlet extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		BorrowerImplementation borrower=new BorrowerImplementation();
-		List list=null;
+		List<User> list=null;
 		try 
 		{
 			list=borrower.displayBorrowers();

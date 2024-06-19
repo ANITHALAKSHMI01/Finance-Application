@@ -73,7 +73,6 @@ table
 	 <th>Email Id</th>
 	  <th>Location</th>
 	 <th>Delete</th>
-	<!--  <th>Update</th> -->
 	   </tr>
 	</thead>
 	<tbody>
@@ -95,9 +94,6 @@ table
                      <input type="submit" id="button" name="delete" value="Delete" class="button">
                 </form>
           </td> 
-          <%-- <td>  <input type="hidden" name="id" value="<%= loan.getId() %>">
-	          <a href="updateBorrower.jsp?editId=<%=loan.getId()%>"><button class="but1">Edit</button></a>
-	     </td> --%>
 	  </tr>
 	   <%
            }

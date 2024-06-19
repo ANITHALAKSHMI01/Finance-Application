@@ -83,7 +83,6 @@ th, td
 	  <th>Pay Slip</th>
 	 <th>Proof</th>
 	 <th>status</th>
-	<!--  <th>Edit</th> -->
 	   </tr>
 	</thead>
 	<tbody>

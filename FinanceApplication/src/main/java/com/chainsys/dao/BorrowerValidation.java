@@ -38,7 +38,7 @@ public class BorrowerValidation
 		{
 			String phoneNo=resultSet.getString(1);
 			long phoneNo1=Long.parseLong(phoneNo);
-			list.add(phoneNo1);;
+			list.add(phoneNo1);
 		}
 		return list;
 	}
@@ -54,7 +54,7 @@ public class BorrowerValidation
 		while (resultSet.next()) 
 		{
 			String password=resultSet.getString(1);
-			list.add(password);;
+			list.add(password);
 		}
 		return list;
 	}
@@ -85,7 +85,7 @@ public class BorrowerValidation
 		while (resultSet.next()) 
 		{
 			String pan=resultSet.getString(1);
-			list.add(pan);;
+			list.add(pan);
 		}
 		return list;
 	}
