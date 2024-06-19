@@ -82,6 +82,11 @@ button
 	List<AmountDetails> list = (ArrayList<AmountDetails>) request.getAttribute("list");
 	 if (list != null && !list.isEmpty())
 	 {
+		 %>
+		 <div>
+		 <h2>Pay the installment every month.</h2>
+		 <h4>There will be 50rs charge per day of delay in monthly payments</h4>
+		 <% 
 	for (AmountDetails amount : list) 
 	{	
 	%>

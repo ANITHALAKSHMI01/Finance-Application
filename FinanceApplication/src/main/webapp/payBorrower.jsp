@@ -14,7 +14,6 @@
 		String loanId=request.getParameter("loanId");
 		String amount=request.getParameter("amount");
 		int amount1=Integer.parseInt(amount);
-		/* long adminAccount=675432189076543l; */
 		long accountNo=BorrowerSide.getAccountNo(id); 
 		LocalDate dateToday = LocalDate.now(); 
 		String dateString =dateToday.toString();

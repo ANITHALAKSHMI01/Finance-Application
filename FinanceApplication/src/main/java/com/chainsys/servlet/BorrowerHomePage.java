@@ -2,10 +2,8 @@ package com.chainsys.servlet;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import com.chainsys.dao.BorrowerImplementation;
 import com.chainsys.dao.BorrowerSide;
-import com.chainsys.dao.BorrowerValidation;
 import com.chainsys.model.LoanBorrowerDetails;
 import com.chainsys.model.User;
 @MultipartConfig
@@ -51,13 +48,9 @@ public class BorrowerHomePage extends HttpServlet
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		BorrowerImplementation borrower=new BorrowerImplementation();
-		String id=null;
-		String email=null;
 		int row=0;
-		List<Long> accountNumber=null;
-
 		LoanBorrowerDetails loanBorrower=new LoanBorrowerDetails();
-
+		
 		response.setContentType("multipart/form-data");
 		String borrowerId=request.getParameter("id");
 		String salary=request.getParameter("salary");
@@ -122,19 +115,11 @@ public class BorrowerHomePage extends HttpServlet
 		{
 			e.printStackTrace();
 		}
-		HttpSession session=request.getSession();
-		email=(String) session.getAttribute("emailId");
-		try 
-		{
-			id=borrower.checkId(email);
-		} catch (ClassNotFoundException | SQLException e) 
-		{
-			e.printStackTrace();
-		}
+			
 			int balance=1000;
 			try 
 			{
-				BorrowerSide.addAccount(accountNumber1,balance);
+				BorrowerSide.addAccount(accountNumber1,balance,borrowerId);
 				row=borrower.addLender(loanBorrower);
 			} 
 			catch (ClassNotFoundException | SQLException e) 

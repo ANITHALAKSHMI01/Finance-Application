@@ -11,6 +11,47 @@
 <title>Lenders</title>
 </head>
 <style>
+*
+{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+#navbar
+{
+   border: 2px solid #00008B; 
+   height: 75px;
+   width: 100%;
+   display: flex;
+    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.2);
+   position: fixed;
+   top: 0;
+   z-index: 1;
+  background-color: #00008B;
+} 
+#left_nav
+{
+   width: 30%;
+   height: 100%; 
+}
+#right_nav
+{
+    width: 70%;
+    height: 100%;  
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; 
+    gap: 30px;
+}
+#image1
+{
+	border-radius:50%;
+	width:55px;
+	height:55px;
+	position:relative;
+	top:10px;
+	left:10px;
+}
 button
 	{
 		width:100px;
@@ -49,7 +90,7 @@ th, td
  table 
 {
 	position: relative;
-	top: 50px;
+	top: 150px;
 } 
 .button
 {
@@ -72,8 +113,27 @@ th, td
 }
 </style>
 <body>
- <form action="Borrower" method="get">
-	<input type="text" placeholder="Search" id="search" name="search" maxlength=5 pattern="[a-z0-9]{5}"">
+ <nav id="navbar">
+		<section id="left_nav">
+			<img src="ProofImages/flogo.jpg" alt="image" id="image1">
+		</section>
+		<section id="right_nav">
+			<aside>
+				<a href="AdminLenders" method="get"style="color: transparent;"><p style="color:white; font-size:22px;">Profile<p></a>
+			</aside>
+				<aside>
+				<a href="AdminHomeServlet" method="get"style="color: transparent;"><p style="color:white; font-size:22px;">Registered Borrowers</p></a>
+			</aside>
+			<aside>
+				<a href="LenderDetailServlet" method="get"style="color: transparent;"><p style="color:white; font-size:22px;">Lenders</p></a>
+			</aside>
+			<aside>
+				<a href="LogoutServlet" method="get"style="color: transparent;"><p style="color:white; font-size:22px;">Logout</p></a>
+			</aside>
+		</section>
+	</nav>
+ <form action="Borrower" method="post">
+	<input type="text" placeholder="Search" id="search" name="search" maxlength=5 pattern="[a-z0-9]{5}">
 </form>
 <table border="1px" cellspacing="0px">
 	<thead>
@@ -169,14 +229,6 @@ th, td
 						<input type="submit" name="pay" value="Pay Now" class="button">
 					</form>
 				</td> 
-			<%-- 	<td>
-					<form action="payBorrower.jsp">
-						<input type="hidden" name="borrower" value="<%= loan.getBorrowerId()%>">
-						<input type="hidden" name="id" value="<%= loan.getApplicationId()%>">
-						<input type="hidden" name="accountNo" value="<%=loan.getAccountNo()%>">
-						<input type="submit" name="pay" value="Pay" class="button">
-					</form>
-				</td> --%>
 			<%
 			   }
 				  		
@@ -198,6 +250,6 @@ th, td
 	        %>
 		</tbody>
 </table>
-<a href="adminAfterLogin.jsp"><button>Back</button></a>
+<!-- <a href="adminAfterLogin.jsp"><button>Back</button></a> -->
 </body>
 </html>

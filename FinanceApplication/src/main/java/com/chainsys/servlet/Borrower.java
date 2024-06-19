@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.chainsys.dao.BorrowerImplementation;
+import com.chainsys.dao.BorrowerSide;
+import com.chainsys.model.AmountDetails;
 import com.chainsys.model.LoanBorrowerDetails;
 @WebServlet("/Borrower")
 public class Borrower extends HttpServlet 
@@ -20,6 +22,21 @@ public class Borrower extends HttpServlet
     }
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		List<AmountDetails> list=null;
+		try 
+		{
+			list=BorrowerSide.loanDetails();
+		} 
+		catch (ClassNotFoundException | SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("loanDetails.jsp").forward(request, response);
+	}
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		BorrowerImplementation borrower=new BorrowerImplementation();
 		List<LoanBorrowerDetails> list=null;
@@ -34,11 +51,6 @@ public class Borrower extends HttpServlet
 		}
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("statusBaseBorrower.jsp").forward(request, response);
-	}
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-		//
 	}
 
 }

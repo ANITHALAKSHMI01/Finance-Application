@@ -134,6 +134,9 @@ main
 				<a href="LenderDetailServlet" method="get"style="color: transparent;"><p style="color:white; font-size:22px;">Lenders</p></a>
 			</aside>
 			<aside>
+				<a href="Borrower" method="get"style="color: transparent;"><p style="color:white; font-size:22px;">Loan Details</p></a>
+			</aside>
+			<aside>
 				<a href="LogoutServlet" method="get"style="color: transparent;"><p style="color:white; font-size:22px;">Logout</p></a>
 			</aside>
 		</section>

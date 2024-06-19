@@ -95,6 +95,9 @@ h1
 			<aside>
 				<a href="BillServlet" method="get"  style="color: transparent;"><p style="color:white; font-size:22px;">Invoice</p></a>
 			</aside>
+				<aside>
+				<a href="" method="get"  style="color: transparent;"><p style="color:white; font-size:22px;">Pay EMI</p></a>
+			</aside>
 			<aside>
 				<a href="LogoutServlet" method="get" style="color: transparent;"><p style="color:white; font-size:22px;">Logout</p></a>
 			</aside>

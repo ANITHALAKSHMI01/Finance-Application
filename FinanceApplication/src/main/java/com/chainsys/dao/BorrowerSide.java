@@ -3,6 +3,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.chainsys.model.AmountDetails;
 import com.chainsys.util.ConnectionUtil;
 public class BorrowerSide 
 {
@@ -86,13 +90,14 @@ public class BorrowerSide
 		connection.close();
 		return accountNo1;
 	}
-	public static void addAccount(long accountNo,int amount) throws ClassNotFoundException, SQLException
+	public static void addAccount(long accountNo,int amount,String id) throws ClassNotFoundException, SQLException
 	{
 		Connection connection=ConnectionUtil.getConnection();
-		String insert="insert into deposit_account(account_no,total_balance)values(?,?)";
+		String insert="insert into deposit_account(customer_id,account_no,total_balance)values(?,?,?)";
 		PreparedStatement prepareStatement = connection.prepareStatement(insert);
-		prepareStatement.setLong(1,accountNo);
-		prepareStatement.setInt(2, amount);
+		prepareStatement.setString(1,id);
+		prepareStatement.setLong(2,accountNo);
+		prepareStatement.setInt(3, amount);
 		prepareStatement.executeUpdate();
 		connection.close();
 	}
@@ -121,5 +126,27 @@ public class BorrowerSide
 		prepareStatement.setLong(2,accountNo);
 		prepareStatement.executeUpdate();
 		connection.close();
+	}
+	public static List<AmountDetails> loanDetails() throws ClassNotFoundException, SQLException
+	{
+		List<AmountDetails> list=new ArrayList<>();
+		Connection connection=ConnectionUtil.getConnection();
+		String update="select loan.loan_id,loan.customer_id,loan.date_issued,loan.interest,loan.distribusal_amount,loan.reduction,customer.tenure from loan_details loan inner join customer_details customer on loan.customer_id=customer.customer_id && customer.status=? ";
+		PreparedStatement prepareStatement=connection.prepareStatement(update);
+		prepareStatement.setInt(1, 0);
+		ResultSet resultSet=prepareStatement.executeQuery();
+		while(resultSet.next())
+		{
+			AmountDetails amount=new AmountDetails();
+			amount.setLoanId(Integer.parseInt(resultSet.getString(1)));
+			amount.setBorrowerId(resultSet.getString(2));
+			amount.setDate(resultSet.getString(3));
+			amount.setInterest(Integer.parseInt(resultSet.getString(4)));
+			amount.setDistribusalAmount(Integer.parseInt(resultSet.getString(5)));
+			amount.setReduction(Integer.parseInt(resultSet.getString(6)));
+			amount.setTenure(Integer.parseInt(resultSet.getString(7)));
+			list.add(amount);
+		}
+		return list;	
 	}
 }

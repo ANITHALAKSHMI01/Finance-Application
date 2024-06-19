@@ -31,7 +31,7 @@ public class LogoutServlet extends HttpServlet
 		BorrowerImplementation borrower=new BorrowerImplementation();
 		AdminImplementation admin=new AdminImplementation();
 		String status=null;
-		List<AmountDetails> list1=null;
+		List<AmountDetails> list=null;
 		response.setContentType("html/text");
 		String borroweId=request.getParameter("borrower");
 		int id=Integer.parseInt(request.getParameter("id"));
@@ -62,13 +62,13 @@ public class LogoutServlet extends HttpServlet
 			}
 			try 
 			{
-				list1=borrower.viewApprovedBill(borroweId);
+				list=borrower.viewApprovedBill(borroweId);
 			} 
 			catch (ClassNotFoundException | SQLException e) 
 			{
 				e.printStackTrace();
 			}
-			request.setAttribute("list", list1);
+			request.setAttribute("list", list);
 			request.getRequestDispatcher("billGeneration.jsp").forward(request, response);
 		}
 		else

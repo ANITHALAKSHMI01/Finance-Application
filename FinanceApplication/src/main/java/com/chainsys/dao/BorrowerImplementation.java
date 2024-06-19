@@ -202,15 +202,14 @@ public class BorrowerImplementation implements BorrowerDAO
 	public void billGenerate(AmountDetails amount) throws ClassNotFoundException, SQLException 
 	{
 		Connection connection=ConnectionUtil.getConnection();
-		String insert="insert into loan_details(customer_id,date_issued,interest,repayment_period,distribusal_amount,reduction,status)values(?,?,?,?,?,?,?)";
+		String insert="insert into loan_details(customer_id,date_issued,interest,distribusal_amount,reduction,status)values(?,?,?,?,?,?)";
 		PreparedStatement prepareStatement=connection.prepareStatement(insert);
 		prepareStatement.setString(1, amount.getBorrowerId());
 		prepareStatement.setString(2, amount.getDate());
 		prepareStatement.setInt(3, amount.getInterest());
-		prepareStatement.setInt(4, amount.getTenure());
-		prepareStatement.setInt(5, amount.getDistribusalAmount());
-		prepareStatement.setInt(6, amount.getReduction());
-		prepareStatement.setInt(7, 0);
+		prepareStatement.setInt(4, amount.getDistribusalAmount());
+		prepareStatement.setInt(5, amount.getReduction());
+		prepareStatement.setInt(6, 0);
 		prepareStatement.executeUpdate();
 		connection.close();
 	}
@@ -234,7 +233,7 @@ public class BorrowerImplementation implements BorrowerDAO
 	{	
 		ArrayList<AmountDetails> list=new ArrayList<>();
 		Connection connection=ConnectionUtil.getConnection();
-		String select="select loan_id,customer_id,date_issued,interest,repayment_period,distribusal_amount,reduction from loan_details where customer_id=? && status=?";
+		String select="select loan.loan_id,loan.customer_id,loan.date_issued,loan.interest,loan.distribusal_amount,loan.reduction,customer.tenure from loan_details loan inner join customer_details customer on loan.customer_id=customer.customer_id && customer.customer_id=? && customer.status=?";
 		PreparedStatement prepareStatement=connection.prepareStatement(select);
 		prepareStatement.setString(1, id);
 		prepareStatement.setInt(2, 0);
@@ -246,9 +245,9 @@ public class BorrowerImplementation implements BorrowerDAO
 			amount.setBorrowerId(resultSet.getString(2));
 			amount.setDate(resultSet.getString(3));
 			amount.setInterest(Integer.parseInt(resultSet.getString(4)));
-			amount.setTenure(Integer.parseInt(resultSet.getString(5)));
-			amount.setDistribusalAmount(Integer.parseInt(resultSet.getString(6)));
-			amount.setReduction(Integer.parseInt(resultSet.getString(7)));
+			amount.setDistribusalAmount(Integer.parseInt(resultSet.getString(5)));
+			amount.setReduction(Integer.parseInt(resultSet.getString(6)));
+			amount.setTenure(Integer.parseInt(resultSet.getString(7)));
 			list.add(amount);
 		}
 	  return list;
