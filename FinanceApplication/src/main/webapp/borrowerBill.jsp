@@ -15,7 +15,7 @@ div
 	border:2px solid whitesmoke;
 	box-shadow:1px 1px 1px 1px rgba(0,0,0,0.2);
 	width:300px;
-	height:250px;
+	height:300px;
 	padding:10px;
 	position:relative;
 	left:500px;

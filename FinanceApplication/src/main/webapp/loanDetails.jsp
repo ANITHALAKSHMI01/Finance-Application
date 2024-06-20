@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-     <%@ page import="com.chainsys.model.User" %>
+     <%@ page import="com.chainsys.model.AmountDetails" %>
     <%@ page import="java.util.List" %>
      <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Borrower Details</title>
+<title>Loan Details</title>
 </head>
 <style>
 *
@@ -51,25 +51,6 @@
 	top:10px;
 	left:10px;
 }
-button
-	{
-		width:100px;
-		padding:5px;
-		position:relative;
-		left:550px;
-		top:30px;
-		background-color:green;
-		color:white;
-		border-color:green;
-		font-size:20px;
-	}
-h1 
-{
-	text-align:center;
-	color:#AA336A;
-	position: relative;
-	top:150px;
-}
 th
 {
 	background-color:blue;
@@ -85,24 +66,15 @@ td
 }
 th, td
 {
-	padding: 15px;
+	padding: 5px;
 	text-align: center;
 }
-table 
+ table 
 {
 	position: relative;
-	top:200px;
-	left: 150px;
-}
-#button
-{
-	padding:10px;
-	background-color:red;
-	border-color:red;
-	width:80px;
-	color:white;
-	font-size:15px;
-}
+	top: 150px;
+	left:90px;
+} 
 </style>
 <body>
 <nav id="navbar">
@@ -127,43 +99,58 @@ table
 			</aside>
 		</section>
 	</nav>
-<h1>Registered Borrowers</h1>
- <table border="1px" cellspacing="0px">
+<table border="1px" cellspacing="0px">
 	<thead>
 		<tr>
+	<th>Loan Id</th>
 	<th>Borrower Id</th>
-	 <th>Name</th>
-	 <th>Date Of Birth</th>
-	 <th>Phone Number</th>
-	 <th>Email Id</th>
-	  <th>Location</th>
-	 <th>Delete</th>
-	   </tr>
+	<th>Loan Issued</th>
+	<th>Interest(%)</th>
+	<th>Tenure(In Months)</th>
+	<th>Total Amount</th>
+	<th>Distribusal Amount</th>
+	<th>Interest Amount</th>
+	 </tr>
 	</thead>
 	<tbody>
-	  <%
-	  List<User> list=(ArrayList<User>)request.getAttribute("list");
-	  	  for(User loan: list)
-	  	  {
-	  %>
-	  <tr>
-	  <td> <%=loan.getId()%></td>
-	   <td><%=loan.getName()%></td>
-	   <td><%=loan.getDateOfBirth() %></td>
-	   <td><%=loan.getPhoneNo() %></td>
-	   <td><%=loan.getEmail() %></td>
-	   <td><%=loan.getLocation()%></td>
-	    <td>
-               <form action="BorrowerUpdate" method="get">
-                     <input type="hidden" name="deleteId" value="<%=loan.getId()%>">
-                     <input type="submit" id="button" name="delete" value="Delete" class="button">
-                </form>
-          </td> 
-	  </tr>
-	   <%
-           }
-           %>
+	<%
+		List<AmountDetails> list=(ArrayList<AmountDetails>)request.getAttribute("list");
+		if (list != null && !list.isEmpty())
+		{
+			 try
+			 {
+				 for (AmountDetails amount : list)
+				 {		
+			%>
+	<tr>
+		<td><%=amount.getLoanId() %></td>
+		<td><%=amount.getBorrowerId() %></td>
+		<td><%=amount.getDate() %></td>
+		<td><%=amount.getInterest()%></td>
+		<td><%=amount.getTenure()%></td>
+		<td><%=amount.getDistribusalAmount()+amount.getReduction()%></td>
+		<td><%=amount.getDistribusalAmount()%></td>
+		<td><%=amount.getReduction() %></td>
+	<%
+			   }
+				  		
+				  }
+				  catch (Exception e) 
+				  { 
+						e.printStackTrace();
+				  }
+			  } 
+				else 
+				{
+	        %>
+	        </tr>
+	        <tr>
+	            <td colspan="15">No Records found</td>
+	        </tr>
+	        <%
+	        }
+	        %>
 	</tbody>
-</table> 
+</table>
 </body>
 </html>

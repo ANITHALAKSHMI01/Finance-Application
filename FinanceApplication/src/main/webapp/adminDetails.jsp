@@ -10,6 +10,47 @@
 <title>Admin Details</title>
 </head>
 <style>
+*
+{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+#navbar
+{
+   border: 2px solid #00008B; 
+   height: 75px;
+   width: 100%;
+   display: flex;
+    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.2);
+   position: fixed;
+   top: 0;
+   z-index: 1;
+  background-color: #00008B;
+} 
+#left_nav
+{
+   width: 30%;
+   height: 100%; 
+}
+#right_nav
+{
+    width: 70%;
+    height: 100%;  
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; 
+    gap: 30px;
+}
+#image1
+{
+	border-radius:50%;
+	width:55px;
+	height:55px;
+	position:relative;
+	top:10px;
+	left:10px;
+}
 body
 	{
 		background-color:wheat;
@@ -18,7 +59,7 @@ body
 	{
 		border:2px solid whitesmoke;
 		width:fit-content;
-		height:290px;
+		height:330px;
 		padding:30px;
 		position:relative;
 		left:450px;
@@ -58,6 +99,28 @@ body
 	}
 </style>
 <body>
+<nav id="navbar">
+		<section id="left_nav">
+			<img src="ProofImages/flogo.jpg" alt="image" id="image1">
+		</section>
+		<section id="right_nav">
+			<aside>
+				<a href="AdminLenders" method="get"style="color: transparent;"><p style="color:white; font-size:22px;">Profile<p></a>
+			</aside>
+			<aside>
+				<a href="AdminHomeServlet" method="get"style="color: transparent;"><p style="color:white; font-size:22px;">Registered Borrowers</p></a>
+			</aside>
+			<aside>
+				<a href="LenderDetailServlet" method="get"style="color: transparent;"><p style="color:white; font-size:22px;">Lenders</p></a>
+			</aside>
+			<aside>
+				<a href="Borrower" method="get"style="color: transparent;"><p style="color:white; font-size:22px;">Loan Details</p></a>
+			</aside>
+			<aside>
+				<a href="LogoutServlet" method="get"style="color: transparent;"><p style="color:white; font-size:22px;">Logout</p></a>
+			</aside>
+		</section>
+	</nav>
 <div>
  <%
  List<User> list=(ArrayList<User>)request.getAttribute("list");
@@ -76,8 +139,6 @@ body
 <input type="hidden" name="email" value="<%= loan.getEmail() %>">
 <button>Edit</button>
 </form>
-<%-- <input type="hidden" name="id" value="<%= loan.getId() %>">
-	          <a href="updateAdmin.jsp?editId=<%=loan.getId()%>"><button>Update</button></a> --%>
 <%
            }
            %>

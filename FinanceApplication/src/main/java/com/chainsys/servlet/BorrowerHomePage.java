@@ -83,15 +83,12 @@ public class BorrowerHomePage extends HttpServlet
 		Part part=request.getPart("paySlip");
 		String fileName=part.getSubmittedFileName();
 		String path="C:/Users/Anit3573/git/finance/FinanceApplication/src/main/webapp/PaySlip/"  +fileName;
-		InputStream input=part.getInputStream();
-		try
+		try(InputStream input=part.getInputStream();FileOutputStream fileOut=new FileOutputStream(path);)
 		{
 		    byte[] file=input.readAllBytes();
-			FileOutputStream fileOut=new FileOutputStream(path);
 			fileOut.write(file);
 			loanBorrower.setPaySlip(file);
 			fileOut.flush();
-			fileOut.close();
 		}
 		catch(Exception e)
 		{
@@ -101,15 +98,13 @@ public class BorrowerHomePage extends HttpServlet
 		Part part1=request.getPart("proof");
 		String fileName1=part.getSubmittedFileName();
 		String path1="C:/Users/Anit3573/git/finance/FinanceApplication/src/main/webapp/ProofImages/"  +fileName1;
-		InputStream input1=part1.getInputStream();
-		try
+		
+		try(InputStream input1=part1.getInputStream();FileOutputStream fileOut1=new FileOutputStream(path1);)
 		{
 			byte[] file1=input1.readAllBytes();
-			FileOutputStream fileOut1=new FileOutputStream(path1);
 			fileOut1.write(file1);
 			loanBorrower.setProof(file1);
 			fileOut1.flush();
-			fileOut1.close();
 		}
 		catch(Exception e)
 		{

@@ -1,12 +1,18 @@
-<%@page import="com.chainsys.dao.BorrowerSide"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@page import="com.chainsys.dao.BorrowerSide"%>
     <%@ page import="java.time.LocalDate" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Pay For Borrower</title>
+<style>
+	p
+	{
+		display:inline;
+	}
+</style>
 </head>
 <body>
 	<%
@@ -16,12 +22,12 @@
 		int amount1=Integer.parseInt(amount);
 		long accountNo=BorrowerSide.getAccountNo(id); 
 		LocalDate dateToday = LocalDate.now(); 
-		String dateString =dateToday.toString();
 	%>
 	<label>Loan Id   - </label><p class="out"><%=loanId%></p><br>
 	<label>Borrower Id -</label><p class="out"><%=id%></p><br>
-	<label>Date    -  </label><p class="out"><%=dateString%></p><br>
-	<label>Account No -  </label><p class="out"><%=accountNo%></p><br>
+	<label>Date    -  </label><p class="out"><%=dateToday%></p><br>
+	<label>Account No - </label><p class="out">675432189076543</p><br>
+	<label>Borrower Account No -  </label><p class="out"><%=accountNo%></p><br>
 	<label> Amount -</label><p class="out"><%=amount1%></p><br>
 	<form action="BillServlet" method="post">
      	<input type="hidden" name="id" value="<%=id%>">

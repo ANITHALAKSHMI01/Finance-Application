@@ -19,8 +19,6 @@ import com.chainsys.model.LoanBorrowerDetails;
 public class BillServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-	public static BorrowerImplementation borrower=new BorrowerImplementation();
-	public static AdminImplementation admin=new AdminImplementation();
     public BillServlet() 
     {
         super();
@@ -28,6 +26,7 @@ public class BillServlet extends HttpServlet
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		 BorrowerImplementation borrower=new BorrowerImplementation();
 		String email=null;
 		String id=null;
 		List<AmountDetails> list=null;
@@ -54,6 +53,7 @@ public class BillServlet extends HttpServlet
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		 AdminImplementation admin=new AdminImplementation();
 		int payAmount=0;
 		int totalAmount=0;
 		String id=request.getParameter("id");

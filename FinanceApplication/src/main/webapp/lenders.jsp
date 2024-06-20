@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <title>Lenders</title>
 </head>
 <style>
@@ -104,12 +105,13 @@ th, td
 #search
 {
 	position:relative;
-	left:150px;
-	top:30px;
+	left:550px;
+	top:120px; 
+	padding:5px;
 }
 #approve
 {
-	padding:10px;
+	padding:3px;
 }
 </style>
 <body>
@@ -128,13 +130,28 @@ th, td
 				<a href="LenderDetailServlet" method="get"style="color: transparent;"><p style="color:white; font-size:22px;">Lenders</p></a>
 			</aside>
 			<aside>
+				<a href="Borrower" method="get"style="color: transparent;"><p style="color:white; font-size:22px;">Loan Details</p></a>
+			</aside>
+			<aside>
+			<form action="SearchServlet" method="get">
+	  			<select name="filter" id="approve">
+				    	<option>Status</option> 
+				      	<option>Approved</option>
+				      	<option>On Progress</option>
+		                <option>Rejected</option>
+	                	<option>Not Approved</option>
+	                 <input type="submit" name="filter" value="Filter" class="button1">
+				      </select>
+	 		</form>
+	 		</aside>
+			<aside>
 				<a href="LogoutServlet" method="get"style="color: transparent;"><p style="color:white; font-size:22px;">Logout</p></a>
 			</aside>
 		</section>
 	</nav>
- <form action="Borrower" method="post">
-	<input type="text" placeholder="Search" id="search" name="search" maxlength=5 pattern="[a-z0-9]{5}">
-</form>
+	<form action="Borrower" method="post">
+		<input type="text" placeholder="Search" id="search" name="search" maxlength=5 pattern="[a-z0-9]{5}">
+	</form>
 <table border="1px" cellspacing="0px">
 	<thead>
 		<tr>
@@ -150,8 +167,7 @@ th, td
 	  <th>Pincode</th>
 	  <th>Pay Slip</th>
 	 <th>Proof</th>
-	 <!-- <th>status -->
-	 <th>
+	 <th>Status</th>
 	  <form action="SearchServlet" method="get">
 	  <select name="filter" id="approve">
 				    	<option>Status</option> 
@@ -160,9 +176,9 @@ th, td
 		                <option>Rejected</option>
 	                	<option>Not Approved</option>
 				      </select>
-				      <input type="submit" name="filter" value="Filter" class="button"">
+	 <input type="submit" name="filter" value="Filter" class="button"">
 </form>
-	 </th>
+	 </th> -->
 	<th>Approval</th>
 	<th>Generate Bill</th>
 	   </tr>
@@ -250,6 +266,5 @@ th, td
 	        %>
 		</tbody>
 </table>
-<!-- <a href="adminAfterLogin.jsp"><button>Back</button></a> -->
 </body>
 </html>
