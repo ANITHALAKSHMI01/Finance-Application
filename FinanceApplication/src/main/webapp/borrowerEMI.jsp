@@ -53,7 +53,6 @@
 			 Calendar calendar = Calendar.getInstance();  
 			 SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 			 Date dueDate = formatter.parse(date);
-			 calendar.get(Calendar.DAY_OF_MONTH);
 			 
 			long accountNo=BorrowerSide.getAccountNo(id); 
 			LocalDate dateToday = LocalDate.now(); 
